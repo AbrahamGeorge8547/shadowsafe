@@ -1,0 +1,28 @@
+{
+    "secrets": [
+        {"id": 1,
+            "username": "user1",
+            "password": "pass1",
+            "description": "desc1",
+            "tags": ["tag1","tag2"]
+          },
+          {"id":2,
+            "username": "user1",
+            "password": "pass1",
+            "description": "desc1",
+            "tags": ["tag1","tag2"]
+          },
+          {"id":3,
+            "username": "user1",
+            "password": "pass1",
+            "description": "desc1",
+            "tags": ["tag1","tag2"]
+          },
+          {"id": 4,
+            "username": "user1",
+            "password": "pass1",
+            "description": "desc1",
+            "tags": ["tag1","tag2"]
+          }
+    ]
+}

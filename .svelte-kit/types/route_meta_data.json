@@ -1,4 +1,12 @@
 {
 	"/": [],
-	"/dashboard": []
+	"/api/secrets": [
+		"src/routes/api/secrets/+server.js"
+	],
+	"/api/secrets/[secretId]": [
+		"src/routes/api/secrets/[secretId]/+server.js"
+	],
+	"/dashboard": [
+		"src/routes/dashboard/+page.js"
+	]
 }

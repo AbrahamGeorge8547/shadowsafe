@@ -9,33 +9,7 @@
   import { writable } from "svelte/store";
   import { onDestroy } from "svelte";
 
-  const sourceData = [
-    {
-      username: "user1",
-      password: "pass1",
-      description: "desc1",
-      tags: "tag1,tag2",
-    },
-    {
-      username: "user1",
-      password: "pass1",
-      description: "desc1",
-      tags: "tag1",
-    },
-    {
-      username: "user1",
-      password: "pass1",
-      description: "desc1",
-      tags: "tag1",
-    },
-    {
-      username: "user1",
-      password: "pass1",
-      description: "desc1",
-      tags: "tag1",
-    },
-    // Other secrets...
-  ];
+  export let sourceData;
   const table = {
     head: ["Username", "description"],
     body: tableMapperValues(sourceData, ["username", "description"]),
@@ -44,6 +18,7 @@
       "password",
       "description",
       "tags",
+      "id",
     ]),
   };
 
@@ -69,16 +44,12 @@
   };
   const selectedSecret = writable(null);
   let value = [];
-  function selectedHandler(data) {
-    const details = {
-      username: data.detail[0],
-      password: data.detail[1],
-      description: data.detail[2],
-      tags: data.detail[3], // Adjust this according to how your tags are structured
-    };
-    selectedSecret.set(details);
+  async function selectedHandler(data) {
+    const response = await fetch(`/api/secrets/${data.detail[4]}`);
+    const { secret } = await response.json();
+    selectedSecret.set(secret);
     // Assuming that tags are a comma-separated string in your data
-    value = details.tags.split(",");
+    value = secret.tags;
     drawerStore.open(drawerSettings);
   }
 
@@ -98,6 +69,7 @@
   interactive={true}
   on:selected={selectedHandler}
   source={table}
+  columnWidths={[100, 400, 200]}
 />
 
 <Drawer>
@@ -139,10 +111,3 @@
     >
   </div>
 </Drawer>
-
-<style>
-  .table-container {
-    width: 70%; /* Adjust the width as needed */
-    margin: 0 auto; /* Center the container */
-  }
-</style>

@@ -1,9 +1,8 @@
 <script>
   import { writable } from "svelte/store";
   import Secrets from "./secrets.svelte";
-
+  export let data;
   const selectedTab = writable("secrets");
-
   const selectTab = (tab) => {
     selectedTab.set(tab);
   };
@@ -25,8 +24,8 @@
 </div>
 <div class="content">
   {#if $selectedTab === "secrets"}
-    <Secrets />
+    <Secrets sourceData={data.secrets} />
   {:else}
-    <Secrets />
+    <Secrets sourceData={data.secrets} />
   {/if}
 </div>

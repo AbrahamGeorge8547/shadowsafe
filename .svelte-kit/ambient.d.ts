@@ -28,13 +28,11 @@
 declare module '$env/static/private' {
 	export const SHELL: string;
 	export const npm_command: string;
-	export const WINDOWID: string;
 	export const npm_config_userconfig: string;
 	export const COLORTERM: string;
 	export const npm_config_cache: string;
 	export const HISTCONTROL: string;
 	export const TERM_PROGRAM_VERSION: string;
-	export const fish_user_abbreviations: string;
 	export const NODE: string;
 	export const COLOR: string;
 	export const npm_config_local_prefix: string;
@@ -59,7 +57,6 @@ declare module '$env/static/private' {
 	export const GIT_ASKPASS: string;
 	export const INIT_CWD: string;
 	export const CHROME_DESKTOP: string;
-	export const ALACRITTY_SOCKET: string;
 	export const npm_lifecycle_script: string;
 	export const VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 	export const npm_config_npm_version: string;
@@ -69,7 +66,6 @@ declare module '$env/static/private' {
 	export const npm_config_prefix: string;
 	export const USER: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
-	export const MANPAGER: string;
 	export const VISUAL: string;
 	export const DISPLAY: string;
 	export const npm_lifecycle_event: string;
@@ -91,13 +87,10 @@ declare module '$env/static/private' {
 	export const PATH: string;
 	export const npm_config_metrics_registry: string;
 	export const npm_config_node_gyp: string;
-	export const ALACRITTY_LOG: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
-	export const FZF_DEFAULT_OPTS: string;
 	export const npm_config_global_prefix: string;
 	export const MAIL: string;
-	export const ALACRITTY_WINDOW_ID: string;
 	export const npm_node_execpath: string;
 	export const TERM_PROGRAM: string;
 	export const NODE_ENV: string;
@@ -132,13 +125,11 @@ declare module '$env/dynamic/private' {
 	export const env: {
 		SHELL: string;
 		npm_command: string;
-		WINDOWID: string;
 		npm_config_userconfig: string;
 		COLORTERM: string;
 		npm_config_cache: string;
 		HISTCONTROL: string;
 		TERM_PROGRAM_VERSION: string;
-		fish_user_abbreviations: string;
 		NODE: string;
 		COLOR: string;
 		npm_config_local_prefix: string;
@@ -163,7 +154,6 @@ declare module '$env/dynamic/private' {
 		GIT_ASKPASS: string;
 		INIT_CWD: string;
 		CHROME_DESKTOP: string;
-		ALACRITTY_SOCKET: string;
 		npm_lifecycle_script: string;
 		VSCODE_GIT_ASKPASS_EXTRA_ARGS: string;
 		npm_config_npm_version: string;
@@ -173,7 +163,6 @@ declare module '$env/dynamic/private' {
 		npm_config_prefix: string;
 		USER: string;
 		VSCODE_GIT_IPC_HANDLE: string;
-		MANPAGER: string;
 		VISUAL: string;
 		DISPLAY: string;
 		npm_lifecycle_event: string;
@@ -195,13 +184,10 @@ declare module '$env/dynamic/private' {
 		PATH: string;
 		npm_config_metrics_registry: string;
 		npm_config_node_gyp: string;
-		ALACRITTY_LOG: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
-		FZF_DEFAULT_OPTS: string;
 		npm_config_global_prefix: string;
 		MAIL: string;
-		ALACRITTY_WINDOW_ID: string;
 		npm_node_execpath: string;
 		TERM_PROGRAM: string;
 		NODE_ENV: string;
