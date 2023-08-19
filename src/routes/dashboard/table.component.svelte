@@ -1,8 +1,7 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   export let sourceData;
-  export let onSelected;
-
+  export let selectedHandler;
   const table = {
     head: ["Username", "description"],
     body: tableMapperValues(sourceData, ["username", "description"]),
@@ -19,7 +18,7 @@
 <Table
   class="m-auto max-w-6xl"
   interactive={true}
-  on:selected={onSelected}
+  on:selected={selectedHandler}
   source={table}
   columnWidths={[100, 400, 200]}
 />
