@@ -4,7 +4,7 @@ import {
   paginationStore,
   loadSecrets,
 } from "./secrets";
-import { activeTab } from "./ui";
+import { activeTab, isEditing } from "./ui";
 
 export {
   selectedSecret,
@@ -12,4 +12,5 @@ export {
   paginationStore,
   loadSecrets,
   activeTab,
+  isEditing,
 };

@@ -1,8 +1,20 @@
 <!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
 
 <script>
-  import { Toast } from "@skeletonlabs/skeleton";
+  import { Toast, Drawer, drawerStore } from "@skeletonlabs/skeleton";
+  import { DrawerComponent } from "$lib/components";
+  $: {
+    console.log($drawerStore);
+  }
 </script>
+
+<Drawer>
+  {#if $drawerStore.id === "secrets"}
+    <DrawerComponent />
+  {:else if $drawerStore.id === "content-b"}
+    <!-- <DrawerContentB /> -->
+  {/if}
+</Drawer>
 
 <Toast />
 <div class="container h-full mx-auto flex justify-center items-center">

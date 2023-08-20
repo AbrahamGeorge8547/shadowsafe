@@ -12,12 +12,8 @@ export const paginationStore = writable({
 export const loadSecrets = async (fetch: any) => {
   const limit = get(paginationStore).limit;
   const offset = get(paginationStore).offset;
+  console.log("reloading secrets....");
   const response = await fetch(`/api/secrets?offset=${offset}&limit=${limit}`);
   const data = await response.json();
-  // TODO: update the size when using be api
-  paginationStore.update((state) => ({
-    ...state,
-    size: 100,
-  }));
   secretsStore.set(data.body.secrets);
 };

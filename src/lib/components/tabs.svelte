@@ -13,7 +13,7 @@
   };
 </script>
 
-<div class="tabs">
+<div class="tabs p-4">
   <button
     class="btn {$activeTab === 'secrets'
       ? 'variant-filled-secondary'
