@@ -1,10 +1,9 @@
 <script>
-  import TableComponent from "./table.component.svelte";
-  import DrawerComponent from "./drawer.component.svelte";
+  import TableComponent from "./table.svelte";
+  import DrawerComponent from "./drawer.svelte";
+  import { selectedSecret } from "$lib/store";
   import { writable } from "svelte/store";
   import { drawerStore } from "@skeletonlabs/skeleton";
-  export let sourceData;
-  const selectedSecret = writable(null);
   let value = [];
 
   const drawerSettings = {
@@ -25,7 +24,6 @@
     const { secret } = await response.json();
     selectedSecret.set(secret);
     value = secret.tags;
-    console.log("opening drawer...");
     drawerStore.open(drawerSettings);
   }
 
@@ -34,12 +32,6 @@
   }
 </script>
 
-<TableComponent {sourceData} {selectedHandler} />
+<TableComponent {selectedHandler} />
 
-<DrawerComponent
-  {selectedSecret}
-  {isEditing}
-  {value}
-  {drawerSettings}
-  {toggleEdit}
-/>
+<DrawerComponent {isEditing} {value} {drawerSettings} {toggleEdit} />

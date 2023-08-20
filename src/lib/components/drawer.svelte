@@ -1,6 +1,6 @@
 <script>
   import { Drawer, InputChip, clipboard } from "@skeletonlabs/skeleton";
-  export let selectedSecret;
+  import { selectedSecret } from "$lib/store";
   export let isEditing;
   export let toggleEdit;
   export let drawerSettings;

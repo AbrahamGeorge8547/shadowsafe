@@ -1,8 +1,9 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
-  export let sourceData;
+  import { secretsStore } from "$lib/store";
+  $: sourceData = $secretsStore;
   export let selectedHandler;
-  const table = {
+  $: table = {
     head: ["Username", "description"],
     body: tableMapperValues(sourceData, ["username", "description"]),
     meta: tableMapperValues(sourceData, [
