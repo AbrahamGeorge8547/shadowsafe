@@ -23,3 +23,13 @@ export const updateSecret = async (id, secret) => {
     },
   });
 };
+
+export const createSecret = async (secret) => {
+  const response = await fetch(`http://localhost:3000/secrets`, {
+    method: "POST",
+    body: JSON.stringify(secret),
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+};

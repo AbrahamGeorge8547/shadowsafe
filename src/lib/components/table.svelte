@@ -2,7 +2,8 @@
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { secretsStore, selectedSecret } from "$lib/store";
   import { drawerStore, Drawer } from "@skeletonlabs/skeleton";
-  import { DrawerComponent } from ".";
+  import { DrawerComponent, CreateSecret } from ".";
+
   const drawerSettings = {
     id: "secrets",
     bgDrawer: "bg-purple-900 text-white",
@@ -25,7 +26,9 @@
       "id",
     ]),
   };
-
+  function openCreateSecretDrawer() {
+    drawerStore.open({ ...drawerSettings, id: "create-secret" });
+  }
   async function selectedHandler(data) {
     const response = await fetch(`/api/secrets/${data.detail[4]}`);
     const { secret } = await response.json();
@@ -33,6 +36,13 @@
     drawerStore.open(drawerSettings);
   }
 </script>
+
+<button
+  class="btn variant-outline-secondary mt-4 absolute right-4"
+  on:click={openCreateSecretDrawer}
+>
+  Create Secret
+</button>
 
 <Table
   class="m-auto max-w-6xl"
@@ -45,7 +55,7 @@
 <Drawer>
   {#if $drawerStore.id === "secrets"}
     <DrawerComponent />
-  {:else if $drawerStore.id === "content-b"}
-    <!-- <DrawerContentB /> -->
+  {:else if $drawerStore.id === "create-secret"}
+    <CreateSecret />
   {/if}
 </Drawer>
