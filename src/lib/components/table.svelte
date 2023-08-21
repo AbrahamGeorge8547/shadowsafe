@@ -1,6 +1,6 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
-  import { secretsStore, selectedSecret } from "$lib/store";
+  import { secretsStore, selectedSecret, activeTab } from "$lib/store";
   import { drawerStore, Drawer } from "@skeletonlabs/skeleton";
   import { DrawerComponent, CreateSecret } from ".";
 
@@ -34,6 +34,9 @@
     const { secret } = await response.json();
     selectedSecret.set(secret);
     drawerStore.open(drawerSettings);
+  }
+  $: {
+    console.log("ACTIVE TAB", $activeTab);
   }
 </script>
 

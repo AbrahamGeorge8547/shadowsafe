@@ -1,12 +1,17 @@
 {
 	"/": [],
+	"/api/people": [
+		"src/routes/api/people/+server.ts"
+	],
 	"/api/secrets": [
 		"src/routes/api/secrets/+server.ts"
 	],
 	"/api/secrets/[secretId]": [
 		"src/routes/api/secrets/[secretId]/+server.ts"
 	],
-	"/people/[slug]": [],
+	"/people/[slug]": [
+		"src/routes/people/[slug]/+page.ts"
+	],
 	"/secrets/[slug]": [
 		"src/routes/secrets/[slug]/+page.ts"
 	]

@@ -1,18 +1,19 @@
-import { getSecrets, createSecret } from "$lib/server/secretsApi";
+import { getPeople, createPeople } from "$lib/server/peopleApi";
 import { json } from "@sveltejs/kit";
+
 export async function GET(req) {
   const offset = Number(req.url.searchParams.get("offset"));
   const limit = Number(req.url.searchParams.get("limit"));
-  const secrets = await getSecrets(offset, limit);
+  const people = await getPeople(offset, limit);
   return json({
     body: {
-      secrets,
+      people,
     },
   });
 }
 export async function POST(req) {
   const { request } = req;
-  const secret = await request.json();
-  await createSecret({ ...secret, id: 32 });
+  const user = await request.json();
+  await createPeople(user);
   return json({ success: true });
 }

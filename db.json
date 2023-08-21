@@ -251,5 +251,49 @@
       ],
       "id": 32
     }
+  ],
+  "people": [
+    {
+      "id": 1,
+      "username": "abrahamgeorfdgge8547",
+      "password": "rte",
+      "isAdmin": true
+    },
+    {
+      "id": 2,
+      "username": "abrahamgeorgfdge8547",
+      "password": "rte",
+      "isAdmin": true
+    },
+    {
+      "id": 3,
+      "username": "abrahamgeorgeasdsa8547",
+      "password": "rte",
+      "isAdmin": true
+    },
+    {
+      "id": 4,
+      "username": "abrahamgeorge85sd47",
+      "password": "rte",
+      "isAdmin": true
+    },
+    {
+      "id": 5,
+      "username": "abrahamgeorge854wa7",
+      "password": "rte",
+      "isAdmin": true
+    },
+    {
+      "id": 6,
+      "username": "abrahamgeorge854w7",
+      "password": "rte",
+      "isAdmin": true
+    },
+    {
+      "id": 221,
+      "username": "sdaf",
+      "password": "sadf",
+      "isAdmin": false
+    }
   ]
 }

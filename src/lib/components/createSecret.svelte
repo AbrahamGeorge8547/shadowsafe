@@ -1,5 +1,5 @@
 <script>
-  import { InputChip } from "@skeletonlabs/skeleton";
+  import { InputChip, drawerStore } from "@skeletonlabs/skeleton";
 
   let username = "";
   let password = "";
@@ -13,7 +13,7 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ ...secret, id: 234343 }),
     });
-
+    drawerStore.close();
     if (response.ok) {
       // Handle success, close drawer, etc.
     } else {

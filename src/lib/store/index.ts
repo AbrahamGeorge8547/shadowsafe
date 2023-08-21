@@ -4,6 +4,12 @@ import {
   paginationStore,
   loadSecrets,
 } from "./secrets";
+import {
+  selectedPerson,
+  peopleStore,
+  peoplePaginationStore,
+  loadPeople,
+} from "./people";
 import { activeTab, isEditing } from "./ui";
 
 export {
@@ -13,4 +19,8 @@ export {
   loadSecrets,
   activeTab,
   isEditing,
+  selectedPerson,
+  peopleStore,
+  peoplePaginationStore,
+  loadPeople,
 };
