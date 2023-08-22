@@ -1,5 +1,6 @@
 <script>
   import { InputChip, drawerStore } from "@skeletonlabs/skeleton";
+  import { loadSecrets } from "$lib/store";
 
   let username = "";
   let password = "";
@@ -11,9 +12,10 @@
     const response = await fetch("/api/secrets", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
-      body: JSON.stringify({ ...secret, id: 234343 }),
+      body: JSON.stringify({ ...secret }),
     });
     drawerStore.close();
+    await loadSecrets();
     if (response.ok) {
       // Handle success, close drawer, etc.
     } else {

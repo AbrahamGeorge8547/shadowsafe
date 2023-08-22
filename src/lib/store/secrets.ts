@@ -9,7 +9,7 @@ export const paginationStore = writable({
   amounts: [1, 2, 5, 10],
 });
 
-export const loadSecrets = async (fetch: any) => {
+export const loadSecrets = async () => {
   const limit = get(paginationStore).limit;
   const offset = get(paginationStore).offset;
   console.log("reloading secrets....");

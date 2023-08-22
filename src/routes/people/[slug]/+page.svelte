@@ -26,12 +26,16 @@
   }
 </script>
 
-<Tabs />
+<div class="p-4">
+  <Tabs />
+  <div class="p-4">
+    <People />
+  </div>
 
-<People />
-<Paginator
-  bind:settings={$peoplePaginationStore}
-  on:page={handlePageChange}
-  on:amount={handleAmountChange}
-  showPreviousNextButtons={true}
-/>
+  <Paginator
+    bind:settings={$peoplePaginationStore}
+    on:page={handlePageChange}
+    on:amount={handleAmountChange}
+    showPreviousNextButtons={true}
+  />
+</div>

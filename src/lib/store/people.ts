@@ -9,7 +9,7 @@ export const peoplePaginationStore = writable({
   amounts: [1, 2, 5, 10],
 });
 
-export const loadPeople = async (fetch: any) => {
+export const loadPeople = async () => {
   const limit = get(peoplePaginationStore).limit;
   const offset = get(peoplePaginationStore).offset;
   console.log("reloading people....");

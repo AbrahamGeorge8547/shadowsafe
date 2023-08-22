@@ -16,8 +16,8 @@
   };
   $: sourceData = $peopleStore;
   $: table = {
-    head: ["Username", "id"],
-    body: tableMapperValues(sourceData, ["username", "id"]),
+    head: ["Username"],
+    body: tableMapperValues(sourceData, ["username"]),
     meta: tableMapperValues(sourceData, ["username", "password", "id"]),
   };
   function openCreateSecretDrawer() {

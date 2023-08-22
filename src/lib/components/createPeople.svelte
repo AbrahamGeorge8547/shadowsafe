@@ -1,19 +1,20 @@
 <script>
   import { drawerStore } from "@skeletonlabs/skeleton";
+  import { loadPeople } from "$lib/store";
 
   let username = "";
   let password = "";
   let isAdmin = false;
 
   const savePerson = async () => {
-    const user = { id: 221, username, password, isAdmin };
-    console.log(user);
+    const user = { id: 2234, username, password, isAdmin };
     const response = await fetch("/api/people", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
     drawerStore.close();
+    await loadPeople();
   };
 </script>
 
