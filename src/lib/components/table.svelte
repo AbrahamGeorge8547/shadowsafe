@@ -26,9 +26,6 @@
       "id",
     ]),
   };
-  function openCreateSecretDrawer() {
-    drawerStore.open({ ...drawerSettings, id: "create-secret" });
-  }
   async function selectedHandler(data) {
     const response = await fetch(`/api/secrets/${data.detail[4]}`);
     const { secret } = await response.json();
@@ -40,21 +37,15 @@
   }
 </script>
 
-<button
-  class="btn variant-outline-secondary mt-4 absolute right-4"
-  on:click={openCreateSecretDrawer}
->
-  Create Secret
-</button>
-
-<Table
-  class="m-auto max-w-6xl"
-  interactive={true}
-  on:selected={selectedHandler}
-  source={table}
-  columnWidths={[100, 400, 200]}
-/>
-
+<div class="content-container flex flex-col">
+  <Table
+    class="m-auto max-w-6xl"
+    interactive={true}
+    on:selected={selectedHandler}
+    source={table}
+    columnWidths={[100, 400, 200]}
+  />
+</div>
 <Drawer>
   {#if $drawerStore.id === "secrets"}
     <DrawerComponent />

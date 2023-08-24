@@ -2,7 +2,7 @@
   import { Tabs } from "$lib/components";
   import { activeTab, peoplePaginationStore, loadPeople } from "$lib/store";
   import { People } from "$lib/components";
-  import { Paginator } from "@skeletonlabs/skeleton";
+  import { Paginator, drawerStore } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
   export let data;
   async function handlePageChange(e) {
@@ -19,15 +19,28 @@
       offset: 0,
       // limit: e.detail,
     }));
-    console.log($peoplePaginationStore);
     await loadPeople(data.fetch);
     // Navigate to the new URL
     goto(`/people/1`);
   }
+  const drawerSettings = {
+    bgDrawer: "bg-purple-900 text-white",
+    bgBackdrop:
+      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+    width: "w-[280px] md:w-[480px]",
+    height: "h-[500px]",
+    padding: "p-4",
+    rounded: "rounded-xl",
+  };
+  function openAddPeopleDrawer() {
+    console.log("openAddPeopleDrawer");
+    drawerStore.open({ ...drawerSettings, id: "create-people" });
+  }
+  const drawerFunc = openAddPeopleDrawer;
 </script>
 
 <div class="p-4">
-  <Tabs />
+  <Tabs {drawerFunc} />
   <div class="p-4">
     <People />
   </div>

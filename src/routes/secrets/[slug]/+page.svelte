@@ -4,6 +4,7 @@
   import { Paginator } from "@skeletonlabs/skeleton";
   import { Secrets } from "$lib/components";
   import { goto } from "$app/navigation";
+  import { drawerStore } from "@skeletonlabs/skeleton";
   export let data;
   async function handlePageChange(e) {
     const offset = e.detail;
@@ -22,10 +23,24 @@
     // Navigate to the new URL
     goto(`/secrets/1`);
   }
+  const drawerSettings = {
+    id: "secrets",
+    bgDrawer: "bg-purple-900 text-white",
+    bgBackdrop:
+      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+    width: "w-[280px] md:w-[480px]",
+    height: "h-[500px]",
+    padding: "p-4",
+    rounded: "rounded-xl",
+  };
+  function openCreateSecretDrawer() {
+    drawerStore.open({ ...drawerSettings, id: "create-secret" });
+  }
+  const drawerFunc = openCreateSecretDrawer;
 </script>
 
 <div class="p-4">
-  <Tabs />
+  <Tabs {drawerFunc} />
   <div class="p-4">
     <Secrets />
   </div>

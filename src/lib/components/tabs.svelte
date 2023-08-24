@@ -11,6 +11,8 @@
       goto("/people/1");
     }
   };
+
+  export let drawerFunc;
 </script>
 
 <div class="tabs p-4">
@@ -26,4 +28,19 @@
       : 'variant-outline-secondary'}"
     on:click={() => navigateTo("people")}>People</button
   >
+  {#if $activeTab == "secrets"}
+    <button
+      class="btn variant-outline-secondary absolute right-40 ml-8"
+      on:click={drawerFunc}
+    >
+      Create Secret
+    </button>
+  {:else if $activeTab == "people"}
+    <button
+      class="btn variant-outline-secondary absolute right-40 ml-8"
+      on:click={drawerFunc}
+    >
+      add People
+    </button>
+  {/if}
 </div>

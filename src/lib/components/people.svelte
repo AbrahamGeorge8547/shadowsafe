@@ -20,18 +20,9 @@
     body: tableMapperValues(sourceData, ["username"]),
     meta: tableMapperValues(sourceData, ["username", "password", "id"]),
   };
-  function openCreateSecretDrawer() {
-    drawerStore.open({ ...drawerSettings, id: "create-secret" });
-  }
+
   function selectedHandler(data) {}
 </script>
-
-<button
-  class="btn variant-outline-secondary mt-4 absolute right-4"
-  on:click={openCreateSecretDrawer}
->
-  Add People
-</button>
 
 <Table
   class="m-auto max-w-6xl"
