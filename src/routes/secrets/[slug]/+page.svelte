@@ -24,17 +24,17 @@
     goto(`/secrets/1`);
   }
   const drawerSettings = {
-    id: "secrets",
+    id: "create-secret",
     bgDrawer: "bg-purple-900 text-white",
     bgBackdrop:
       "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[200px] md:w-[360px]",
+    width: "w-[200px] md:w-[320px]",
     height: "h-[500px]",
     padding: "p-10",
     rounded: "rounded-xl",
   };
   function openCreateSecretDrawer() {
-    drawerStore.open({ ...drawerSettings, id: "create-secret" });
+    drawerStore.open(drawerSettings);
   }
   const drawerFunc = openCreateSecretDrawer;
 </script>
