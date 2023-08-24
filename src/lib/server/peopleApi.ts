@@ -4,7 +4,7 @@ export const getPeople = async (offset: number, limit: number) => {
     `${BASE_URL}/users?_page=${offset}&_limit=${limit}`
   );
   const responseJson = await response.json();
-  console.log(responseJson.data.users);
+
   return responseJson.data.users;
 };
 
@@ -16,5 +16,4 @@ export const createPeople = async (user) => {
       "Content-Type": "application/json",
     },
   });
-  console.log(response);
 };

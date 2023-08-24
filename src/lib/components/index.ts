@@ -5,6 +5,7 @@ import Tabs from "./tabs.svelte";
 import CreateSecret from "./createSecret.svelte";
 import People from "./people.svelte";
 import CreatePeople from "./createPeople.svelte";
+import AdminCheck from "./adminCheck.svelte";
 
 export {
   DrawerComponent,
@@ -14,4 +15,5 @@ export {
   CreateSecret,
   People,
   CreatePeople,
+  AdminCheck,
 };

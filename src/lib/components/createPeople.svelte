@@ -1,13 +1,14 @@
 <script>
-  import { drawerStore } from "@skeletonlabs/skeleton";
+  import { drawerStore, InputChip } from "@skeletonlabs/skeleton";
   import { loadPeople } from "$lib/store";
 
   let username = "";
   let password = "";
+  let tags = [];
   let isAdmin = false;
 
   const savePerson = async () => {
-    const user = { id: 2234, username, password, isAdmin };
+    const user = { id: 2234, username, password, isAdmin, tags };
     const response = await fetch("/api/people", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -32,6 +33,9 @@
       <option value={true}>Yes</option>
     </select>
   </label>
+  <label class="label mb-2"
+    >Tags: <InputChip name="tags" bind:value={tags} /></label
+  >
   <button
     class="btn variant-outline-secondary mt-4 absolute"
     on:click={savePerson}>Save</button

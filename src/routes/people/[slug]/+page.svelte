@@ -33,7 +33,6 @@
     rounded: "rounded-xl",
   };
   function openAddPeopleDrawer() {
-    console.log("openAddPeopleDrawer");
     drawerStore.open({ ...drawerSettings, id: "create-people" });
   }
   const drawerFunc = openAddPeopleDrawer;
