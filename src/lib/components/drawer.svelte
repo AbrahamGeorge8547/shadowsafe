@@ -1,6 +1,8 @@
 <script>
   import { InputChip, clipboard } from "@skeletonlabs/skeleton";
   import { selectedSecret, isEditing } from "$lib/store";
+  import Icon from "@iconify/svelte";
+  import copyIcon from "@iconify/icons-bxs/copy";
   const value = $selectedSecret?.tags;
   let showPassword = false;
   function togglePasswordVisibility() {
@@ -35,46 +37,52 @@
   <div class="container mx-auto p-4 relative">
     <label class="label mb-2">
       <span class="mr-2">Username:</span>
-      <div class="flex">
+      <div class="relative">
         <input
-          class="input"
+          class="input pr-10"
           type="text"
           bind:value={$selectedSecret.username}
           readonly={!$isEditing}
         />
-        <button use:clipboard={$selectedSecret.username}> copy </button>
+        <button
+          use:clipboard={$selectedSecret.username}
+          class="absolute right-2 top-1/2 transform -translate-y-1/2"
+        >
+          <Icon icon={copyIcon} />
+        </button>
       </div>
     </label>
     <label class="label mb-2">
       <span class="mr-2">Password:</span>
-      <div class="flex">
+      <div class="relative">
         {#if showPassword}
           <input
-            class="input"
+            class="input pr-16"
             type="text"
             bind:value={$selectedSecret.password}
             readonly={!$isEditing}
           />
         {:else}
           <input
-            class="input type-password"
+            class="input pr-16"
             type="password"
             bind:value={$selectedSecret.password}
             readonly={!$isEditing}
           />
         {/if}
-        <button on:click={togglePasswordVisibility}> show </button>
-        <button use:clipboard={$selectedSecret.password}> copy </button>
+        <button
+          on:click={togglePasswordVisibility}
+          class="absolute right-10 top-1/2 transform -translate-y-1/2"
+        >
+          show
+        </button>
+        <button
+          use:clipboard={$selectedSecret.password}
+          class="absolute right-2 top-1/2 transform -translate-y-1/2"
+        >
+          <Icon icon={copyIcon} />
+        </button>
       </div>
-    </label>
-    <label class="label mb-2">
-      <span class="mr-2">Description:</span>
-      <textarea
-        class="textarea"
-        rows="3"
-        bind:value={$selectedSecret.description}
-        readonly={!$isEditing}
-      />
     </label>
     <label class="label mb-2">
       <span class="mr-2">Tags:</span>
