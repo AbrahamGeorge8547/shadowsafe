@@ -1,10 +1,17 @@
 <script>
   import { Tabs } from "$lib/components";
-  import { paginationStore, loadSecrets } from "$lib/store";
+  import {
+    paginationStore,
+    loadSecrets,
+    userStore,
+    activeTab,
+  } from "$lib/store";
   import { Paginator } from "@skeletonlabs/skeleton";
   import { Secrets } from "$lib/components";
   import { goto } from "$app/navigation";
   import { drawerStore } from "@skeletonlabs/skeleton";
+  import { onMount } from "svelte";
+  import { page } from "$app/stores";
   export let data;
   async function handlePageChange(e) {
     const offset = e.detail;
@@ -23,6 +30,15 @@
     // Navigate to the new URL
     goto(`/secrets/1`);
   }
+  let pageNo = $page.params.slug;
+  onMount(() => {
+    activeTab.set("secrets");
+    paginationStore.update((state) => ({
+      ...state,
+      offset: pageNo - 1,
+      // limit: e.detail,
+    }));
+  });
   const drawerSettings = {
     id: "create-secret",
     bgDrawer: "bg-purple-900 text-white",

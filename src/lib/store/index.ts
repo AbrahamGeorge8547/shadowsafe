@@ -9,6 +9,7 @@ import {
   peopleStore,
   peoplePaginationStore,
   loadPeople,
+  userStore,
 } from "./people";
 import { activeTab, isEditing } from "./ui";
 
@@ -23,4 +24,5 @@ export {
   peopleStore,
   peoplePaginationStore,
   loadPeople,
+  userStore,
 };

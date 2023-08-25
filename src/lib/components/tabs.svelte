@@ -15,7 +15,7 @@
   export let drawerFunc;
 </script>
 
-<div class="tabs p-4">
+<div class="tabs p-4 ml-4">
   <button
     class="btn {$activeTab === 'secrets'
       ? 'variant-filled-secondary'
@@ -25,7 +25,7 @@
   <button
     class="btn {$activeTab === 'people'
       ? 'variant-filled-secondary'
-      : 'variant-outline-secondary'}"
+      : 'variant-outline-secondary'} ml-4"
     on:click={() => navigateTo("people")}>People</button
   >
   {#if $activeTab == "secrets"}

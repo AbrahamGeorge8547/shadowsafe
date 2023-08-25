@@ -6,5 +6,8 @@ export const login = async (user) => {
   //     "Content-Type": "application/json",
   //   },
   // });
-  return { token: "dsfasdfasdfdsaf" };
+  return {
+    token: "dsfasdfasdfdsaf",
+    user: { isAdmin: true, username: "Abraham" },
+  };
 };

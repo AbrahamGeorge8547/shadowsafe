@@ -4,6 +4,8 @@
   import { People } from "$lib/components";
   import { Paginator, drawerStore } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
+  import { page } from "$app/stores";
+  import { onMount } from "svelte";
   export let data;
   async function handlePageChange(e) {
     const offset = e.detail;
@@ -23,6 +25,17 @@
     // Navigate to the new URL
     goto(`/people/1`);
   }
+  let pageNo = $page.params.slug;
+  onMount(() => {
+    activeTab.set("people");
+
+    peoplePaginationStore.update((state) => ({
+      ...state,
+      offset: pageNo - 1,
+      // limit: e.detail,
+    }));
+    console.log();
+  });
   const drawerSettings = {
     bgDrawer: "bg-purple-900 text-white",
     bgBackdrop:

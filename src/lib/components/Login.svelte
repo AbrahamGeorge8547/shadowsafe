@@ -1,4 +1,5 @@
 <script>
+  import { userStore } from "$lib/store";
   import { createEventDispatcher } from "svelte";
   import Icon from "@iconify/svelte";
   import { drawerStore } from "@skeletonlabs/skeleton";
@@ -23,8 +24,8 @@
     });
     const responseData = await response.json();
     const token = responseData.data.token;
+    userStore.set(responseData.data.user);
     const isProduction = process.env.NODE_ENV === "production";
-    console.log(process.env.NODE_ENV);
     const secureFlag = isProduction ? "Secure;" : "";
     const sameSite = isProduction ? "None" : "Lax"; // Use 'Lax' in development
 
