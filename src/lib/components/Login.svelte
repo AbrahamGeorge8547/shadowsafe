@@ -24,6 +24,7 @@
     const responseData = await response.json();
     const token = responseData.data.token;
     const isProduction = process.env.NODE_ENV === "production";
+    console.log(process.env.NODE_ENV);
     const secureFlag = isProduction ? "Secure;" : "";
     const sameSite = isProduction ? "None" : "Lax"; // Use 'Lax' in development
 
