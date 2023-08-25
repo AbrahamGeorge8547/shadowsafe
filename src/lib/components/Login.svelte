@@ -23,13 +23,13 @@
   }
 </script>
 
-<div class="container mx-auto p-4 relative">
+<div class="container mx-auto p-4 relative px-8">
   <label class="label mb-2 block">
-    <span class="block text-left ml-4">Username:</span>
+    <span class="block text-left">Username:</span>
     <input class="input" type="text" bind:value={username} />
   </label>
   <div class="relative label mb-2">
-    <span class="block text-left ml-4">Password:</span>
+    <span class="block text-left">Password:</span>
     {#if showPassword}
       <input class="input" type="text" bind:value={password} />
     {:else}
@@ -37,9 +37,9 @@
     {/if}
     <button
       on:click={togglePasswordVisibility}
-      class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer p-2"
+      class="absolute right-2 top-1/2 transform -translate-y-1/4 bg-transparent border-none cursor-pointer p-2 text-center"
     >
-      <Icon icon="ph:eye-bold" class="text-center" />
+      <Icon icon="ph:eye-bold" />
     </button>
   </div>
   <label class="label mb-2">

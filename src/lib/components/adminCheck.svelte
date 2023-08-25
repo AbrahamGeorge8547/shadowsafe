@@ -53,7 +53,7 @@
   }
 </script>
 
-<Drawer class="p-24">
+<Drawer class="p-24 top-4">
   {#if $drawerStore.id === "login"}
     <LoginForm />
   {:else if $drawerStore.id === "create-admin"}

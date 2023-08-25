@@ -22,6 +22,6 @@
   columnWidths={[100, 400, 200]}
 />
 
-<Drawer>
+<Drawer class="p-24 top-14">
   <CreatePeople />
 </Drawer>

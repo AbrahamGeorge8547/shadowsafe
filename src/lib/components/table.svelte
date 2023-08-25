@@ -37,6 +37,14 @@
   }
 </script>
 
+<Drawer class="p-24 top-14">
+  {#if $drawerStore.id === "secrets"}
+    <DrawerComponent />
+  {:else if $drawerStore.id === "create-secret"}
+    <CreateSecret />
+  {/if}
+</Drawer>
+
 <div class="content-container flex flex-col">
   <Table
     class="m-auto max-w-6xl"
@@ -46,10 +54,3 @@
     columnWidths={[100, 400, 200]}
   />
 </div>
-<Drawer>
-  {#if $drawerStore.id === "secrets"}
-    <DrawerComponent />
-  {:else if $drawerStore.id === "create-secret"}
-    <CreateSecret />
-  {/if}
-</Drawer>

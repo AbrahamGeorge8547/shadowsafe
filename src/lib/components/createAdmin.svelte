@@ -36,7 +36,7 @@
     {/if}
     <button
       on:click={togglePasswordVisibility}
-      class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer p-2"
+      class="absolute right-2 top-1/2 transform -translate-y-1/4 bg-transparent border-none cursor-pointer p-2"
     >
       <Icon icon="ph:eye-bold" class="text-center" />
     </button>
@@ -51,7 +51,7 @@
     {/if}
     <button
       on:click={toggleConfirmPasswordVisibility}
-      class="absolute right-2 top-1/2 transform -translate-y-1/2 bg-transparent border-none cursor-pointer p-2"
+      class="absolute right-2 top-1/2 transform -translate-y-1/4 bg-transparent border-none cursor-pointer p-2"
     >
       <Icon icon="ph:eye-bold" class="text-center" />
     </button>
