@@ -10,7 +10,7 @@
     bgDrawer: "bg-purple-900 text-white",
     bgBackdrop:
       "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[120px] md:w-[300px]",
+    width: "w-[120px] md:w-[360px]",
     height: "h-[280px]",
     padding: "p-10",
     rounded: "rounded-xl",
@@ -21,7 +21,7 @@
     bgDrawer: "bg-purple-900 text-white",
     bgBackdrop:
       "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[120px] md:w-[300px]",
+    width: "w-[120px] md:w-[320px]",
     height: "h-[340px]",
     padding: "p-10",
     rounded: "rounded-xl",
@@ -29,17 +29,16 @@
   };
 
   // You can replace this with logic to determine if an admin exists
-  let hasAdmin = false;
+  let hasAdmin = true;
   onMount(async () => {
-    hasAdmin = true;
+    const result = await fetch("/api/people/hasAdmin");
+    await result.json();
     openDrawer();
   });
-  let buttonText = "";
+  let buttonText = "Login";
 
   // Function to open login or admin creation drawer
   function openDrawer() {
-    console.log($drawerStore.open);
-
     let settings;
     if (hasAdmin) {
       settings = loginDrawerSettings;
@@ -48,7 +47,6 @@
       settings = adminCreationDrawerSettings;
       buttonText = "Create Admin";
     }
-    console.log($drawerStore.id);
     drawerStore.open(settings);
   }
 </script>

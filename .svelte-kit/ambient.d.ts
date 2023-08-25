@@ -27,6 +27,7 @@
  */
 declare module '$env/static/private' {
 	export const BASE_URL: string;
+	export const NODE_ENV: string;
 	export const SHELL: string;
 	export const npm_command: string;
 	export const npm_config_userconfig: string;
@@ -94,7 +95,7 @@ declare module '$env/static/private' {
 	export const MAIL: string;
 	export const npm_node_execpath: string;
 	export const TERM_PROGRAM: string;
-	export const NODE_ENV: string;
+	export const VITE_USER_NODE_ENV: string;
 }
 
 /**
@@ -125,6 +126,7 @@ declare module '$env/static/public' {
 declare module '$env/dynamic/private' {
 	export const env: {
 		BASE_URL: string;
+		NODE_ENV: string;
 		SHELL: string;
 		npm_command: string;
 		npm_config_userconfig: string;
@@ -192,7 +194,7 @@ declare module '$env/dynamic/private' {
 		MAIL: string;
 		npm_node_execpath: string;
 		TERM_PROGRAM: string;
-		NODE_ENV: string;
+		VITE_USER_NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;
 	}

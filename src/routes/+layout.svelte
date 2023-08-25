@@ -14,6 +14,8 @@
     <!-- App Bar -->
     <AppBar>
       <svelte:fragment slot="lead">
+        <img src="/logo.svg" alt="Logo" class="h-6 w-6 inline-block" />
+        <!-- Logo Image -->
         <span class="text-xl">
           shadow<span class="font-bold">Safe</span>
         </span>

@@ -4,9 +4,9 @@ export const secretsStore = writable([]);
 export const selectedSecret = writable(null);
 export const paginationStore = writable({
   offset: 0,
-  limit: 5,
+  limit: 10,
   size: 0,
-  amounts: [1, 2, 5, 10],
+  amounts: [5, 10, 20, 40],
 });
 
 export const loadSecrets = async () => {

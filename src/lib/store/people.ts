@@ -4,7 +4,7 @@ export const peopleStore = writable([]);
 export const selectedPerson = writable(null);
 export const peoplePaginationStore = writable({
   offset: 0,
-  limit: 5,
+  limit: 10,
   size: 0,
   amounts: [1, 2, 5, 10],
 });

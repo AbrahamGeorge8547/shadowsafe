@@ -3,6 +3,15 @@
 	"/api/people": [
 		"src/routes/api/people/+server.ts"
 	],
+	"/api/people/admin": [
+		"src/routes/api/people/admin/+server.ts"
+	],
+	"/api/people/hasAdmin": [
+		"src/routes/api/people/hasAdmin/+server.ts"
+	],
+	"/api/people/login": [
+		"src/routes/api/people/login/+server.ts"
+	],
 	"/api/secrets": [
 		"src/routes/api/secrets/+server.ts"
 	],
