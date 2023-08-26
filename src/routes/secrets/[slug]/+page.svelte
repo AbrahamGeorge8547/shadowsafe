@@ -38,6 +38,7 @@
       offset: pageNo - 1,
       // limit: e.detail,
     }));
+    console.log($userStore.isAdmin);
   });
   const drawerSettings = {
     id: "create-secret",
