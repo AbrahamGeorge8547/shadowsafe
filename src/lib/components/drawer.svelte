@@ -3,11 +3,13 @@
   import { selectedSecret, isEditing } from "$lib/store";
   import Icon from "@iconify/svelte";
   import copyIcon from "@iconify/icons-bxs/copy";
+
   const value = $selectedSecret?.tags;
   let showPassword = false;
   function togglePasswordVisibility() {
     showPassword = !showPassword;
   }
+  import { toastStore } from "@skeletonlabs/skeleton";
 
   async function saveEdit() {
     const response = await fetch(`/api/secrets/${$selectedSecret.id}`, {
@@ -46,6 +48,7 @@
         />
         <button
           use:clipboard={$selectedSecret.username}
+          on:click={() => toastStore.trigger({ message: "copy to clipboard" })}
           class="absolute right-2 top-1/2 transform -translate-y-1/2"
         >
           <Icon icon={copyIcon} />

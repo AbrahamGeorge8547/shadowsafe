@@ -17,7 +17,4 @@ export const loadPeople = async () => {
   const data = await response.json();
   peopleStore.set(data.body.people);
 };
-export const userStore = localStorageStore("user", {
-  isAdmin: false,
-  username: "",
-});
+export const userStore = localStorageStore("user", {});

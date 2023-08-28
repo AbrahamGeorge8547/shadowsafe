@@ -21,6 +21,7 @@ export const getSecrets = async (
 };
 
 export const getSecretById = async (id: number, token: string) => {
+  console.log(id, token);
   const response = await fetch(`${BASE_URL}/secrets/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });

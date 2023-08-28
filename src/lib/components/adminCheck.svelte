@@ -5,6 +5,9 @@
   import LoginForm from "./Login.svelte";
   import CreateAdminForm from "./createAdmin.svelte";
   import { onMount } from "svelte";
+  import { userStore } from "$lib/store";
+  import { get } from "svelte/store";
+  import { goto } from "$app/navigation";
   export const loginDrawerSettings = {
     id: "login",
     bgDrawer: "bg-purple-900 text-white",
@@ -31,15 +34,22 @@
   // You can replace this with logic to determine if an admin exists
   let hasAdmin = true;
   onMount(async () => {
-    const result = await fetch("/api/people/hasAdmin");
-    await result.json();
-    openDrawer();
+    const user = get(userStore);
+    console.log(user);
+    if (user.email) {
+      goto("/secrets/1");
+    } else {
+      const result = await fetch("/api/people/hasAdmin");
+      await result.json();
+      openDrawer();
+    }
   });
   let buttonText = "Login";
 
   // Function to open login or admin creation drawer
   function openDrawer() {
     let settings;
+
     if (hasAdmin) {
       settings = loginDrawerSettings;
       buttonText = "Login";

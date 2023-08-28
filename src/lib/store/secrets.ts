@@ -15,5 +15,6 @@ export const loadSecrets = async () => {
   console.log("reloading secrets....");
   const response = await fetch(`/api/secrets?offset=${offset}&limit=${limit}`);
   const data = await response.json();
-  secretsStore.set(data.body.secrets);
+  const secrets = data.body.secrets;
+  secretsStore.set(secrets);
 };

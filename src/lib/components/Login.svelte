@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="container mx-auto p-4 relative px-8">
+<div class="mx-auto p-4 relative px-8 z-10">
   <label class="label mb-2 block">
     <span class="block text-left">Username:</span>
     <input class="input" type="text" bind:value={username} />

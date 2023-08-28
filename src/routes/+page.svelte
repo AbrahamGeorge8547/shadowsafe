@@ -4,20 +4,23 @@
   import { Toast, Drawer, drawerStore } from "@skeletonlabs/skeleton";
   import { DrawerComponent } from "$lib/components";
   import { AdminCheck } from "$lib/components";
+  import { userStore } from "$lib/store";
   import "font-awesome/css/font-awesome.min.css";
 
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
-  // onMount(() => {
-  //   if (window.location.pathname === "/") {
-  //     goto("/secrets/1");
-  //   }
-  // });
+  import { get } from "svelte/store";
+  onMount(() => {
+    const user = get(userStore);
+    if (user.email) {
+      goto("/secrets/1");
+    }
+  });
 </script>
 
 <!-- <img src="/logo.svg" alt="Logo" /> -->
 
-<div class="container h-full mx-auto flex justify-center items-center">
+<div class="container h-full mx-auto flex justify-center items-center z-0">
   <div class="space-y-10 text-center flex flex-col items-center">
     <!-- Animated Logo -->
     <figure>
