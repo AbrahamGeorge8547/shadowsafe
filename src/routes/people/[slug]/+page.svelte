@@ -34,7 +34,6 @@
       offset: pageNo - 1,
       // limit: e.detail,
     }));
-    console.log();
   });
   const drawerSettings = {
     bgDrawer: "bg-purple-900 text-white",

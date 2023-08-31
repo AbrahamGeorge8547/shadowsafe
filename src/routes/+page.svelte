@@ -33,6 +33,7 @@
       />
     </figure>
     <AdminCheck />
+    <Toast />
     <!-- / -->
   </div>
 </div>

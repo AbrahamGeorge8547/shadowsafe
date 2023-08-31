@@ -35,7 +35,7 @@
   let hasAdmin = true;
   onMount(async () => {
     const user = get(userStore);
-    console.log(user);
+
     if (user.email) {
       goto("/secrets/1");
     } else {

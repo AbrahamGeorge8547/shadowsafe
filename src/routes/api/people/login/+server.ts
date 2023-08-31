@@ -6,5 +6,8 @@ export async function POST(req) {
   const { request } = req;
   const user = await request.json();
   const data = await login(user);
+  if (data.success == false) {
+    return json(data);
+  }
   return json({ success: true, data });
 }

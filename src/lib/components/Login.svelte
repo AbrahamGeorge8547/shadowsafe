@@ -10,6 +10,7 @@
   let username = "";
   let password = "";
   let showPassword = false;
+  let errorMessage = "";
 
   function togglePasswordVisibility() {
     showPassword = !showPassword;
@@ -23,6 +24,11 @@
       body: JSON.stringify({ username, password }),
     });
     const responseData = await response.json();
+    console.log(responseData);
+    if (responseData.success == false) {
+      errorMessage = "Username/password is incorrect."; // Set the error message
+      return;
+    }
     const token = responseData.data.token;
     userStore.set(responseData.data.user);
     const isProduction = process.env.NODE_ENV === "production";
@@ -62,6 +68,11 @@
       <Icon icon="ph:eye-bold" />
     </button>
   </div>
+  {#if errorMessage}
+    <div class="input-error">
+      {errorMessage}
+    </div>
+  {/if}
   <label class="label mb-2">
     <button
       class="btn variant-outline-secondary mt-4 float-right"

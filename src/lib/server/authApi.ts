@@ -1,7 +1,5 @@
 import { BASE_URL } from "$env/static/private";
 export const login = async (user) => {
-  console.log(user);
-  console.log(`${BASE_URL}/authenticate`);
   const response = await fetch(`${BASE_URL}/authenticate`, {
     method: "POST",
     body: JSON.stringify({
@@ -13,6 +11,13 @@ export const login = async (user) => {
       Accept: "*/*",
     },
   });
+  if (response.status === 401) {
+    console.log("status");
+    return {
+      success: false,
+      message: "incorrect username or password",
+    };
+  }
   const responseData = await response.json();
   return {
     token: responseData.data.token,
