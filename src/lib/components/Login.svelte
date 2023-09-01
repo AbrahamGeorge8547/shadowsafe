@@ -2,10 +2,10 @@
   import { userStore } from "$lib/store";
   import { createEventDispatcher } from "svelte";
   import Icon from "@iconify/svelte";
-  import { drawerStore } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
 
-  const dispatch = createEventDispatcher();
+  const drawerStore = getDrawerStore();
 
   let username = "";
   let password = "";
@@ -24,7 +24,6 @@
       body: JSON.stringify({ username, password }),
     });
     const responseData = await response.json();
-    console.log(responseData);
     if (responseData.success == false) {
       errorMessage = "Username/password is incorrect."; // Set the error message
       return;
@@ -52,14 +51,17 @@
 <div class="mx-auto p-4 relative px-8 z-10">
   <label class="label mb-2 block">
     <span class="block text-left">Username:</span>
-    <input class="input" type="text" bind:value={username} />
+    <input class="input h-10 pl-4" type="text" bind:value={username} />
+    <!-- Added h-12 for height -->
   </label>
   <div class="relative label mb-2">
     <span class="block text-left">Password:</span>
     {#if showPassword}
-      <input class="input" type="text" bind:value={password} />
+      <input class="input h-10 pl-4" type="text" bind:value={password} />
+      <!-- Added h-12 for height -->
     {:else}
-      <input class="input" type="password" bind:value={password} />
+      <input class="input h-10 pl-4" type="password" bind:value={password} />
+      <!-- Added h-12 for height -->
     {/if}
     <button
       on:click={togglePasswordVisibility}

@@ -1,8 +1,6 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { peopleStore, selectedPerson } from "$lib/store";
-  import { Drawer } from "@skeletonlabs/skeleton";
-  import { CreatePeople } from ".";
 
   $: sourceData = $peopleStore;
   $: table = {
@@ -21,7 +19,3 @@
   source={table}
   columnWidths={[100, 400, 200]}
 />
-
-<Drawer class="p-24 top-14">
-  <CreatePeople />
-</Drawer>

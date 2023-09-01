@@ -2,10 +2,13 @@
   import { Tabs } from "$lib/components";
   import { activeTab, peoplePaginationStore, loadPeople } from "$lib/store";
   import { People } from "$lib/components";
-  import { Paginator, drawerStore } from "@skeletonlabs/skeleton";
+  import { Paginator } from "@skeletonlabs/skeleton";
   import { goto } from "$app/navigation";
   import { page } from "$app/stores";
   import { onMount } from "svelte";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+
+  const drawerStore = getDrawerStore();
   export let data;
   async function handlePageChange(e) {
     const offset = e.detail;
@@ -15,7 +18,6 @@
   //TODO: handle reload for paginator
 
   async function handleAmountChange(e) {
-    console.log($peoplePaginationStore);
     peoplePaginationStore.update((state) => ({
       ...state,
       offset: 0,
@@ -51,7 +53,7 @@
 </script>
 
 <div class="p-4">
-  <Tabs {drawerFunc} />
+  <Tabs />
   <div class="p-4">
     <People />
   </div>

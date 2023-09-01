@@ -1,41 +1,20 @@
 <script>
-  import { Drawer } from "@skeletonlabs/skeleton";
-  import { drawerStore } from "@skeletonlabs/skeleton";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
 
-  import LoginForm from "./Login.svelte";
-  import CreateAdminForm from "./createAdmin.svelte";
+  const drawerStore = getDrawerStore();
+
   import { onMount } from "svelte";
   import { userStore } from "$lib/store";
   import { get } from "svelte/store";
   import { goto } from "$app/navigation";
-  export const loginDrawerSettings = {
-    id: "login",
-    bgDrawer: "bg-purple-900 text-white",
-    bgBackdrop:
-      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[120px] md:w-[360px]",
-    height: "h-[280px]",
-    padding: "p-10",
-    rounded: "rounded-xl",
-  };
+  import {
+    loginDrawerSettings,
+    adminCreationDrawerSettings,
+  } from "$lib/util/drawerSettings";
 
-  export const adminCreationDrawerSettings = {
-    id: "create-admin",
-    bgDrawer: "bg-purple-900 text-white",
-    bgBackdrop:
-      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[120px] md:w-[320px]",
-    height: "h-[340px]",
-    padding: "p-10",
-    rounded: "rounded-xl",
-    position: "right",
-  };
-
-  // You can replace this with logic to determine if an admin exists
   let hasAdmin = true;
   onMount(async () => {
     const user = get(userStore);
-
     if (user.email) {
       goto("/secrets/1");
     } else {
@@ -60,14 +39,6 @@
     drawerStore.open(settings);
   }
 </script>
-
-<Drawer class="p-24 top-4">
-  {#if $drawerStore.id === "login"}
-    <LoginForm />
-  {:else if $drawerStore.id === "create-admin"}
-    <CreateAdminForm />
-  {/if}
-</Drawer>
 
 <button class="btn variant-filled-primary mt-4" on:click={openDrawer}
   >{buttonText}</button

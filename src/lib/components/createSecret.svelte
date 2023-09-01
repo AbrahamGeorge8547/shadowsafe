@@ -1,6 +1,10 @@
 <script>
-  import { InputChip, drawerStore } from "@skeletonlabs/skeleton";
+  import { InputChip } from "@skeletonlabs/skeleton";
   import { loadSecrets } from "$lib/store";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { onMount } from "svelte";
+
+  const drawerStore = getDrawerStore();
 
   let username = "";
   let password = "";
@@ -22,6 +26,9 @@
       // Handle error
     }
   }
+  onMount(() => {
+    console.log("MOUNTING");
+  });
 </script>
 
 <div class="container mx-auto p-4 relative">

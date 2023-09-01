@@ -1,19 +1,11 @@
 <script>
   import { Table, tableMapperValues } from "@skeletonlabs/skeleton";
   import { secretsStore, selectedSecret, activeTab } from "$lib/store";
-  import { drawerStore, Drawer } from "@skeletonlabs/skeleton";
-  import { DrawerComponent, CreateSecret } from ".";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { getSecretsDrawer } from "$lib/util/drawerSettings";
 
-  const drawerSettings = {
-    id: "secrets",
-    bgDrawer: "bg-purple-900 text-white",
-    bgBackdrop:
-      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[200px] md:w-[340px]",
-    height: "h-[400px]",
-    padding: "p-10",
-    rounded: "rounded-xl",
-  };
+  const drawerStore = getDrawerStore();
+
   $: sourceData = $secretsStore;
   $: table = {
     head: ["Username", "description", "id"],
@@ -30,20 +22,10 @@
     const response = await fetch(`/api/secrets/${data.detail[4]}`);
     const { secret } = await response.json();
     selectedSecret.set(secret);
-    drawerStore.open(drawerSettings);
-  }
-  $: {
-    console.log("ACTIVE TAB", $activeTab);
+    drawerStore.open(getSecretsDrawer);
+    console.log($drawerStore);
   }
 </script>
-
-<Drawer class="p-24 top-14">
-  {#if $drawerStore.id === "secrets"}
-    <DrawerComponent />
-  {:else if $drawerStore.id === "create-secret"}
-    <CreateSecret />
-  {/if}
-</Drawer>
 
 <div class="content-container flex flex-col">
   <Table

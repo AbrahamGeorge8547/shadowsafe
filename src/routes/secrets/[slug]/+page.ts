@@ -14,7 +14,6 @@ export async function load({ params, fetch }) {
     userStore.set({});
     throw redirect(307, "/");
   }
-  console.log(data);
   paginationStore.update((state) => ({
     ...state,
     offset: slug - 1,

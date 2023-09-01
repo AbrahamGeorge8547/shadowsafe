@@ -12,7 +12,6 @@ export const login = async (user) => {
     },
   });
   if (response.status === 401) {
-    console.log("status");
     return {
       success: false,
       message: "incorrect username or password",

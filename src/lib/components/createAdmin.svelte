@@ -1,7 +1,8 @@
 <script>
   import { createEventDispatcher } from "svelte";
   import Icon from "@iconify/svelte";
-  import { drawerStore } from "@skeletonlabs/skeleton";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  const drawerStore = getDrawerStore();
   const dispatch = createEventDispatcher();
   let showPassword = false;
   let showConfirmPassword = false;

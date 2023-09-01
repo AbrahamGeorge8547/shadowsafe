@@ -1,6 +1,12 @@
 <script>
   import { goto } from "$app/navigation";
   import { activeTab } from "$lib/store";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import {
+    createSecretDrawerSettings,
+    createPeopleDrawerSettings,
+  } from "$lib/util/drawerSettings";
+  const drawerStore = getDrawerStore();
 
   const navigateTo = (tab) => {
     if (tab === "secrets") {
@@ -11,8 +17,6 @@
       goto("/people/1");
     }
   };
-
-  export let drawerFunc;
 </script>
 
 <div class="tabs p-4 ml-4">
@@ -31,14 +35,18 @@
   {#if $activeTab == "secrets"}
     <button
       class="btn variant-outline-secondary absolute right-40 ml-8"
-      on:click={drawerFunc}
+      on:click={() => {
+        drawerStore.open(createSecretDrawerSettings);
+      }}
     >
       Create Secret
     </button>
   {:else if $activeTab == "people"}
     <button
       class="btn variant-outline-secondary absolute right-40 ml-8"
-      on:click={drawerFunc}
+      on:click={() => {
+        drawerStore.open(createPeopleDrawerSettings);
+      }}
     >
       add People
     </button>
