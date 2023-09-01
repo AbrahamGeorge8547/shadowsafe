@@ -9,8 +9,6 @@
   function togglePasswordVisibility() {
     showPassword = !showPassword;
   }
-  import { toastStore } from "@skeletonlabs/skeleton";
-
   async function saveEdit() {
     const response = await fetch(`/api/secrets/${$selectedSecret.id}`, {
       method: "PUT",
@@ -48,7 +46,6 @@
         />
         <button
           use:clipboard={$selectedSecret.username}
-          on:click={() => toastStore.trigger({ message: "copy to clipboard" })}
           class="absolute right-2 top-1/2 transform -translate-y-1/2"
         >
           <Icon icon={copyIcon} />

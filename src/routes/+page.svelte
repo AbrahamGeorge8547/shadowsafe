@@ -1,15 +1,12 @@
-<!-- YOU CAN DELETE EVERYTHING IN THIS PAGE -->
-
 <script>
-  import { Toast, Drawer, drawerStore } from "@skeletonlabs/skeleton";
-  import { DrawerComponent } from "$lib/components";
   import { AdminCheck } from "$lib/components";
   import { userStore } from "$lib/store";
-  import "font-awesome/css/font-awesome.min.css";
 
+  import "font-awesome/css/font-awesome.min.css";
   import { goto } from "$app/navigation";
   import { onMount } from "svelte";
   import { get } from "svelte/store";
+
   onMount(() => {
     const user = get(userStore);
     if (user.email) {
@@ -33,7 +30,7 @@
       />
     </figure>
     <AdminCheck />
-    <Toast />
+
     <!-- / -->
   </div>
 </div>

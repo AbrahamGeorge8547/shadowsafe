@@ -9,9 +9,12 @@
   import { Paginator } from "@skeletonlabs/skeleton";
   import { Secrets } from "$lib/components";
   import { goto } from "$app/navigation";
-  import { drawerStore } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
   import { page } from "$app/stores";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { createSecretDrawerSettings } from "$lib/util/drawerSettings";
+
+  const drawerStore = getDrawerStore();
   export let data;
   async function handlePageChange(e) {
     const offset = e.detail;
@@ -40,24 +43,10 @@
     }));
     console.log($userStore.isAdmin);
   });
-  const drawerSettings = {
-    id: "create-secret",
-    bgDrawer: "bg-purple-900 text-white",
-    bgBackdrop:
-      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[200px] md:w-[320px]",
-    height: "h-[500px]",
-    padding: "p-10",
-    rounded: "rounded-xl",
-  };
-  function openCreateSecretDrawer() {
-    drawerStore.open(drawerSettings);
-  }
-  const drawerFunc = openCreateSecretDrawer;
 </script>
 
 <div class="p-4">
-  <Tabs {drawerFunc} />
+  <Tabs />
   <div class="p-4">
     <Secrets />
   </div>

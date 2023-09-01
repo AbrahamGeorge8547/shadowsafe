@@ -4,7 +4,6 @@ import { userStore } from "$lib/store/people.js";
 import { json, redirect } from "@sveltejs/kit";
 export async function GET(req) {
   const token = req.cookies.get("token");
-  console.log(token);
   if (!token) {
     return json({
       status: 401,

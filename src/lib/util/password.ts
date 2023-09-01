@@ -2,7 +2,6 @@ export default function passwordStrength(password: string) {
   if (typeof password !== "string") {
     throw new Error("Expected a string as password.");
   }
-  console.log(password);
   const lengthCriteria = password.length >= 8;
   const numberCriteria = /[0-9]/.test(password);
   const lowercaseCriteria = /[a-z]/.test(password);

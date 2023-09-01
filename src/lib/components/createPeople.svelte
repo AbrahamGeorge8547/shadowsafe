@@ -1,6 +1,9 @@
 <script>
-  import { drawerStore, InputChip } from "@skeletonlabs/skeleton";
+  import { InputChip } from "@skeletonlabs/skeleton";
   import { loadPeople } from "$lib/store";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+
+  const drawerStore = getDrawerStore();
 
   let username = "";
   let password = "";
