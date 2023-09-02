@@ -37,19 +37,6 @@
       // limit: e.detail,
     }));
   });
-  const drawerSettings = {
-    bgDrawer: "bg-purple-900 text-white",
-    bgBackdrop:
-      "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-    width: "w-[200px] md:w-[340px]",
-    height: "h-[460px]",
-    padding: "p-10",
-    rounded: "rounded-xl",
-  };
-  function openAddPeopleDrawer() {
-    drawerStore.open({ ...drawerSettings, id: "create-people" });
-  }
-  const drawerFunc = openAddPeopleDrawer;
 </script>
 
 <div class="p-4">

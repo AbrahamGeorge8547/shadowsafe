@@ -35,6 +35,7 @@ declare module '$env/static/private' {
 	export const npm_config_cache: string;
 	export const HISTCONTROL: string;
 	export const TERM_PROGRAM_VERSION: string;
+	export const fish_user_abbreviations: string;
 	export const NODE: string;
 	export const COLOR: string;
 	export const npm_config_local_prefix: string;
@@ -48,11 +49,11 @@ declare module '$env/static/private' {
 	export const QT_QPA_PLATFORMTHEME: string;
 	export const XDG_SESSION_TYPE: string;
 	export const npm_config_init_module: string;
-	export const _: string;
 	export const XAUTHORITY: string;
 	export const VSCODE_GIT_ASKPASS_NODE: string;
 	export const QT_STYLE_OVERRIDE: string;
 	export const MOTD_SHOWN: string;
+	export const VSCODE_INJECTION: string;
 	export const HOME: string;
 	export const LANG: string;
 	export const npm_package_version: string;
@@ -68,6 +69,7 @@ declare module '$env/static/private' {
 	export const npm_config_prefix: string;
 	export const USER: string;
 	export const VSCODE_GIT_IPC_HANDLE: string;
+	export const MANPAGER: string;
 	export const VISUAL: string;
 	export const DISPLAY: string;
 	export const npm_lifecycle_event: string;
@@ -91,10 +93,12 @@ declare module '$env/static/private' {
 	export const npm_config_node_gyp: string;
 	export const ORIGINAL_XDG_CURRENT_DESKTOP: string;
 	export const DBUS_SESSION_BUS_ADDRESS: string;
+	export const FZF_DEFAULT_OPTS: string;
 	export const npm_config_global_prefix: string;
 	export const MAIL: string;
 	export const npm_node_execpath: string;
 	export const TERM_PROGRAM: string;
+	export const _: string;
 	export const VITE_USER_NODE_ENV: string;
 }
 
@@ -134,6 +138,7 @@ declare module '$env/dynamic/private' {
 		npm_config_cache: string;
 		HISTCONTROL: string;
 		TERM_PROGRAM_VERSION: string;
+		fish_user_abbreviations: string;
 		NODE: string;
 		COLOR: string;
 		npm_config_local_prefix: string;
@@ -147,11 +152,11 @@ declare module '$env/dynamic/private' {
 		QT_QPA_PLATFORMTHEME: string;
 		XDG_SESSION_TYPE: string;
 		npm_config_init_module: string;
-		_: string;
 		XAUTHORITY: string;
 		VSCODE_GIT_ASKPASS_NODE: string;
 		QT_STYLE_OVERRIDE: string;
 		MOTD_SHOWN: string;
+		VSCODE_INJECTION: string;
 		HOME: string;
 		LANG: string;
 		npm_package_version: string;
@@ -167,6 +172,7 @@ declare module '$env/dynamic/private' {
 		npm_config_prefix: string;
 		USER: string;
 		VSCODE_GIT_IPC_HANDLE: string;
+		MANPAGER: string;
 		VISUAL: string;
 		DISPLAY: string;
 		npm_lifecycle_event: string;
@@ -190,10 +196,12 @@ declare module '$env/dynamic/private' {
 		npm_config_node_gyp: string;
 		ORIGINAL_XDG_CURRENT_DESKTOP: string;
 		DBUS_SESSION_BUS_ADDRESS: string;
+		FZF_DEFAULT_OPTS: string;
 		npm_config_global_prefix: string;
 		MAIL: string;
 		npm_node_execpath: string;
 		TERM_PROGRAM: string;
+		_: string;
 		VITE_USER_NODE_ENV: string;
 		[key: `PUBLIC_${string}`]: undefined;
 		[key: `${string}`]: string | undefined;

@@ -23,5 +23,6 @@
 	],
 	"/secrets/[slug]": [
 		"src/routes/secrets/[slug]/+page.ts"
-	]
+	],
+	"/vault": []
 }
