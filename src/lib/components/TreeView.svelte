@@ -4,15 +4,38 @@
 </script>
 
 <script>
-  import { selectedNodeChildren } from "$lib/store/ui";
+  import {
+    selectedNodeChildren,
+    navigationHistory,
+    currentParentNode,
+    breadCrumbs,
+    treeStore,
+  } from "$lib/store/ui";
+  import { findParentNodesById } from "$lib/util/index";
   export let tree;
-  let id, label, children;
+  let id, label, children, parentId;
   if (tree) {
-    ({ id, label, children } = tree);
+    ({ id, label, children, parentId } = tree);
   }
 
   let expanded = label ? _expansionState[label] : false;
+  const handleNodeClick = () => {
+    currentParentNode.set(label);
+    navigationHistory.update((history) => {
+      history.push({ id, label, children, parentId });
+      return history;
+    });
+    const parentNodes = findParentNodesById($treeStore, id);
+    breadCrumbs.set(parentNodes);
+    if (children) {
+      selectedNodeChildren.set(children);
+    } else {
+      console.log(`Leaf node clicked with ID: ${id}`);
+      selectedNodeChildren.set([]);
+    }
 
+    toggleExpansion();
+  };
   const toggleExpansion = () => {
     if (label) {
       expanded = _expansionState[label] = !expanded;
@@ -28,20 +51,6 @@
         children: child.children,
       };
     });
-  };
-
-  const handleNodeClick = () => {
-    expanded = !expanded;
-    if (id !== undefined) {
-      console.log(`Clicked node with ID: ${id}`);
-    }
-    if (children) {
-      const childData = logChildren(tree);
-      selectedNodeChildren.set(childData);
-      console.log("Children Data: ", childData);
-    } else {
-      selectedNodeChildren.set([]);
-    }
   };
 </script>
 

@@ -1,40 +1,46 @@
 <script>
   import { TreeView, FoldersView } from "$lib/components";
-
+  import { treeStore } from "$lib/store/ui";
+  import { BreadCrumbs } from "$lib/components";
   const tree = {
-    id: "root",
+    id: 1,
     label: "USA",
     children: [
       {
-        id: "florida",
+        id: 2,
+        parentId: 1,
         label: "Florida",
         children: [
-          { id: "jacksonville", label: "Jacksonville" },
+          { id: 3, parentId: 2, label: "Jacksonville" },
           {
-            id: "orlando",
+            id: 4,
             label: "Orlando",
+            parentId: 2,
             children: [
-              { id: "disney-world", label: "Disney World" },
-              { id: "universal-studio", label: "Universal Studio" },
-              { id: "sea-world", label: "Sea World" },
+              { id: 6, parentId: 4, label: "Disney World" },
+              { id: 8, parentId: 4, label: "Universal Studio" },
+              { id: 7, parentId: 4, label: "Sea World" },
             ],
           },
-          { id: "miami", label: "Miami" },
+          { id: 5, parentId: 2, label: "Miami" },
         ],
       },
       {
-        id: "california",
+        parentId: 1,
+        id: 9,
         label: "California",
         children: [
-          { id: "san-francisco", label: "San Francisco" },
-          { id: "los-angeles", label: "Los Angeles" },
-          { id: "sacramento", label: "Sacramento" },
+          { id: 10, parentId: 9, label: "San Francisco" },
+          { id: 11, parentId: 9, label: "Los Angeles" },
+          { id: 12, parentId: 9, label: "Sacramento" },
         ],
       },
     ],
   };
+  treeStore.set(tree);
 </script>
 
+<BreadCrumbs />
 <div class="app-container flex">
   <div class="tree-container border-r-2 border-gray-300 ml-4">
     <TreeView {tree} />

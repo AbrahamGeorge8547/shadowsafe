@@ -10,6 +10,7 @@ import Login from "./Login.svelte";
 import CreateAdmin from "./createAdmin.svelte";
 import TreeView from "./TreeView.svelte";
 import FoldersView from "./FoldersView.svelte";
+import BreadCrumbs from "./BreadCrumbs.svelte";
 
 export {
   Table,
@@ -24,4 +25,5 @@ export {
   CreateAdmin,
   TreeView,
   FoldersView,
+  BreadCrumbs,
 };
