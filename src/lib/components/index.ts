@@ -11,6 +11,8 @@ import CreateAdmin from "./createAdmin.svelte";
 import TreeView from "./TreeView.svelte";
 import FoldersView from "./FoldersView.svelte";
 import BreadCrumbs from "./BreadCrumbs.svelte";
+import SecretsCard from "./secretsCard.svelte";
+import NewFolder from "./NewFolder.svelte";
 
 export {
   Table,
@@ -26,4 +28,6 @@ export {
   TreeView,
   FoldersView,
   BreadCrumbs,
+  SecretsCard,
+  NewFolder,
 };

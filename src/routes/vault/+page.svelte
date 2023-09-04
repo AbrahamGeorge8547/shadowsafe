@@ -6,8 +6,9 @@
     expandedNodes,
     selectedNodeChildren,
     breadCrumbs,
+    currentParentNode,
   } from "$lib/store/ui";
-  import { BreadCrumbs } from "$lib/components";
+  import { BreadCrumbs, SecretsCard } from "$lib/components";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   const tree = {
@@ -53,11 +54,13 @@
       if (lastNode) {
         const node = findNodeById($treeStore, lastNode.parentId);
         const parents = findParentNodesById($treeStore, lastNode.parentId);
+        currentParentNode.set(node.id);
         expandedNodes.update((nodes) => {
           nodes.add(lastNode.id);
           return new Set(nodes);
         });
         breadCrumbs.set(parents);
+
         // Update the selectedNodeChildren based on the parent of the lastNode
 
         selectedNodeChildren.set(node.children || []);
@@ -85,7 +88,7 @@
   <div
     class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-xl shadow-md p-8 ml-16"
   >
-    <TreeView {tree} />
+    <TreeView nodeId={$treeStore.id} />
   </div>
 
   <!-- FoldersView on the right -->
@@ -95,3 +98,5 @@
     </div>
   </div>
 </div>
+
+<SecretsCard />

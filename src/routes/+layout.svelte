@@ -10,6 +10,7 @@
     ViewSecret,
     CreateSecret,
     CreatePeople,
+    NewFolder,
   } from "$lib/components";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   initializeStores();
@@ -27,6 +28,8 @@
     <CreateSecret />
   {:else if $drawerStore.id === "create-people"}
     <CreatePeople />
+  {:else if $drawerStore.id === "newFolder"}
+    <NewFolder />
   {/if}
 </Drawer>
 <Toast />

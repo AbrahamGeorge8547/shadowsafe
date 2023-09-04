@@ -10,6 +10,7 @@
   const handleClick = (node) => {
     selectedNodeChildren.set(node.children || []);
     const parentNodes = findParentNodesById($treeStore, node.id);
+    currentParentNode.set(node.id);
     breadCrumbs.set(parentNodes);
     // Function to handle breadcrumb clicks.
     // You'll set the current folder and refresh the breadcrumbs here.

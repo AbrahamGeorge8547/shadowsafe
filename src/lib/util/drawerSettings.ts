@@ -53,3 +53,14 @@ export const getSecretsDrawer = {
   padding: "p-10",
   rounded: "rounded-xl",
 };
+
+export const createNewFolder = {
+  id: "newFolder",
+  bgDrawer: "bg-purple-900 text-white",
+  bgBackdrop:
+    "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+  width: "w-[100px] md:w-[240px]",
+  height: "h-[120px]",
+  padding: "p-10",
+  rounded: "rounded-xl",
+};

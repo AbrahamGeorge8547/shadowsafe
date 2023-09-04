@@ -12,11 +12,15 @@
     treeStore,
     expandedNodes,
   } from "$lib/store/ui";
-  import { findParentNodesById } from "$lib/util/index";
-  export let tree;
+  import { findNodeById, findParentNodesById } from "$lib/util/index";
+  export let nodeId;
+  let tree;
   let id, label, children, parentId;
-  if (tree) {
-    ({ id, label, children, parentId } = tree);
+  $: if (nodeId) {
+    tree = findNodeById($treeStore, nodeId);
+    if (tree) {
+      ({ id, label, children, parentId } = tree);
+    }
   }
   let isExpanded = false;
 
@@ -36,7 +40,7 @@
     expandedNodes.subscribe((nodes) => {
       isExpanded = nodes.has(id);
     });
-    currentParentNode.set(label);
+    currentParentNode.set(id);
     navigationHistory.update((history) => {
       history.push({ id, label, children, parentId });
       return history;
@@ -85,7 +89,7 @@
     </span>
     {#if isExpanded && children}
       {#each children as child}
-        <svelte:self tree={child} />
+        <svelte:self nodeId={child.id} />
       {/each}
     {/if}
   </li>
