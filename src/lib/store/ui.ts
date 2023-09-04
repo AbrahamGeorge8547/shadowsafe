@@ -7,3 +7,4 @@ export const navigationHistory = writable([]);
 export const currentParentNode = writable(null);
 export const treeStore = writable({});
 export const breadCrumbs = writable([]);
+export const expandedNodes = writable(new Set());

@@ -17,15 +17,16 @@
 </script>
 
 <div>
-  {#each $breadCrumbs as node, index (node.id)}
-    <span
-      class="cursor-pointer text-blue-600"
-      on:click={() => handleClick(node)}
-    >
-      {node.label}
-    </span>
-    {#if index < $breadCrumbs.length - 1}
-      <span class="mx-2">/</span>
-    {/if}
-  {/each}
+  <ol class="breadcrumb">
+    {#each $breadCrumbs as node, index (node.id)}
+      <li class="crumb">
+        <span class="anchor cursor-pointer" on:click={() => handleClick(node)}>
+          {node.label}
+        </span>
+      </li>
+      {#if index < $breadCrumbs.length - 1}
+        <li class="crumb-separator" aria-hidden>&rsaquo;</li>
+      {/if}
+    {/each}
+  </ol>
 </div>

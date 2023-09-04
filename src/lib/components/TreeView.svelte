@@ -10,6 +10,7 @@
     currentParentNode,
     breadCrumbs,
     treeStore,
+    expandedNodes,
   } from "$lib/store/ui";
   import { findParentNodesById } from "$lib/util/index";
   export let tree;
@@ -17,9 +18,24 @@
   if (tree) {
     ({ id, label, children, parentId } = tree);
   }
+  let isExpanded = false;
 
   let expanded = label ? _expansionState[label] : false;
   const handleNodeClick = () => {
+    expandedNodes.update((nodes) => {
+      if (nodes.has(id)) {
+        nodes.delete(id);
+        isExpanded = false;
+      } else {
+        nodes.add(id);
+        isExpanded = true;
+      }
+      return new Set(nodes);
+    });
+
+    expandedNodes.subscribe((nodes) => {
+      isExpanded = nodes.has(id);
+    });
     currentParentNode.set(label);
     navigationHistory.update((history) => {
       history.push({ id, label, children, parentId });
@@ -54,17 +70,20 @@
   };
 </script>
 
-<ul class="pl-1">
-  <li>
-    <span on:click={handleNodeClick} class="flex items-center">
+<ul class="ml-2">
+  <li class="mb-2 mt-2">
+    <span
+      on:click={handleNodeClick}
+      class="flex items-center card-hover text-lg btn-sm"
+    >
       {#if expanded}
-        <Icon icon="twemoji:file-folder" class="mr-2" />
+        <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
       {:else}
-        <Icon icon="twemoji:file-folder" class="mr-2" />
+        <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
       {/if}
       <span>{label}</span>
     </span>
-    {#if expanded && children}
+    {#if isExpanded && children}
       {#each children as child}
         <svelte:self tree={child} />
       {/each}

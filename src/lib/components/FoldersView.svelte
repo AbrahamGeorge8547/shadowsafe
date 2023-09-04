@@ -3,9 +3,13 @@
     selectedNodeChildren,
     navigationHistory,
     currentParentNode,
+    expandedNodes,
   } from "$lib/store/ui";
+  import Icon from "@iconify/svelte";
   import { findNodeById, findParentNodesById } from "$lib/util";
+
   import { treeStore, breadCrumbs } from "$lib/store/ui";
+  import { onMount } from "svelte";
 
   const handleFolderClick = (folder) => {
     console.log(`Clicked folder with ID: ${folder.id}, Label: ${folder.label}`);
@@ -14,45 +18,39 @@
       history.push(folder);
       return [...history];
     });
-    const parentNodes = findParentNodesById($treeStore, folder.id);
+    const parentNodes = findParentNodesById($treeStore, folder.id) || [];
+    expandedNodes.update((currentSet) => {
+      currentSet.add(folder.id);
+      for (const parent of parentNodes) {
+        currentSet.add(parent.id);
+      }
+      return currentSet;
+    });
     breadCrumbs.set(parentNodes);
     selectedNodeChildren.set(folder.children || []);
   };
-
-  const goBack = () => {
-    navigationHistory.update((history) => {
-      // Remove the last node from the history
-      const lastNode = history.pop();
-
-      const node = findNodeById($treeStore, lastNode.parentId);
-      currentParentNode.set(node.label);
-      // Update the selectedNodeChildren based on the parent of the lastNode
-      if (lastNode) {
-        selectedNodeChildren.set(node.children || []);
-      }
-
-      return history;
-    });
-  };
+  onMount(() => {
+    const startNode = findNodeById($treeStore, 1);
+    selectedNodeChildren.set(startNode.children);
+    breadCrumbs.set([startNode]);
+  });
 </script>
 
-<div class="p-4">
-  {#if $navigationHistory.length > 1}
-    <button class="text-xl font-semibold mb-4 cursor-pointer" on:click={goBack}
-      >Back</button
-    >
-  {/if}
-
-  <h2 class="text-2xl font-semibold mb-4">
-    {$currentParentNode ? $currentParentNode : "Root"}
-  </h2>
-
+<input
+  type="search"
+  class="rounded-2xl variant-filled-surface ml-14"
+  placeholder="search..."
+/>
+<div class="p-4 grid grid-cols-8">
   {#each $selectedNodeChildren as folder}
-    <span
-      class="text-lg card card-hover p-4 ml-8 cursor-pointer"
+    <div
+      class="text-center cursor-pointer transform transition-transform duration-200 hover:scale-110"
       on:click={() => handleFolderClick(folder)}
     >
-      {folder.label}
-    </span>
+      <Icon icon="twemoji:file-folder" class="text-6xl m-auto" />
+      <!-- Larger icon -->
+      <span class="block mt-1 text-lg">{folder.label}</span>
+      <!-- Reduced margin between label and icon, Larger label text -->
+    </div>
   {/each}
 </div>
