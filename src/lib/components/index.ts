@@ -13,6 +13,7 @@ import FoldersView from "./FoldersView.svelte";
 import BreadCrumbs from "./BreadCrumbs.svelte";
 import SecretsCard from "./secretsCard.svelte";
 import NewFolder from "./NewFolder.svelte";
+import AddSecret from "./AddSecret.svelte";
 
 export {
   Table,
@@ -30,4 +31,5 @@ export {
   BreadCrumbs,
   SecretsCard,
   NewFolder,
+  AddSecret,
 };

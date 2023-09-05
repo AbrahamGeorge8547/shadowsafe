@@ -2,6 +2,7 @@
   import { SlideToggle } from "@skeletonlabs/skeleton";
   import { secretFields } from "$lib/store/ui";
   import { popup } from "@skeletonlabs/skeleton";
+  import { onMount } from "svelte";
   let newField = { fieldName: "", fieldValue: "", sensitive: false };
 
   const addField = () => {
@@ -21,6 +22,9 @@
     target: "popupHover",
     placement: "top",
   };
+  onMount(() => {
+    console.log("Mounting...");
+  });
 </script>
 
 <div>
