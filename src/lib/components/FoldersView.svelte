@@ -7,7 +7,10 @@
   } from "$lib/store/ui";
   import Icon from "@iconify/svelte";
   import { findNodeById, findParentNodesById } from "$lib/util";
-  import { createNewFolder } from "$lib/util/drawerSettings";
+  import {
+    createNewFolder,
+    createSecretDrawerSettings,
+  } from "$lib/util/drawerSettings";
   import { treeStore, breadCrumbs } from "$lib/store/ui";
   import { onMount } from "svelte";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
@@ -39,6 +42,10 @@
   function addNewFolder() {
     drawerStore.open(createNewFolder);
   }
+
+  const createSecret = async () => {
+    drawerStore.open(createSecretDrawerSettings);
+  };
 </script>
 
 <input
@@ -46,6 +53,9 @@
   class="rounded-2xl variant-filled-surface ml-14"
   placeholder="search..."
 />
+
+<button class="btn-md variant-filled" on:click={createSecret}>Add Secret</button
+>
 <div class="p-4 grid grid-cols-8">
   {#each $selectedNodeChildren as folder}
     <div

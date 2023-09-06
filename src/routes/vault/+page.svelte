@@ -83,6 +83,7 @@
     <BreadCrumbs />
   </div>
 </div>
+
 <div class="app-container flex">
   <!-- TreeView on the left -->
   <div
@@ -98,5 +99,3 @@
     </div>
   </div>
 </div>
-
-<SecretsCard />
