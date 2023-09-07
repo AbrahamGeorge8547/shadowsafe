@@ -22,7 +22,11 @@ const config = {
     forms,
     skeleton({
       themes: {
-        preset: ["crimson", "wintry", "skeleton"],
+        preset: [
+          { name: "crimson", enhancements: true },
+          { name: "wintry", enhancements: true },
+          { name: "skeleton", enhancements: true },
+        ],
       },
     }),
   ],

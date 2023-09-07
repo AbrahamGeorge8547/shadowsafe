@@ -18,11 +18,13 @@
 	"/api/secrets/[secretId]": [
 		"src/routes/api/secrets/[secretId]/+server.ts"
 	],
+	"/layout-test": [],
 	"/people/[slug]": [
 		"src/routes/people/[slug]/+page.ts"
 	],
 	"/secrets/[slug]": [
 		"src/routes/secrets/[slug]/+page.ts"
 	],
-	"/vault": []
+	"/vault/people": [],
+	"/vault/secrets": []
 }
