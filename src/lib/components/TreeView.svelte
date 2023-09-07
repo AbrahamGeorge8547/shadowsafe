@@ -13,6 +13,7 @@
     expandedNodes,
   } from "$lib/store/ui";
   import { findNodeById, findParentNodesById } from "$lib/util/index";
+  import { fade } from "svelte/transition";
   export let nodeId;
   let tree;
   let id, label, children, parentId;
@@ -74,23 +75,25 @@
   };
 </script>
 
-<ul class="ml-2">
-  <li class="mb-2 mt-2">
-    <span
-      on:click={handleNodeClick}
-      class="flex items-center card-hover text-lg btn-sm"
-    >
-      {#if expanded}
-        <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
-      {:else}
-        <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
+<div transition:fade>
+  <ul class="ml-2">
+    <li class="mb-2 mt-2">
+      <span
+        on:click={handleNodeClick}
+        class="flex items-center card-hover text-lg btn-sm"
+      >
+        {#if expanded}
+          <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
+        {:else}
+          <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
+        {/if}
+        <span>{label}</span>
+      </span>
+      {#if isExpanded && children}
+        {#each children as child}
+          <svelte:self nodeId={child.id} />
+        {/each}
       {/if}
-      <span>{label}</span>
-    </span>
-    {#if isExpanded && children}
-      {#each children as child}
-        <svelte:self nodeId={child.id} />
-      {/each}
-    {/if}
-  </li>
-</ul>
+    </li>
+  </ul>
+</div>

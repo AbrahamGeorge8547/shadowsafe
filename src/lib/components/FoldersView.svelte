@@ -5,6 +5,7 @@
     currentParentNode,
     expandedNodes,
   } from "$lib/store/ui";
+  import { fade } from "svelte/transition";
   import Icon from "@iconify/svelte";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import {
@@ -54,11 +55,13 @@
   placeholder="search..."
 />
 
-<button class="btn-md variant-filled" on:click={createSecret}>Add Secret</button
+<button class="btn variant-filled-secondary" on:click={createSecret}
+  >Add Secret</button
 >
 <div class="p-4 grid grid-cols-8">
   {#each $selectedNodeChildren as folder}
     <div
+      transition:fade
       class="text-center cursor-pointer transform transition-transform duration-200 hover:scale-110"
       on:click={() => handleFolderClick(folder)}
     >

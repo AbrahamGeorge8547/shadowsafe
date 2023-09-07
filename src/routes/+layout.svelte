@@ -29,7 +29,7 @@
   const drawerStore = getDrawerStore();
 </script>
 
-<Drawer class="p-24 top-14">
+<Drawer class="top-14">
   {#if $drawerStore.id === "login"}
     <Login />
   {:else if $drawerStore.id === "create-admin"}

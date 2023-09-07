@@ -3,9 +3,11 @@
   import { secretFields } from "$lib/store/ui";
   import { popup } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
-  let newField = { fieldName: "", fieldValue: "", sensitive: false };
-
+  import { fade } from "svelte/transition";
+  import Icon from "@iconify/svelte";
+  let description = "";
   const addField = () => {
+    let newField = { fieldName: "", fieldValue: "", sensitive: false };
     secretFields.update((fields) => {
       return [...fields, newField];
     });
@@ -14,8 +16,12 @@
   const removeField = (index) => {
     secretFields.update((fields) => {
       fields.splice(index, 1);
-      return fields;
+      return [...fields];
     });
+  };
+
+  const saveSecret = () => {
+    console.log(JSON.stringify($secretFields));
   };
   let popupHover = {
     event: "hover",
@@ -23,53 +29,63 @@
     placement: "top",
   };
   onMount(() => {
-    console.log("Mounting...");
+    secretFields.set([
+      { fieldName: "", fieldValue: "", sensitive: false },
+      { fieldName: "", fieldValue: "", sensitive: false },
+    ]);
   });
 </script>
 
 <div>
   {#each $secretFields as field, index}
     <div
-      class="field-container card-hover p-4 rounded-md shadow hover:shadow-lg transition"
+      class="field-container card-hover p-4 rounded-md shadow hover:shadow-lg transition relative mt-4 mb-4"
     >
-      <div class="flex items-start justify-between">
-        <div class="flex flex-col">
-          <label class="label mb-2" for={`key-${index}`}>Field Name:</label>
-          <input
-            class="input mb-4"
-            id={`key-${index}`}
-            type="text"
-            bind:value={field.key}
+      <button
+        class="absolute top-0 right-0 p-2"
+        on:click={() => removeField(index)}
+      >
+        <Icon icon="emojione:cross-mark-button" />
+      </button>
+      <div transition:fade class="flex items-center justify-between mt-4">
+        <input
+          class="input flex-grow mr-2"
+          id={`key-${index}`}
+          type="text"
+          placeholder="Field Name"
+          bind:value={field.fieldName}
+        />
+        <input
+          class="input flex-grow mr-2"
+          id={`value-${index}`}
+          type="text"
+          placeholder="Field Value"
+          bind:value={field.fieldValue}
+        />
+        <div use:popup={popupHover}>
+          <SlideToggle
+            class="self-center ml-4"
+            name="slide"
+            bind:checked={field.sensitive}
           />
-          <label class="label mb-2" for={`value-${index}`}>Field Value:</label>
-          <div class="flex justify-between mt-4">
-            <input
-              class="input"
-              id={`value-${index}`}
-              type="text"
-              bind:value={field.value}
-            />
-            <div use:popup={popupHover}>
-              <SlideToggle
-                class="self-center ml-4"
-                name="slide"
-                bind:checked={field.sensitive}
-              />
-            </div>
-          </div>
         </div>
       </div>
-      <button
-        class="btn btn-outline-secondary mt-4"
-        on:click={() => removeField(index)}>Remove</button
-      >
     </div>
   {/each}
-  <div class="flex justify-between mt-4">
-    <button class="btn btn-outline-primary" on:click={addField}
+  <label class="label m-4 card-hover"
+    >Description: <textarea
+      class="textarea"
+      rows="2"
+      bind:value={description}
+    /></label
+  >
+  <div class="flex justify-end mt-4 mr-4">
+    <button class="btn variant-filled-secondary ml-2" on:click={addField}
       >Add Field</button
     >
-    <button class="btn btn-outline-success">Save All</button>
+    <button class="btn variant-outline-secondary ml-2" on:click={saveSecret}
+      >Save All</button
+    >
   </div>
 </div>
 

@@ -26,8 +26,8 @@ export const createSecretDrawerSettings = {
   bgDrawer: "bg-purple-900 text-white",
   bgBackdrop:
     "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
-  width: "w-[200px] md:w-[320px]",
-  height: "h-[500px]",
+  width: "w-[400px] md:w-[640px]",
+  height: "h-[600px]",
   padding: "p-10",
   rounded: "rounded-xl",
 };
@@ -63,4 +63,5 @@ export const createNewFolder = {
   height: "h-[120px]",
   padding: "p-10",
   rounded: "rounded-xl",
+  position: "right",
 };

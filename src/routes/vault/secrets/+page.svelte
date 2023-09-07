@@ -1,5 +1,6 @@
 <script>
   import { TreeView, FoldersView } from "$lib/components";
+  import { fade } from "svelte/transition";
   import {
     treeStore,
     navigationHistory,
@@ -96,6 +97,7 @@
   <div class="flex flex-col flex-grow">
     <div class="folders-area flex-grow">
       <FoldersView />
+      <SecretsCard />
     </div>
   </div>
 </div>

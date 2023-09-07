@@ -1,75 +1,154 @@
 <script>
-  import { SlideToggle } from "@skeletonlabs/skeleton";
-  import { secretFields } from "$lib/store/ui";
-  import { popup } from "@skeletonlabs/skeleton";
-  let newField = { fieldName: "", fieldValue: "", sensitive: false };
+  import Icon from "@iconify/svelte";
+  import { clipboard } from "@skeletonlabs/skeleton";
+  import { fade } from "svelte/transition";
+  import { getToastStore } from "@skeletonlabs/skeleton";
 
-  const addField = () => {
-    secretFields.update((fields) => {
-      return [...fields, newField];
-    });
+  const toastStore = getToastStore();
+  const secretsArray = [
+    {
+      fields: [
+        {
+          fieldName: "username",
+          fieldValue: "john.doe@gmail.com",
+          sensitive: false,
+        },
+        {
+          fieldName: "password",
+          fieldValue: "password123",
+          sensitive: true,
+        },
+      ],
+      description: "This is the first secret",
+      id: "id1",
+    },
+    {
+      fields: [
+        {
+          fieldName: "API Key",
+          fieldValue: "akjsdhaksjdh123",
+          sensitive: true,
+        },
+      ],
+      description: "This is the second secret",
+      id: "id2",
+    },
+    {
+      fields: [
+        {
+          fieldName: "username",
+          fieldValue: "emily_smith@gmail.com",
+          sensitive: false,
+        },
+        {
+          fieldName: "password",
+          fieldValue: "password456",
+          sensitive: true,
+        },
+        {
+          fieldName: "2FA Token",
+          fieldValue: "twoFactorAuthToken",
+          sensitive: true,
+        },
+      ],
+      description: "This is the third secret",
+      id: "id3",
+    },
+    {
+      fields: [
+        {
+          fieldName: "DB Connection String",
+          fieldValue: "mongodb://localhost:27017",
+          sensitive: false,
+        },
+        {
+          fieldName: "DB User",
+          fieldValue: "dbUser",
+          sensitive: false,
+        },
+        {
+          fieldName: "DB Password",
+          fieldValue: "dbPassword",
+          sensitive: true,
+        },
+      ],
+      description: "This is the fourth secret",
+      id: "id4",
+    },
+  ];
+
+  let showCard = {};
+  let hoveredCard;
+  const toggleCard = (id) => {
+    showCard = { ...showCard, [id]: !showCard[id] };
+    hoveredCard = hoveredCard === id ? null : id;
   };
 
-  const removeField = (index) => {
-    secretFields.update((fields) => {
-      fields.splice(index, 1);
-      return fields;
-    });
-  };
-  let popupHover = {
-    event: "hover",
-    target: "popupHover",
-    placement: "top",
+  let showSensitive = {};
+
+  const toggleVisibility = (id, index) => {
+    showSensitive = {
+      ...showSensitive,
+      [`${id}_${index}`]: !showSensitive[`${id}_${index}`],
+    };
   };
 </script>
 
-<div>
-  {#each $secretFields as field, index}
-    <div
-      class="field-container card-hover p-4 rounded-md shadow hover:shadow-lg transition"
-    >
-      <div class="flex items-start justify-between">
-        <div class="flex flex-col">
-          <label class="label mb-2" for={`key-${index}`}>Field Name:</label>
-          <input
-            class="input mb-4"
-            id={`key-${index}`}
-            type="text"
-            bind:value={field.key}
-          />
-          <label class="label mb-2" for={`value-${index}`}>Field Value:</label>
-          <div class="flex justify-between mt-4">
-            <input
-              class="input"
-              id={`value-${index}`}
-              type="text"
-              bind:value={field.value}
-            />
-            <div use:popup={popupHover}>
-              <SlideToggle
-                class="self-center ml-4"
-                name="slide"
-                bind:checked={field.sensitive}
-              />
+<div class="flex flex-wrap transition-all duration-500">
+  {#each secretsArray as secret}
+    <div class="w-1/3 px-2 mb-4">
+      <div
+        class="container mx-auto p-4 relative card card-hover max-w-xs rounded-lg group h-auto"
+        on:mouseenter={() => toggleCard(secret.id)}
+        on:mouseleave={() => toggleCard(secret.id)}
+      >
+        {#each secret.fields as field, index}
+          <div class="mb-4">
+            <div class="relative">
+              {#if field.sensitive && showCard[secret.id]}
+                <div transition:fade={{ duration: 400 }}>
+                  <label class="label block mb-2">{field.fieldName}</label>
+                  <input
+                    class="input pr-16"
+                    type={showSensitive[`${secret.id}_${index}`]
+                      ? "text"
+                      : "password"}
+                    value={showSensitive[`${secret.id}_${index}`]
+                      ? field.fieldValue
+                      : "****"}
+                  />
+                  <button
+                    on:click={() => toggleVisibility(secret.id, index)}
+                    class="right-10 absolute top-[calc(50%+10px)]"
+                  >
+                    <Icon icon="emojione:eye" />
+                  </button>
+                  <button
+                    use:clipboard={field.fieldValue}
+                    class="right-2 absolute top-[calc(50%+10px)]"
+                  >
+                    <Icon icon="solar:copy-bold-duotone" />
+                  </button>
+                </div>
+              {:else if !field.sensitive}
+                <label class="label block mb-2">{field.fieldName}</label>
+                <input
+                  class="input pr-10 w-full items-center"
+                  type="text"
+                  value={field.fieldValue}
+                />
+                <button
+                  use:clipboard={field.fieldValue}
+                  class="right-2 absolute top-[calc(50%+10px)]"
+                >
+                  <Icon icon="solar:copy-bold-duotone" />
+                </button>
+              {/if}
             </div>
           </div>
-        </div>
+        {/each}
+        <p class="mb-4">{secret.description}</p>
       </div>
-      <button
-        class="btn btn-outline-secondary mt-4"
-        on:click={() => removeField(index)}>Remove</button
-      >
     </div>
   {/each}
-  <div class="flex justify-between mt-4">
-    <button class="btn btn-outline-primary" on:click={addField}
-      >Add Field</button
-    >
-    <button class="btn btn-outline-success">Save All</button>
-  </div>
-</div>
-
-<div class="card p-4 variant-filled-secondary" data-popup="popupHover">
-  <p>toggle if sensitive</p>
-  <div class="arrow variant-filled-secondary" />
 </div>
