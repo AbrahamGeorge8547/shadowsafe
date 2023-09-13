@@ -1,6 +1,5 @@
 <script>
   import { TreeView, FoldersView } from "$lib/components";
-  import { fade } from "svelte/transition";
   import {
     treeStore,
     navigationHistory,
@@ -9,30 +8,25 @@
     breadCrumbs,
     currentParentNode,
   } from "$lib/store/ui";
+  import { peopleList } from "$lib/store";
   import { BreadCrumbs, SecretsCard } from "$lib/components";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
+  import { PeopleListView } from "$lib/components";
+  import People from "$lib/components/people.svelte";
   const tree = {
     id: 1,
-    label: "TEAMS",
+    label: "Groups",
     children: [
       {
         id: 2,
         parentId: 1,
-        label: "UAT",
+        label: "Team1",
         children: [
-          {
-            id: 3,
-            parentId: 2,
-            label: "DB",
-            children: [
-              { id: 23, parentId: 3, label: "READONLY" },
-              { id: 24, parentId: 3, label: "WRITE" },
-            ],
-          },
+          { id: 3, parentId: 2, label: "dev" },
           {
             id: 4,
-            label: "USERNAMES",
+            label: "testers",
             parentId: 2,
             children: [
               { id: 6, parentId: 4, label: "Admin" },
@@ -40,25 +34,17 @@
               { id: 7, parentId: 4, label: "spenders" },
             ],
           },
-          {
-            id: 5,
-            parentId: 2,
-            label: "KAFKA",
-            children: [
-              { id: 25, parentId: 5, label: "READONLY" },
-              { id: 26, parentId: 5, label: "WRITE" },
-            ],
-          },
+          { id: 5, parentId: 2, label: "qa" },
         ],
       },
       {
         parentId: 1,
         id: 9,
-        label: "STAGE",
+        label: "Team2",
         children: [
-          { id: 10, parentId: 9, label: "DB" },
-          { id: 11, parentId: 9, label: "USER NAMES" },
-          { id: 12, parentId: 9, label: "KAFKA" },
+          { id: 10, parentId: 9, label: "devs" },
+          { id: 11, parentId: 9, label: "testers" },
+          { id: 12, parentId: 9, label: "qa" },
         ],
       },
     ],
@@ -86,6 +72,22 @@
       return history;
     });
   };
+
+  function allowDrop(event) {
+    event.preventDefault();
+  }
+  function handleDrop(event) {
+    event.preventDefault();
+
+    const personData = event.dataTransfer.getData("person");
+    const person = JSON.parse(personData);
+    peopleList.update((people) => {
+      return [...people, person];
+    });
+    console.log($peopleList);
+    // Now `person` is available to be added to your folder or whatever structure you have
+    // console.log("Dropped:", person);
+  }
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
@@ -111,9 +113,24 @@
 
   <!-- FoldersView on the right -->
   <div class="flex flex-col flex-grow">
-    <div class="folders-area flex-grow">
-      <FoldersView />
-      <SecretsCard />
+    <div class="folders-area flex-grow flex">
+      <div
+        class="folders-area flex-grow border-4 border-dashed border-gray-300"
+        on:drop={handleDrop}
+        on:dragover={allowDrop}
+      >
+        <FoldersView />
+        <ul class="list">
+          {#each $peopleList as people}
+            <li class="card ml-2 p-4">
+              {people.username}
+            </li>
+          {/each}
+        </ul>
+      </div>
+      <div class="flex-grow">
+        <PeopleListView />
+      </div>
     </div>
   </div>
 </div>

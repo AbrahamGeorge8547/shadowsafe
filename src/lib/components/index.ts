@@ -14,6 +14,7 @@ import BreadCrumbs from "./BreadCrumbs.svelte";
 import SecretsCard from "./secretsCard.svelte";
 import NewFolder from "./NewFolder.svelte";
 import AddSecret from "./AddSecret.svelte";
+import PeopleListView from "./PeopleListView.svelte";
 
 export {
   Table,
@@ -32,4 +33,5 @@ export {
   SecretsCard,
   NewFolder,
   AddSecret,
+  PeopleListView,
 };

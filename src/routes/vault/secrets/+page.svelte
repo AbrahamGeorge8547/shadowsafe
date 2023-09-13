@@ -9,9 +9,12 @@
     breadCrumbs,
     currentParentNode,
   } from "$lib/store/ui";
+  import { createSecretDrawerSettings } from "$lib/util/drawerSettings";
   import { BreadCrumbs, SecretsCard } from "$lib/components";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  const drawerStore = getDrawerStore();
   const tree = {
     id: 1,
     label: "VAULT",
@@ -70,6 +73,9 @@
       return history;
     });
   };
+  const createSecret = async () => {
+    drawerStore.open(createSecretDrawerSettings);
+  };
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
@@ -84,7 +90,15 @@
     <BreadCrumbs />
   </div>
 </div>
+<input
+  type="search"
+  class="rounded-2xl variant-filled-surface ml-14"
+  placeholder="search..."
+/>
 
+<button class="btn variant-filled-secondary" on:click={createSecret}
+  >Add Secret</button
+>
 <div class="app-container flex">
   <!-- TreeView on the left -->
   <div

@@ -43,21 +43,8 @@
   function addNewFolder() {
     drawerStore.open(createNewFolder);
   }
-
-  const createSecret = async () => {
-    drawerStore.open(createSecretDrawerSettings);
-  };
 </script>
 
-<input
-  type="search"
-  class="rounded-2xl variant-filled-surface ml-14"
-  placeholder="search..."
-/>
-
-<button class="btn variant-filled-secondary" on:click={createSecret}
-  >Add Secret</button
->
 <div class="p-4 grid grid-cols-8">
   {#each $selectedNodeChildren as folder}
     <div
@@ -65,7 +52,7 @@
       class="text-center cursor-pointer transform transition-transform duration-200 hover:scale-110"
       on:click={() => handleFolderClick(folder)}
     >
-      <Icon icon="twemoji:file-folder" class="text-6xl m-auto" />
+      <Icon icon="material-symbols:group" class="text-6xl m-auto" />
       <!-- Larger icon -->
       <span class="block mt-1 text-lg">{folder.label}</span>
       <!-- Reduced margin between label and icon, Larger label text -->
