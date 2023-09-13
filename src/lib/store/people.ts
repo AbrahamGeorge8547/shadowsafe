@@ -17,4 +17,6 @@ export const loadPeople = async () => {
   const data = await response.json();
   peopleStore.set(data.body.people);
 };
+
+export const peopleList = writable([]);
 export const userStore = localStorageStore("user", {});
