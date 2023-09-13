@@ -173,11 +173,7 @@
 />
 <ul class="mt-4">
   {#each filteredPeoples as person}
-    <li
-      class="card m-4 p-4 card-hover m-auto"
-      draggable="true"
-      on:dragstart={(e) => handleDragStart(e, person)}
-    >
+    <li draggable="true" on:dragstart={(e) => handleDragStart(e, person)}>
       {person.username}
     </li>
   {/each}
