@@ -1,6 +1,6 @@
 <script>
-  import { TreeView, FoldersView } from "$lib/components";
-  import { fade } from "svelte/transition";
+  import { TreeView, FoldersView } from '$lib/components';
+  import { fade } from 'svelte/transition';
   import {
     treeStore,
     navigationHistory,
@@ -8,44 +8,45 @@
     selectedNodeChildren,
     breadCrumbs,
     currentParentNode,
-  } from "$lib/store/ui";
-  import { createSecretDrawerSettings } from "$lib/util/drawerSettings";
-  import { BreadCrumbs, SecretsCard } from "$lib/components";
-  import { findNodeById, findParentNodesById } from "$lib/util";
-  import Icon from "@iconify/svelte";
-  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  } from '$lib/store/ui';
+  import { createSecretDrawerSettings } from '$lib/util/drawerSettings';
+  import { BreadCrumbs, SecretsCard } from '$lib/components';
+  import { findNodeById, findParentNodesById } from '$lib/util';
+  import Icon from '@iconify/svelte';
+  import { getDrawerStore } from '@skeletonlabs/skeleton';
+  import Search from '../../../assets/search.svelte';
   const drawerStore = getDrawerStore();
   const tree = {
     id: 1,
-    label: "VAULT",
+    label: 'VAULT',
     children: [
       {
         id: 2,
         parentId: 1,
-        label: "UAT",
+        label: 'UAT',
         children: [
-          { id: 3, parentId: 2, label: "DB" },
+          { id: 3, parentId: 2, label: 'DB' },
           {
             id: 4,
-            label: "USERNAMES",
+            label: 'USERNAMES',
             parentId: 2,
             children: [
-              { id: 6, parentId: 4, label: "Admin" },
-              { id: 8, parentId: 4, label: "corporate-admin" },
-              { id: 7, parentId: 4, label: "spenders" },
+              { id: 6, parentId: 4, label: 'Admin' },
+              { id: 8, parentId: 4, label: 'corporate-admin' },
+              { id: 7, parentId: 4, label: 'spenders' },
             ],
           },
-          { id: 5, parentId: 2, label: "KAFKA" },
+          { id: 5, parentId: 2, label: 'KAFKA' },
         ],
       },
       {
         parentId: 1,
         id: 9,
-        label: "STAGE",
+        label: 'STAGE',
         children: [
-          { id: 10, parentId: 9, label: "DB" },
-          { id: 11, parentId: 9, label: "USER NAMES" },
-          { id: 12, parentId: 9, label: "KAFKA" },
+          { id: 10, parentId: 9, label: 'DB' },
+          { id: 11, parentId: 9, label: 'USER NAMES' },
+          { id: 12, parentId: 9, label: 'KAFKA' },
         ],
       },
     ],
@@ -79,26 +80,31 @@
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
-  <button
-    type="button"
-    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
-    on:click={goBack}
-  >
+  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
     <Icon icon="ep:back" />
   </button>
   <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
     <BreadCrumbs />
   </div>
 </div>
-<input
-  type="search"
-  class="rounded-2xl variant-filled-surface ml-14"
-  placeholder="search..."
-/>
+<div class="flex justify-end px-14">
+  <div class="flex rounded-md">
+    <input
+      type="search"
+      class="variant-filled-surface border-0 rounded-l-2xl"
+      placeholder="search..."
+      id="search-input"
+      on:change={(text) => {
+        console.log(text);
+      }}
+    />
+    <div class="flex items-center bg-[#495A8F] rounded-r-2xl pr-3">
+      <svelte:component this={Search} />
+    </div>
+  </div>
+  <!-- <button class="btn variant-filled-secondary" on:click={createSecret}>Add Secret</button> -->
+</div>
 
-<button class="btn variant-filled-secondary" on:click={createSecret}
-  >Add Secret</button
->
 <div class="app-container flex">
   <!-- TreeView on the left -->
   <div
@@ -115,3 +121,9 @@
     </div>
   </div>
 </div>
+
+<style>
+  #search-input:focus {
+    box-shadow: none;
+  }
+</style>
