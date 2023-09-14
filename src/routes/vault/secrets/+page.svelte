@@ -1,6 +1,5 @@
 <script>
-  import { TreeView, FoldersView } from '$lib/components';
-  import { fade } from 'svelte/transition';
+  import { TreeView } from '$lib/components';
   import {
     treeStore,
     navigationHistory,
@@ -9,13 +8,14 @@
     breadCrumbs,
     currentParentNode,
   } from '$lib/store/ui';
-  import { createSecretDrawerSettings } from '$lib/util/drawerSettings';
+  import { createNewFolder, createSecretDrawerSettings } from '$lib/util/drawerSettings';
   import { BreadCrumbs, SecretsCard } from '$lib/components';
   import { findNodeById, findParentNodesById } from '$lib/util';
   import Icon from '@iconify/svelte';
   import { getDrawerStore } from '@skeletonlabs/skeleton';
-  import Search from '../../../assets/search.svelte';
   const drawerStore = getDrawerStore();
+
+  let currentNode;
   const tree = {
     id: 1,
     label: 'VAULT',
@@ -52,6 +52,10 @@
     ],
   };
   treeStore.set(tree);
+  $: {
+    currentNode = findNodeById($treeStore, $currentParentNode);
+  }
+
   const goBack = () => {
     navigationHistory.update((history) => {
       // Remove the last node from the history
@@ -77,6 +81,10 @@
   const createSecret = async () => {
     drawerStore.open(createSecretDrawerSettings);
   };
+  const addNewFolder = async () => {
+    // @ts-ignore
+    drawerStore.open(createNewFolder);
+  };
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
@@ -87,36 +95,47 @@
     <BreadCrumbs />
   </div>
 </div>
-<div class="flex justify-end px-14">
+<div class="flex justify-end px-14 mb-4">
   <div class="flex rounded-md">
     <input
       type="search"
-      class="variant-filled-surface border-0 rounded-l-2xl"
+      class="variant-filled-surface border-0 rounded-l-lg"
       placeholder="search..."
       id="search-input"
       on:change={(text) => {
         console.log(text);
       }}
     />
-    <div class="flex items-center bg-[#495A8F] rounded-r-2xl pr-3">
-      <svelte:component this={Search} />
+    <div class="flex items-center bg-[#495A8F] rounded-r-lg pr-3">
+      <img src="/search.svg" alt="search-icon" />
     </div>
   </div>
-  <!-- <button class="btn variant-filled-secondary" on:click={createSecret}>Add Secret</button> -->
 </div>
 
 <div class="app-container flex">
   <!-- TreeView on the left -->
   <div
-    class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-xl shadow-md p-8 ml-16"
+    class="min-w-[250px] max-w-sm card-hover variant-ringed-tertiary rounded-xl shadow-md p-8 ml-16"
   >
     <TreeView nodeId={$treeStore.id} />
   </div>
 
   <!-- FoldersView on the right -->
-  <div class="flex flex-col flex-grow">
-    <div class="folders-area flex-grow">
-      <FoldersView />
+  <div class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-xl mx-8">
+    <div class="flex flex-row justify-between px-8 items-center py-6">
+      <div>
+        <h1>{`${currentNode ? currentNode.label : ''}`}</h1>
+      </div>
+      <div class="flex flex-row">
+        <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl" on:click={createSecret}
+          >Add Secret</button
+        >
+        <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
+          >Add Folder</button
+        >
+      </div>
+    </div>
+    <div class="folders-area py-4 border-t-2 rounded-t-xl border-[#235789]">
       <SecretsCard />
     </div>
   </div>
@@ -125,5 +144,9 @@
 <style>
   #search-input:focus {
     box-shadow: none;
+  }
+  h1 {
+    font-size: 24px;
+    font-weight: normal;
   }
 </style>
