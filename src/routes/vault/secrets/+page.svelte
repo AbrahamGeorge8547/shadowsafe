@@ -1,5 +1,5 @@
 <script>
-  import { TreeView } from "$lib/components";
+  import { TreeView } from '$lib/components';
   import {
     treeStore,
     navigationHistory,
@@ -7,49 +7,46 @@
     selectedNodeChildren,
     breadCrumbs,
     currentParentNode,
-  } from "$lib/store/ui";
-  import {
-    createNewFolder,
-    createSecretDrawerSettings,
-  } from "$lib/util/drawerSettings";
-  import { BreadCrumbs, SecretsCard } from "$lib/components";
-  import { findNodeById, findParentNodesById } from "$lib/util";
-  import Icon from "@iconify/svelte";
-  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  } from '$lib/store/ui';
+  import { createNewFolder, createSecretDrawerSettings } from '$lib/util/drawerSettings';
+  import { BreadCrumbs, SecretsCard } from '$lib/components';
+  import { findNodeById, findParentNodesById } from '$lib/util';
+  import Icon from '@iconify/svelte';
+  import { getDrawerStore } from '@skeletonlabs/skeleton';
   const drawerStore = getDrawerStore();
 
   let currentNode;
   const tree = {
     id: 1,
-    label: "VAULT",
+    label: 'VAULT',
     children: [
       {
         id: 2,
         parentId: 1,
-        label: "UAT",
+        label: 'UAT',
         children: [
-          { id: 3, parentId: 2, label: "DB" },
+          { id: 3, parentId: 2, label: 'DB' },
           {
             id: 4,
-            label: "USERNAMES",
+            label: 'USERNAMES',
             parentId: 2,
             children: [
-              { id: 6, parentId: 4, label: "Admin" },
-              { id: 8, parentId: 4, label: "corporate-admin" },
-              { id: 7, parentId: 4, label: "spenders" },
+              { id: 6, parentId: 4, label: 'Admin' },
+              { id: 8, parentId: 4, label: 'corporate-admin' },
+              { id: 7, parentId: 4, label: 'spenders' },
             ],
           },
-          { id: 5, parentId: 2, label: "KAFKA" },
+          { id: 5, parentId: 2, label: 'KAFKA' },
         ],
       },
       {
         parentId: 1,
         id: 9,
-        label: "STAGE",
+        label: 'STAGE',
         children: [
-          { id: 10, parentId: 9, label: "DB" },
-          { id: 11, parentId: 9, label: "USER NAMES" },
-          { id: 12, parentId: 9, label: "KAFKA" },
+          { id: 10, parentId: 9, label: 'DB' },
+          { id: 11, parentId: 9, label: 'USER NAMES' },
+          { id: 12, parentId: 9, label: 'KAFKA' },
         ],
       },
     ],
@@ -91,11 +88,7 @@
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
-  <button
-    type="button"
-    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
-    on:click={goBack}
-  >
+  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
     <Icon icon="ep:back" />
   </button>
   <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
@@ -107,7 +100,7 @@
     <input
       type="search"
       class="variant-filled-surface border-0 rounded-l-lg"
-      placeholder="search..."
+      placeholder="Search..."
       id="search-input"
       on:change={(text) => {
         console.log(text);
@@ -128,21 +121,17 @@
   </div>
 
   <!-- FoldersView on the right -->
-  <div
-    class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-xl mx-8"
-  >
+  <div class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-xl mx-8">
     <div class="flex flex-row justify-between px-8 items-center py-6">
       <div>
-        <h1>{`${currentNode ? currentNode.label : ""}`}</h1>
+        <h1>{`${currentNode ? currentNode.label : ''}`}</h1>
       </div>
       <div class="flex flex-row">
-        <button
-          class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl"
-          on:click={createSecret}>Add Secret</button
+        <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl" on:click={createSecret}
+          >Add Secret</button
         >
-        <button
-          class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
-          on:click={addNewFolder}>Add Folder</button
+        <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
+          >Add Folder</button
         >
       </div>
     </div>
