@@ -76,12 +76,27 @@
       id: "id4",
     },
   ];
-
+  let timeoutID;
   let showCard = {};
   let hoveredCard;
   const toggleCard = (id) => {
     showCard = { ...showCard, [id]: !showCard[id] };
     hoveredCard = hoveredCard === id ? null : id;
+  };
+  const handleMouseEnter = (id) => {
+    // Set up the timer
+    timeoutID = setTimeout(() => {
+      toggleCard(id);
+    }, 500);
+  };
+
+  const handleMouseLeave = (id) => {
+    // Clear the timer
+    clearTimeout(timeoutID);
+    if (showCard[id]) {
+      // if the card is currently shown (expanded)
+      toggleCard(id); // hide (collapse) it
+    }
   };
 
   let showSensitive = {};
@@ -99,8 +114,8 @@
     <div class="w-1/3 px-2 mb-4">
       <div
         class="container mx-auto p-4 relative card card-hover max-w-xs rounded-lg group h-auto"
-        on:mouseenter={() => toggleCard(secret.id)}
-        on:mouseleave={() => toggleCard(secret.id)}
+        on:mouseenter={() => handleMouseEnter(secret.id)}
+        on:mouseleave={() => handleMouseLeave(secret.id)}
       >
         {#each secret.fields as field, index}
           <div class="mb-4">
