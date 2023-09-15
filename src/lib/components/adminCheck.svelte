@@ -16,7 +16,7 @@
   onMount(async () => {
     const user = get(userStore);
     if (user.email) {
-      goto("/secrets/1");
+      goto("/vault/secrets");
     } else {
       const result = await fetch("/api/people/hasAdmin");
       await result.json();

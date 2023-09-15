@@ -10,6 +10,7 @@ import {
   peoplePaginationStore,
   loadPeople,
   userStore,
+  peopleList,
 } from "./people";
 import { activeTab, isEditing } from "./ui";
 
@@ -25,4 +26,5 @@ export {
   peoplePaginationStore,
   loadPeople,
   userStore,
+  peopleList,
 };

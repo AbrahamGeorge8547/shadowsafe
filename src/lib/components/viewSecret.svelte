@@ -48,7 +48,7 @@
           use:clipboard={$selectedSecret.username}
           class="absolute right-2 top-1/2 transform -translate-y-1/2"
         >
-          <Icon icon={copyIcon} />
+          <Icon icon="solar:copy-bold-duotone" />
         </button>
       </div>
     </label>
@@ -80,7 +80,7 @@
           use:clipboard={$selectedSecret.password}
           class="absolute right-2 top-1/2 transform -translate-y-1/2"
         >
-          <Icon icon={copyIcon} />
+          <Icon icon="solar:copy-bold-duotone" />
         </button>
       </div>
     </label>

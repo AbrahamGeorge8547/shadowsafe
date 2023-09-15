@@ -10,13 +10,26 @@
     ViewSecret,
     CreateSecret,
     CreatePeople,
+    NewFolder,
+    AddSecret,
   } from "$lib/components";
+  import {
+    computePosition,
+    autoUpdate,
+    offset,
+    shift,
+    flip,
+    arrow,
+  } from "@floating-ui/dom";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { storePopup } from "@skeletonlabs/skeleton";
+  storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
+
   initializeStores();
   const drawerStore = getDrawerStore();
 </script>
 
-<Drawer class="p-24 top-4">
+<Drawer class="top-14">
   {#if $drawerStore.id === "login"}
     <Login />
   {:else if $drawerStore.id === "create-admin"}
@@ -24,9 +37,11 @@
   {:else if $drawerStore.id === "secrets"}
     <ViewSecret />
   {:else if $drawerStore.id === "create-secret"}
-    <CreateSecret />
+    <AddSecret />
   {:else if $drawerStore.id === "create-people"}
     <CreatePeople />
+  {:else if $drawerStore.id === "newFolder"}
+    <NewFolder />
   {/if}
 </Drawer>
 <Toast />
