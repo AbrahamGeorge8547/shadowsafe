@@ -19,7 +19,7 @@
           sensitive: true,
         },
       ],
-      description: "This is the first secret",
+      description: "This is a username password secret",
       id: "id1",
     },
     {
@@ -30,29 +30,8 @@
           sensitive: true,
         },
       ],
-      description: "This is the second secret",
+      description: "This is an api key secret",
       id: "id2",
-    },
-    {
-      fields: [
-        {
-          fieldName: "username",
-          fieldValue: "emily_smith@gmail.com",
-          sensitive: false,
-        },
-        {
-          fieldName: "password",
-          fieldValue: "password456",
-          sensitive: true,
-        },
-        {
-          fieldName: "2FA Token",
-          fieldValue: "twoFactorAuthToken",
-          sensitive: true,
-        },
-      ],
-      description: "This is the third secret",
-      id: "id3",
     },
     {
       fields: [
@@ -72,9 +51,31 @@
           sensitive: true,
         },
       ],
-      description: "This is the fourth secret",
+      description: "This is a db secret",
       id: "id4",
     },
+    {
+      fields: [
+        {
+          fieldName: "username",
+          fieldValue: "emily_smith@gmail.com",
+          sensitive: false,
+        },
+        {
+          fieldName: "password",
+          fieldValue: "password456",
+          sensitive: true,
+        },
+        {
+          fieldName: "2FA Token",
+          fieldValue: "twoFactorAuthToken",
+          sensitive: true,
+        },
+      ],
+      description: "This is a 2fa secret",
+      id: "id3",
+    },
+    ,
   ];
   let timeoutID;
   let showCard = {};
