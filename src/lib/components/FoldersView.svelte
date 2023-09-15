@@ -4,18 +4,12 @@
     navigationHistory,
     currentParentNode,
     expandedNodes,
-  } from "$lib/store/ui";
-  import { fade } from "svelte/transition";
-  import Icon from "@iconify/svelte";
-  import { findNodeById, findParentNodesById } from "$lib/util";
-  import {
-    createNewFolder,
-    createSecretDrawerSettings,
-  } from "$lib/util/drawerSettings";
-  import { treeStore, breadCrumbs } from "$lib/store/ui";
-  import { onMount } from "svelte";
-  import { getDrawerStore } from "@skeletonlabs/skeleton";
-  const drawerStore = getDrawerStore();
+  } from '$lib/store/ui';
+  import { fade } from 'svelte/transition';
+  import Icon from '@iconify/svelte';
+  import { findNodeById, findParentNodesById } from '$lib/util';
+  import { treeStore, breadCrumbs } from '$lib/store/ui';
+  import { onMount } from 'svelte';
   const handleFolderClick = (folder) => {
     console.log(`Clicked folder with ID: ${folder.id}, Label: ${folder.label}`);
     navigationHistory.update((history) => {
@@ -40,9 +34,6 @@
     breadCrumbs.set([startNode]);
     currentParentNode.set(startNode.id);
   });
-  function addNewFolder() {
-    drawerStore.open(createNewFolder);
-  }
 </script>
 
 <div class="p-4 grid grid-cols-8">
@@ -58,12 +49,4 @@
       <!-- Reduced margin between label and icon, Larger label text -->
     </div>
   {/each}
-</div>
-<div class="fixed bottom-0 right-0 p-4">
-  <button
-    on:click={addNewFolder}
-    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
-  >
-    <Icon icon="codicon:new-folder" />
-  </button>
 </div>
