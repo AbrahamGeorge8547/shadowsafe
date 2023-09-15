@@ -10,7 +10,7 @@
   onMount(() => {
     const user = get(userStore);
     if (user.email) {
-      goto("/secrets/1");
+      goto("/vault/secrets");
     }
   });
 </script>
