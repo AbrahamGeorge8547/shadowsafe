@@ -1,5 +1,5 @@
 <script>
-  import { TreeView } from '$lib/components';
+  import { TreeView } from "$lib/components";
   import {
     treeStore,
     navigationHistory,
@@ -7,46 +7,50 @@
     selectedNodeChildren,
     breadCrumbs,
     currentParentNode,
-  } from '$lib/store/ui';
-  import { createNewFolder, createSecretDrawerSettings } from '$lib/util/drawerSettings';
-  import { BreadCrumbs, SecretsCard } from '$lib/components';
-  import { findNodeById, findParentNodesById } from '$lib/util';
-  import Icon from '@iconify/svelte';
-  import { getDrawerStore } from '@skeletonlabs/skeleton';
+  } from "$lib/store/ui";
+  import { groupList } from "$lib/store/people";
+  import {
+    createNewFolder,
+    createSecretDrawerSettings,
+  } from "$lib/util/drawerSettings";
+  import { BreadCrumbs, SecretsCard, GroupListView } from "$lib/components";
+  import { findNodeById, findParentNodesById } from "$lib/util";
+  import Icon from "@iconify/svelte";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
   const drawerStore = getDrawerStore();
 
   let currentNode;
   const tree = {
     id: 1,
-    label: 'VAULT',
+    label: "VAULT",
     children: [
       {
         id: 2,
         parentId: 1,
-        label: 'UAT',
+        label: "UAT",
         children: [
-          { id: 3, parentId: 2, label: 'DB' },
+          { id: 3, parentId: 2, label: "DB" },
           {
             id: 4,
-            label: 'USERNAMES',
+            label: "USERNAMES",
             parentId: 2,
             children: [
-              { id: 6, parentId: 4, label: 'Admin' },
-              { id: 8, parentId: 4, label: 'corporate-admin' },
-              { id: 7, parentId: 4, label: 'spenders' },
+              { id: 6, parentId: 4, label: "Admin" },
+              { id: 8, parentId: 4, label: "corporate-admin" },
+              { id: 7, parentId: 4, label: "spenders" },
             ],
           },
-          { id: 5, parentId: 2, label: 'KAFKA' },
+          { id: 5, parentId: 2, label: "KAFKA" },
         ],
       },
       {
         parentId: 1,
         id: 9,
-        label: 'STAGE',
+        label: "STAGE",
         children: [
-          { id: 10, parentId: 9, label: 'DB' },
-          { id: 11, parentId: 9, label: 'USER NAMES' },
-          { id: 12, parentId: 9, label: 'KAFKA' },
+          { id: 10, parentId: 9, label: "DB" },
+          { id: 11, parentId: 9, label: "USER NAMES" },
+          { id: 12, parentId: 9, label: "KAFKA" },
         ],
       },
     ],
@@ -85,10 +89,35 @@
     // @ts-ignore
     drawerStore.open(createNewFolder);
   };
+
+  function allowDrop(event) {
+    event.preventDefault();
+  }
+  function handleDrop(event) {
+    event.preventDefault();
+
+    const personData = event.dataTransfer.getData("person");
+    const person = JSON.parse(personData);
+    groupList.update((people) => {
+      return [...people, person.groupName];
+    });
+    // Now `person` is available to be added to your folder or whatever structure you have
+    // console.log("Dropped:", person);
+  }
+  let isIconChanged = false;
+  let isHidden = false;
+  const toggleIcon = () => {
+    isIconChanged = !isIconChanged;
+    isHidden = !isHidden;
+  };
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
-  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
+  <button
+    type="button"
+    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
+    on:click={goBack}
+  >
     <Icon icon="ep:back" />
   </button>
   <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
@@ -121,32 +150,60 @@
   </div>
 
   <!-- FoldersView on the right -->
-  <div class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-xl mx-8">
+  <div
+    class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-xl mx-8"
+  >
     <div class="flex flex-row justify-between px-8 items-center py-6">
-      <div>
-        <h1>{`${currentNode ? currentNode.label : ''}`}</h1>
+      <div class="flex items-center">
+        <h1 class="mr-2">{`${currentNode ? currentNode.label : ""}`}</h1>
+        <button on:click={toggleIcon} class="ml-2">
+          {#if isIconChanged}
+            <Icon icon="ic:baseline-groups" class="text-3xl" />
+          {:else}
+            <Icon icon="ic:outline-groups" class="text-3xl" />
+          {/if}
+        </button>
       </div>
-      <div class="flex flex-row">
-        <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl" on:click={createSecret}
-          >Add Secret</button
-        >
-        <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
-          >Add Folder</button
-        >
+
+      {#if !isHidden}
+        <div class="flex flex-row">
+          <button
+            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl"
+            on:click={createSecret}>Add Secret</button
+          >
+          <button
+            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+            on:click={addNewFolder}>Add Folder</button
+          >
+        </div>
+      {/if}
+    </div>
+
+    {#if !isHidden}
+      <div class="folders-area py-4 border-t-2 rounded-t-xl border-[#235789]">
+        <SecretsCard />
       </div>
-    </div>
-    <div class="folders-area py-4 border-t-2 rounded-t-xl border-[#235789]">
-      <SecretsCard />
-    </div>
+    {:else}
+      <div class="flex">
+        <!-- The ul with the $groupList -->
+        <div class="w-1/2" on:drop={handleDrop} on:dragover={allowDrop}>
+          <ul class="grid grid-cols-3 gap-4">
+            {#each $groupList as group}
+              <li class="text-center">
+                <div class="flex flex-col items-center">
+                  <Icon icon="dashicons:groups" class="text-3xl" />
+                  <span>{group}</span>
+                </div>
+              </li>
+            {/each}
+          </ul>
+        </div>
+
+        <!-- The GroupListView -->
+        <div class="w-1/2">
+          <GroupListView />
+        </div>
+      </div>
+    {/if}
   </div>
 </div>
-
-<style>
-  #search-input:focus {
-    box-shadow: none;
-  }
-  h1 {
-    font-size: 24px;
-    font-weight: normal;
-  }
-</style>

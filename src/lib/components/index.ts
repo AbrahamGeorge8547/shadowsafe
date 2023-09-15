@@ -15,6 +15,7 @@ import SecretsCard from "./secretsCard.svelte";
 import NewFolder from "./NewFolder.svelte";
 import AddSecret from "./AddSecret.svelte";
 import PeopleListView from "./PeopleListView.svelte";
+import GroupListView from "./GroupListView.svelte";
 
 export {
   Table,
@@ -34,4 +35,5 @@ export {
   NewFolder,
   AddSecret,
   PeopleListView,
+  GroupListView,
 };

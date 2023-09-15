@@ -43,7 +43,7 @@
     document.cookie = `token=${token}; path=/; ${secureFlag} SameSite=${sameSite}`;
 
     drawerStore.close();
-    goto("/secrets/1");
+    goto("/vault/secrets");
     // dispatch("adminCreated");
   }
 </script>

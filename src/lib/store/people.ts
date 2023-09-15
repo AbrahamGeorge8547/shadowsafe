@@ -18,5 +18,9 @@ export const loadPeople = async () => {
   peopleStore.set(data.body.people);
 };
 
-export const peopleList = writable([]);
+export const peopleList = writable([
+  { username: "Abrahamgeorge8547@gmail.com" },
+  { username: "anoop@gmail.com" },
+]);
 export const userStore = localStorageStore("user", {});
+export const groupList = writable(["T1", "Team Leads"]);
