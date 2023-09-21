@@ -3,9 +3,9 @@ import { login } from "$lib/server/authApi";
 
 export async function POST(req) {
   const token = String(req.cookies.get("token"));
-  const { request } = req;
+  const { request, fetch } = req;
   const user = await request.json();
-  const data = await login(user);
+  const data = await login(fetch, user);
   if (data.success == false) {
     return json(data);
   }

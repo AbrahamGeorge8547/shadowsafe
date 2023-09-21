@@ -54,7 +54,11 @@ export const createSecret = async (secret, token: string) => {
   }
 };
 
-export const getFolderStrucure = async (token: string, orgId: string) => {
+export const getFolderStrucure = async (
+  fetch: any,
+  token: string,
+  orgId: string
+) => {
   try {
     const headers = new Headers();
     headers.append("Authorization", `Bearer ${token}`);
@@ -76,7 +80,7 @@ export const getFolderStrucure = async (token: string, orgId: string) => {
   }
 };
 
-export const addFolder = async (token: string, body: any) => {
+export const addFolder = async (fetch: any, token: string, body: any) => {
   const headers = new Headers();
   headers.append("Authorization", `Bearer ${token}`);
   headers.append("Content-Type", "application/json");
