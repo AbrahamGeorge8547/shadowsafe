@@ -1,5 +1,5 @@
 <script>
-  import { TreeView, FoldersView } from "$lib/components";
+  import { TreeView, FoldersView, BreadCrumbs } from "$lib/components/ui";
   import {
     treeStore,
     navigationHistory,
@@ -9,12 +9,11 @@
     currentParentNode,
   } from "$lib/store/ui";
   import { peopleList } from "$lib/store";
-  import { BreadCrumbs, SecretsCard } from "$lib/components";
+  import { SecretsCard } from "$lib/components/secrets";
   import { createNewFolder } from "$lib/util/drawerSettings";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
-  import { PeopleListView } from "$lib/components";
-  import People from "$lib/components/people.svelte";
+  import { PeopleListView, People } from "$lib/components/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   const drawerStore = getDrawerStore();
   let currentNode;

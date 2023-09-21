@@ -53,3 +53,42 @@ export const createSecret = async (secret, token: string) => {
     console.log(error);
   }
 };
+
+export const getFolderStrucure = async (token: string, orgId: string) => {
+  try {
+    const headers = new Headers();
+    headers.append("Authorization", `Bearer ${token}`);
+
+    const requestOptions = {
+      method: "GET",
+      headers,
+      redirect: "follow",
+    };
+
+    const response = await fetch(
+      `${BASE_URL}/folders/structure/650a9fc08d21ba79d1bd5ab5`,
+      requestOptions
+    );
+    const data = await response.json();
+    return data.data;
+  } catch (error) {
+    console.log(error, "ERR");
+  }
+};
+
+export const addFolder = async (token: string, body: any) => {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${token}`);
+  headers.append("Content-Type", "application/json");
+  console.log(body);
+  const options = {
+    method: "POST",
+    body: JSON.stringify(body),
+    headers,
+  };
+
+  const response = await fetch(`${BASE_URL}/folders`, options);
+  console.log(response);
+  const data = await response.json();
+  return data.data;
+};
