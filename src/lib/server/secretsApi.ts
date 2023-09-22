@@ -39,7 +39,7 @@ export const updateSecret = async (id, secret, token: string) => {
   });
 };
 
-export const createSecret = async (secret, token: string) => {
+export const createSecret = async (fetch: any, secret, token: string) => {
   try {
     const response = await fetch(`${BASE_URL}/secrets`, {
       method: "POST",
@@ -49,6 +49,7 @@ export const createSecret = async (secret, token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
+    console.log(await response.json());
   } catch (error) {
     console.log(error);
   }
@@ -84,7 +85,6 @@ export const addFolder = async (fetch: any, token: string, body: any) => {
   const headers = new Headers();
   headers.append("Authorization", `Bearer ${token}`);
   headers.append("Content-Type", "application/json");
-  console.log(body);
   const options = {
     method: "POST",
     body: JSON.stringify(body),
@@ -92,7 +92,20 @@ export const addFolder = async (fetch: any, token: string, body: any) => {
   };
 
   const response = await fetch(`${BASE_URL}/folders`, options);
-  console.log(response);
   const data = await response.json();
   return data.data;
+};
+
+export const getSecretsByFolder = async (
+  fetch: any,
+  folderId: string,
+  token: string
+) => {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${token}`);
+  headers.append("Content-Type", "application/json");
+
+  const response = await fetch(`${BASE_URL}/folders/${folderId}`, { headers });
+  const data = await response.json();
+  return data;
 };

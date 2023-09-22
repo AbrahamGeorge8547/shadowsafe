@@ -3,80 +3,33 @@
   import { clipboard } from "@skeletonlabs/skeleton";
   import { fade } from "svelte/transition";
   import { getToastStore } from "@skeletonlabs/skeleton";
-
+  import { currentParentNode } from "$lib/store/ui";
+  import { secretsStore } from "$lib/store/secrets";
+  import { onMount } from "svelte";
   const toastStore = getToastStore();
-  const secretsArray = [
-    {
-      fields: [
-        {
-          fieldName: "username",
-          fieldValue: "john.doe@gmail.com",
-          sensitive: false,
-        },
-        {
-          fieldName: "password",
-          fieldValue: "password123",
-          sensitive: true,
-        },
-      ],
-      description: "This is a username password secret",
-      id: "id1",
-    },
-    {
-      fields: [
-        {
-          fieldName: "API Key",
-          fieldValue: "akjsdhaksjdh123",
-          sensitive: true,
-        },
-      ],
-      description: "This is an api key secret",
-      id: "id2",
-    },
-    {
-      fields: [
-        {
-          fieldName: "DB Connection String",
-          fieldValue: "mongodb://localhost:27017",
-          sensitive: false,
-        },
-        {
-          fieldName: "DB User",
-          fieldValue: "dbUser",
-          sensitive: false,
-        },
-        {
-          fieldName: "DB Password",
-          fieldValue: "dbPassword",
-          sensitive: true,
-        },
-      ],
-      description: "This is a db secret",
-      id: "id4",
-    },
-    {
-      fields: [
-        {
-          fieldName: "username",
-          fieldValue: "emily_smith@gmail.com",
-          sensitive: false,
-        },
-        {
-          fieldName: "password",
-          fieldValue: "password456",
-          sensitive: true,
-        },
-        {
-          fieldName: "2FA Token",
-          fieldValue: "twoFactorAuthToken",
-          sensitive: true,
-        },
-      ],
-      description: "This is a 2fa secret",
-      id: "id3",
-    },
-    ,
-  ];
+
+  let secretData = [];
+  onMount(() => {
+    const unsubscribe = currentParentNode.subscribe((value) => {
+      if (value !== undefined && value !== null) {
+        fetch(`/api/folder/${value}`)
+          .then((response) => response.json())
+          .then((data) => {
+            secretData = data.data.secrets.map((ele) => {
+              return { ...ele, id: ele._id.timestamp };
+            });
+            secretsStore.set(secretData);
+            console.log(secretData);
+            // Do something with the data
+          });
+      }
+    });
+
+    // Don't forget to unsubscribe when the component is destroyed
+    return () => {
+      unsubscribe();
+    };
+  });
   let timeoutID;
   let showCard = {};
   let hoveredCard;
@@ -111,19 +64,19 @@
 </script>
 
 <div class="flex flex-wrap transition-all duration-500">
-  {#each secretsArray as secret}
+  {#each $secretsStore as secret}
     <div class="w-1/3 px-2 mb-4">
       <div
         class="container mx-auto p-4 relative card card-hover max-w-xs rounded-lg group h-auto"
         on:mouseenter={() => handleMouseEnter(secret.id)}
         on:mouseleave={() => handleMouseLeave(secret.id)}
       >
-        {#each secret.fields as field, index}
+        {#each secret?.credentials as field, index}
           <div class="mb-4">
             <div class="relative">
               {#if field.sensitive && showCard[secret.id]}
                 <div transition:fade={{ duration: 400 }}>
-                  <label class="label block mb-2">{field.fieldName}</label>
+                  <label class="label block mb-2">{field.fieldKey}</label>
                   <input
                     class="input pr-16"
                     type={showSensitive[`${secret.id}_${index}`]
@@ -147,7 +100,7 @@
                   </button>
                 </div>
               {:else if !field.sensitive}
-                <label class="label block mb-2">{field.fieldName}</label>
+                <label class="label block mb-2">{field.fieldKey}</label>
                 <input
                   class="input pr-10 w-full items-center"
                   type="text"

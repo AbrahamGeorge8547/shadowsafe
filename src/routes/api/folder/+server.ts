@@ -1,10 +1,8 @@
 import { getFolderStrucure, addFolder } from "$lib/server/secretsApi.js";
 import { json } from "@sveltejs/kit";
 
-export async function GET({ fetch }) {
-  const token =
-    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrcmlzaCIsImF1dGgiOlsiQWRtaW4iXSwiZXhwIjoxNjk1NTgwMDQ1fQ.e-jy_6IAh06RvlA7eZOlTgfvedTALT2vR2e5oskUNLsZEgJmUvV76rdcNvt6pIYSVnG4PhVbcMPjBTx90M4ZMg";
-  console.log(token);
+export async function GET({ fetch, cookies }) {
+  const token = String(cookies.get("token"));
   const data = await getFolderStrucure(
     fetch,
     token,
@@ -17,11 +15,8 @@ export async function GET({ fetch }) {
   });
 }
 
-export async function POST({ fetch }) {
-  const token =
-    "eyJhbGciOiJIUzUxMiJ9.eyJzdWIiOiJrcmlzaCIsImF1dGgiOlsiQWRtaW4iXSwiZXhwIjoxNjk1NTgwMDQ1fQ.e-jy_6IAh06RvlA7eZOlTgfvedTALT2vR2e5oskUNLsZEgJmUvV76rdcNvt6pIYSVnG4PhVbcMPjBTx90M4ZMg";
-  console.log(token);
-  const { request } = req;
+export async function POST({ fetch, cookies, request }) {
+  const token = String(cookies.get("token"));
   const payload = await request.json();
   const data = await addFolder(fetch, token, payload);
   return json({

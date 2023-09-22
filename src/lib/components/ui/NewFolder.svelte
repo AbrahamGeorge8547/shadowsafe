@@ -57,7 +57,6 @@
         };
         return addFolderToTree(store, parentId, newFolder);
       });
-      console.log($treeStore);
       const parentNode = findNodeById($treeStore, parentId);
       selectedNodeChildren.set(parentNode.children);
 
