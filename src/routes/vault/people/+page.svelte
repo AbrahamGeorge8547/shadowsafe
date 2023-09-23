@@ -9,50 +9,15 @@
     currentParentNode,
   } from "$lib/store/ui";
   import { peopleList } from "$lib/store";
-  import { SecretsCard } from "$lib/components/secrets";
-  import { createNewFolder } from "$lib/util/drawerSettings";
+  import { createNewGroup } from "$lib/util/drawerSettings";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { PeopleListView, People } from "$lib/components/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   const drawerStore = getDrawerStore();
+  export let data;
   let currentNode;
-  const tree = {
-    id: 1,
-    label: "Groups",
-    children: [
-      {
-        id: 2,
-        parentId: 1,
-        label: "Team1",
-        children: [
-          { id: 3, parentId: 2, label: "dev" },
-          {
-            id: 4,
-            label: "testers",
-            parentId: 2,
-            children: [
-              { id: 6, parentId: 4, label: "Admin" },
-              { id: 8, parentId: 4, label: "corporate-admin" },
-              { id: 7, parentId: 4, label: "spenders" },
-            ],
-          },
-          { id: 5, parentId: 2, label: "qa" },
-        ],
-      },
-      {
-        parentId: 1,
-        id: 9,
-        label: "Team2",
-        children: [
-          { id: 10, parentId: 9, label: "devs" },
-          { id: 11, parentId: 9, label: "testers" },
-          { id: 12, parentId: 9, label: "qa" },
-        ],
-      },
-    ],
-  };
-  treeStore.set(tree);
+  treeStore.set(data.folder);
   const goBack = () => {
     navigationHistory.update((history) => {
       // Remove the last node from the history
@@ -92,14 +57,13 @@
     // console.log("Dropped:", person);
   }
 
-  treeStore.set(tree);
   $: {
     currentNode = findNodeById($treeStore, $currentParentNode);
   }
 
   const addNewFolder = async () => {
     // @ts-ignore
-    drawerStore.open(createNewFolder);
+    drawerStore.open(createNewGroup);
   };
 </script>
 

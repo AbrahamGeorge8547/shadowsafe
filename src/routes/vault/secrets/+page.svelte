@@ -22,7 +22,6 @@
 
   export let data;
 
-  console.log(data.folder);
   let currentNode;
 
   treeStore.set(data.folder);

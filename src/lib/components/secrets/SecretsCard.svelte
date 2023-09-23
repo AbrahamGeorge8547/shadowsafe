@@ -19,7 +19,6 @@
               return { ...ele, id: ele._id.timestamp };
             });
             secretsStore.set(secretData);
-            console.log(secretData);
             // Do something with the data
           });
       }

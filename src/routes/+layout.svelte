@@ -6,7 +6,7 @@
   import { Toast, Drawer } from "@skeletonlabs/skeleton";
   import { AddSecret } from "$lib/components/secrets";
   import { Login, CreateAdmin, CreatePeople } from "$lib/components/people";
-  import { NewFolder } from "$lib/components/ui";
+  import { NewFolder, NewGroup } from "$lib/components/ui";
   import {
     computePosition,
     autoUpdate,
@@ -34,6 +34,8 @@
     <CreatePeople />
   {:else if $drawerStore.id === "newFolder"}
     <NewFolder />
+  {:else if $drawerStore.id === "newGroup"}
+    <NewGroup/>
   {/if}
 </Drawer>
 <Toast />
