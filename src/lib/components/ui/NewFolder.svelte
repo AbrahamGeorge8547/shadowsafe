@@ -34,11 +34,19 @@
     // so just return it as is
     return currentNode;
   };
-  const addNewFolder = (e) => {
+  const addNewFolder = async (e) => {
     if (folderName && e.key == "Enter") {
       // Assuming currentParentNode is reactive Svelte store
       const parentId = $currentParentNode;
+      await fetch("/api/folder", {
+        method: "POST",
+        body: JSON.stringify({
+          label: folderName,
+          parent: parentId,
+        }),
+      });
       drawerStore.close();
+
       // Update your treeStore to include the new folder
       treeStore.update((store) => {
         const newFolder = {
@@ -49,7 +57,6 @@
         };
         return addFolderToTree(store, parentId, newFolder);
       });
-      console.log($treeStore);
       const parentNode = findNodeById($treeStore, parentId);
       selectedNodeChildren.set(parentNode.children);
 

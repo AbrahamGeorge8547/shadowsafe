@@ -1,7 +1,5 @@
-import { login } from "$lib/server/authApi.js";
 import { getSecrets, createSecret } from "$lib/server/secretsApi";
-import { userStore } from "$lib/store/people.js";
-import { json, redirect } from "@sveltejs/kit";
+import { json } from "@sveltejs/kit";
 export async function GET(req) {
   const token = req.cookies.get("token");
   if (!token) {
@@ -19,10 +17,9 @@ export async function GET(req) {
     },
   });
 }
-export async function POST(req) {
-  const token = String(req.cookies.get("token"));
-  const { request } = req;
+export async function POST({ fetch, cookies, request }) {
+  const token = String(cookies.get("token"));
   const secret = await request.json();
-  await createSecret({ ...secret }, token);
+  await createSecret(fetch, { ...secret }, token);
   return json({ success: true });
 }

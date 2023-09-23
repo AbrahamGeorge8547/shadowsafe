@@ -1,5 +1,5 @@
 <script>
-  import { AdminCheck } from "$lib/components";
+  import { AdminCheck } from "$lib/components/people";
   import { userStore } from "$lib/store";
 
   import "font-awesome/css/font-awesome.min.css";
