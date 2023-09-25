@@ -9,12 +9,15 @@
     currentParentNode,
   } from "$lib/store/ui";
   import { peopleList } from "$lib/store";
+  import { getToastStore } from "@skeletonlabs/skeleton";
   import { createNewGroup } from "$lib/util/drawerSettings";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { PeopleListView, People } from "$lib/components/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { get } from "svelte/store";
   const drawerStore = getDrawerStore();
+  const toastStore = getToastStore();
   export let data;
   let currentNode;
   treeStore.set(data.folder);
@@ -44,18 +47,31 @@
   function allowDrop(event) {
     event.preventDefault();
   }
+  let addedUsers = [];
   function handleDrop(event) {
     event.preventDefault();
 
     const personData = event.dataTransfer.getData("person");
     const person = JSON.parse(personData);
+    addedUsers = [...addedUsers, person._id];
     peopleList.update((people) => {
       return [...people, person];
     });
-    console.log($peopleList);
-    // Now `person` is available to be added to your folder or whatever structure you have
-    // console.log("Dropped:", person);
   }
+
+  const addUserstoGroup = async () => {
+    const t = {
+      message: "user added to group",
+      timeout: 2000,
+    };
+    const groupId = get(currentParentNode);
+    await fetch(`/api/groups/${groupId}`, {
+      method: "POST",
+      body: JSON.stringify({ userIds: addedUsers }),
+    });
+
+    toastStore.trigger(t);
+  };
 
   $: {
     currentNode = findNodeById($treeStore, $currentParentNode);
@@ -105,6 +121,13 @@
             <button
               class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
               on:click={addNewFolder}>Add Folder</button
+            >
+            <button
+              class="btn variant-filled-tertiary p-2"
+              disabled={addedUsers.length === 0}
+              on:click={addUserstoGroup}
+            >
+              save changes</button
             >
           </div>
         </div>

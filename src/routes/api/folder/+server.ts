@@ -19,9 +19,5 @@ export async function POST({ fetch, cookies, request }) {
   const token = String(cookies.get("token"));
   const payload = await request.json();
   const data = await addFolder(fetch, token, payload);
-  return json({
-    body: {
-      data,
-    },
-  });
+  return json(data);
 }

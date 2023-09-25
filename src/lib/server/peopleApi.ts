@@ -51,3 +51,14 @@ export const addGroups = async (fetch: any, token: string, payload: any) => {
   return data;
 }
 
+export const addUserToGroup = async (fetch: any, token: string, payload: any) => {
+  const response = await fetch(`${BASE_URL}/groups/user`, {
+    method: 'POST',
+    headers: {
+      Authorization: `Bearer ${token}`,
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(payload)
+  })
+  return await response.json()
+}
