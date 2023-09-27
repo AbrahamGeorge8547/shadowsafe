@@ -29,8 +29,15 @@
       selectedUserId.set(id);
     }
   }
-  function handleDeleteUsers(id: string) {
+  async function handleDeleteUsers(id: string) {
     console.log("Clicked to delete the user");
+    const response = await fetch(
+      `/api/groups/${$currentParentNode}/users/${id}`,
+      {
+        method: "DELETE",
+      }
+    );
+    //TODO: add toast here
   }
 </script>
 
