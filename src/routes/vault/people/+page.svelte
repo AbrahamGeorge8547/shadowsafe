@@ -7,15 +7,17 @@
     selectedNodeChildren,
     breadCrumbs,
     currentParentNode,
+    editMembers,
   } from "$lib/store/ui";
   import { peopleList } from "$lib/store";
   import { getToastStore } from "@skeletonlabs/skeleton";
   import { createNewGroup } from "$lib/util/drawerSettings";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
-  import { PeopleListView, People } from "$lib/components/people";
+  import { PeopleListView, PeopleCard } from "$lib/components/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import { get } from "svelte/store";
+  import { fade } from "svelte/transition";
   const drawerStore = getDrawerStore();
   const toastStore = getToastStore();
   export let data;
@@ -71,6 +73,7 @@
     });
 
     toastStore.trigger(t);
+    addedUsers = [];
   };
 
   $: {
@@ -118,32 +121,47 @@
             <h1>{`${currentNode ? currentNode.label : ""}`}</h1>
           </div>
           <div class="flex flex-row">
-            <button
-              class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
-              on:click={addNewFolder}>Add Folder</button
-            >
-            <button
-              class="btn variant-filled-tertiary p-2"
-              disabled={addedUsers.length === 0}
-              on:click={addUserstoGroup}
-            >
-              save changes</button
-            >
+            {#if !$editMembers}
+              <button
+                class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+                on:click={addNewFolder}>Add Folder</button
+              >
+            {:else}
+              <button
+                class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+                on:click={() => editMembers.set(false)}>Cancel</button
+              >
+            {/if}
+            {#if $editMembers}
+              <button
+                class="btn variant-filled-tertiary p-2"
+                disabled={addedUsers.length === 0}
+                on:click={addUserstoGroup}
+              >
+                save changes</button
+              >
+            {:else}
+              <button
+                class="btn variant-filled-tertiary p-2"
+                on:click={() => editMembers.set(true)}
+              >
+                edit members</button
+              >
+            {/if}
           </div>
         </div>
-        <div class=" py-4 border-t-2 rounded-xl border-[#235789]">
-          <ul class="list">
-            {#each $peopleList as people}
-              <li class="card m-2 p-4 hover variant-outline-tertiary">
-                {people.username}
-              </li>
-            {/each}
-          </ul>
+        <div
+          transition:fade
+          class=" py-4 border-t-2 rounded-xl border-[#235789]"
+        >
+          <PeopleCard />
         </div>
       </div>
-      <div class="flex-grow mr-8 max-w-[400px]">
-        <PeopleListView />
-      </div>
+      {#if $editMembers}
+        <div transition:fade class="flex-grow mr-8 max-w-[400px]">
+          <PeopleListView />
+        </div>
+      {/if}
     </div>
   </div>
 </div>

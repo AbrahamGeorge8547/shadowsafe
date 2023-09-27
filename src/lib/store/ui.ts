@@ -9,3 +9,4 @@ export const treeStore = writable({});
 export const breadCrumbs = writable([]);
 export const expandedNodes = writable(new Set());
 export const secretFields = writable([]);
+export const editMembers = writable(false);

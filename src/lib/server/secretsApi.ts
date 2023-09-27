@@ -72,10 +72,12 @@ export const getFolderStrucure = async (
     };
 
     const response = await fetch(
-      `${BASE_URL}/folders/structure/${orgId}`,
+      `${BASE_URL}/folders/structure`,
       requestOptions
     );
+
     const data = await response.json();
+    console.log(data);
     return data.data;
   } catch (error) {
     console.log(error, "ERR");
