@@ -104,6 +104,7 @@
   <div
     class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-xl shadow-md p-8 ml-16"
   >
+    <button class="btn variant-outline-tertiary"> all users </button>
     <TreeView nodeId={$treeStore.id} />
   </div>
 
