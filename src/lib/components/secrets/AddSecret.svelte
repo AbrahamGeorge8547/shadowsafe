@@ -27,17 +27,12 @@
 
   const saveSecret = async () => {
     const credentials = get(secretFields);
-    if (description) {
-      credentials.push({
-        fieldKey: "description",
-        fieldValue: description,
-        sensitive: false,
-      });
-    }
-    const data = JSON.stringify({
+    let data;
+    data = JSON.stringify({
       name: "test",
       credentials,
       parent: get(currentParentNode),
+      description,
     });
     const response = await fetch("/api/secrets", {
       method: "POST",
@@ -46,6 +41,7 @@
     fetch(`/api/folder/${$currentParentNode}`)
       .then((response) => response.json())
       .then((data) => {
+        console.log(data, "ADD SECRET")
         const secretData = data.data.secrets.map((ele) => {
           return { ...ele, id: ele._id.timestamp };
         });

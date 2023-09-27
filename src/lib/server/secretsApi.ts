@@ -41,6 +41,7 @@ export const updateSecret = async (id, secret, token: string) => {
 
 export const createSecret = async (fetch: any, secret, token: string) => {
   try {
+    console.log('Create Secret', secret)
     const response = await fetch(`${BASE_URL}/secrets`, {
       method: "POST",
       body: JSON.stringify({ ...secret, id: "" }),
@@ -71,10 +72,12 @@ export const getFolderStrucure = async (
     };
 
     const response = await fetch(
-      `${BASE_URL}/folders/structure/650a9fc08d21ba79d1bd5ab5`,
+      `${BASE_URL}/folders/structure`,
       requestOptions
     );
+
     const data = await response.json();
+    console.log(data);
     return data.data;
   } catch (error) {
     console.log(error, "ERR");
