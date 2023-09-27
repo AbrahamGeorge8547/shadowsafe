@@ -33,7 +33,6 @@ export const getgroups = async (fetch: any, token: string) => {
     }
   })
   const data = await response.json();
-  console.log(data, "TESTSTT")
   return data;
 }
 
@@ -67,6 +66,18 @@ export const addUserToGroup = async (fetch: any, token: string, payload: any) =>
 export const getUsersOfGroup = async (fetch: any, groupId: string, token: string) => {
 
   const response = await fetch(`${BASE_URL}/groups/user/${groupId}`, {
+    method: 'GET',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return await response.json();
+}
+
+
+export const getUserDetails = async (fetch: any, userId: string, token: string) => {
+
+  const response = await fetch(`${BASE_URL}/users/group?id=${userId}`, {
     method: 'GET',
     headers: {
       Authorization: `Bearer ${token}`,
