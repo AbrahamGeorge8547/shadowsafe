@@ -1,43 +1,19 @@
 <script>
     import { onMount, onDestroy } from "svelte";
     export let userId;
-    const user = {
-        fullName: "Abraham George",
-        groups: [
-            {
-                id: 19,
-                label: "qa",
-            },
-            {
-                id: 19,
-                label: "team leads",
-            },
-            {
-                id: 19,
-                label: "broker",
-            },
-            {
-                id: 19,
-                label: "fe",
-            },
-            {
-                id: 19,
-                label: "ledger",
-            },
-        ],
-        createdBy: "John Doe",
-        username: "abrahamgeorge8547@gmail.com",
+    let user = {
+        groups: [],
     };
 
     $: {
         (async () => {
-            console.log("UserId updated:", userId);
             try {
-                // Fetch new user data here
-                // const response = await fetch(`/api/users/${userId}`);
-                // const newData = await response.json();
-                // // Update user data
-                // user = newData;
+                const responseData = await fetch(
+                    `/api/people/details/${userId}`
+                );
+                const responseJson = await responseData.json();
+                console.log(responseJson.data);
+                user = responseJson.data;
             } catch (error) {
                 console.error("Failed to update user data:", error);
             }
@@ -49,7 +25,7 @@
     <!-- Full Name Section -->
     <div class="mb-4 card">
         <h1 class="text-xl font-semibold">Full Name:</h1>
-        <p class="text-lg">{user.fullName}</p>
+        <p class="text-lg">{user.name}</p>
     </div>
 
     <!-- Groups Section -->
@@ -58,7 +34,7 @@
         <div class="flex flex-wrap">
             {#each user.groups as group}
                 <span class="chip variant-filled m-2">
-                    {group.label}
+                    {group.name}
                 </span>
             {/each}
         </div>
