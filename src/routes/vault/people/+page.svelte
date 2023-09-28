@@ -11,7 +11,10 @@
   } from "$lib/store/ui";
   import { peopleList } from "$lib/store";
   import { getToastStore } from "@skeletonlabs/skeleton";
-  import { createNewGroup } from "$lib/util/drawerSettings";
+  import {
+    createNewGroup,
+    createPeopleDrawerSettings,
+  } from "$lib/util/drawerSettings";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { PeopleListView, PeopleCard } from "$lib/components/people";
@@ -60,7 +63,6 @@
       return [...people, person];
     });
   }
-
   const addUserstoGroup = async () => {
     const t = {
       message: "user added to group",
@@ -71,19 +73,41 @@
       method: "POST",
       body: JSON.stringify({ userIds: addedUsers }),
     });
-
+    editMembers.set(false);
     toastStore.trigger(t);
     addedUsers = [];
   };
 
   $: {
-    currentNode = findNodeById($treeStore, $currentParentNode);
+    //TODO: disable addFolder and editMembers buttons
+    if ($currentParentNode != "AllUsers") {
+      currentNode = findNodeById($treeStore, $currentParentNode);
+    } else {
+      currentNode = {
+        label: "All Users",
+      };
+    }
   }
 
   const addNewFolder = async () => {
     // @ts-ignore
     drawerStore.open(createNewGroup);
   };
+
+  function handleAllUsersClick() {
+    currentParentNode.set("AllUsers");
+    editMembers.set(false);
+  }
+
+  function addMembers() {
+    console.log("Adding members");
+    drawerStore.open(createPeopleDrawerSettings);
+  }
+
+  function cancelEdit() {
+    addedUsers = [];
+    editMembers.set(false);
+  }
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
@@ -104,7 +128,13 @@
   <div
     class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-xl shadow-md p-8 ml-16"
   >
-    <button class="btn variant-outline-tertiary"> all users </button>
+    <span
+      on:click={handleAllUsersClick}
+      class="flex items-center text-lg btn-sm hover:bg-[#34487F] all-users-node"
+    >
+      <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
+      <span>All Users</span>
+    </span>
     <TreeView nodeId={$treeStore.id} />
   </div>
 
@@ -119,37 +149,46 @@
         <!-- <FoldersView /> -->
         <div class="flex flex-row justify-between px-8 items-center py-6">
           <div>
-            <h1>{`${currentNode ? currentNode.label : ""}`}</h1>
+            <h1>{`${currentNode ? currentNode.label : "All users"}`}</h1>
           </div>
-          <div class="flex flex-row">
-            {#if !$editMembers}
-              <button
-                class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
-                on:click={addNewFolder}>Add Folder</button
-              >
-            {:else}
-              <button
-                class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
-                on:click={() => editMembers.set(false)}>Cancel</button
-              >
-            {/if}
-            {#if $editMembers}
-              <button
-                class="btn variant-filled-tertiary p-2"
-                disabled={addedUsers.length === 0}
-                on:click={addUserstoGroup}
-              >
-                save changes</button
-              >
-            {:else}
-              <button
-                class="btn variant-filled-tertiary p-2"
-                on:click={() => editMembers.set(true)}
-              >
-                edit members</button
-              >
-            {/if}
-          </div>
+          {#if $currentParentNode != "AllUsers"}
+            <div class="flex flex-row">
+              {#if !$editMembers}
+                <button
+                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+                  on:click={addNewFolder}>Add Folder</button
+                >
+              {:else}
+                <button
+                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+                  on:click={cancelEdit}>Cancel</button
+                >
+              {/if}
+              {#if $editMembers}
+                <button
+                  class="btn variant-filled-tertiary p-2"
+                  disabled={addedUsers.length === 0}
+                  on:click={addUserstoGroup}
+                >
+                  save changes</button
+                >
+              {:else}
+                <button
+                  class="btn variant-filled-tertiary p-2"
+                  on:click={() => editMembers.set(true)}
+                >
+                  edit members</button
+                >
+              {/if}
+            </div>
+          {:else}
+            <button
+              class="btn variant-filled-tertiary p-2"
+              on:click={addMembers}
+            >
+              add members</button
+            >
+          {/if}
         </div>
         <div
           transition:fade

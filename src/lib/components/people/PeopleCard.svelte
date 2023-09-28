@@ -9,12 +9,21 @@
   const selectedUserId = writable(null);
   onMount(() => {
     const unsubscribe = currentParentNode.subscribe((value) => {
+      selectedUserId.set(null);
       if (value !== undefined && value !== null) {
-        fetch(`/api/groups/${value}`)
-          .then((response) => response.json())
-          .then((data) => {
-            peopleList.set(data.data.users);
-          });
+        if (value != "AllUsers") {
+          fetch(`/api/groups/${value}`)
+            .then((response) => response.json())
+            .then((data) => {
+              peopleList.set(data.data.users);
+            });
+        } else {
+          fetch("/api/people")
+            .then((response) => response.json())
+            .then((data) => {
+              peopleList.set(data);
+            });
+        }
       }
     });
 
