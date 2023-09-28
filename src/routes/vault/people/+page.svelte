@@ -11,7 +11,10 @@
   } from "$lib/store/ui";
   import { peopleList } from "$lib/store";
   import { getToastStore } from "@skeletonlabs/skeleton";
-  import { createNewGroup, createPeopleDrawerSettings } from "$lib/util/drawerSettings";
+  import {
+    createNewGroup,
+    createPeopleDrawerSettings,
+  } from "$lib/util/drawerSettings";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { PeopleListView, PeopleCard } from "$lib/components/people";
@@ -108,7 +111,11 @@
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
-  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
+  <button
+    type="button"
+    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
+    on:click={goBack}
+  >
     <Icon icon="ep:back" />
   </button>
   <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
@@ -119,7 +126,7 @@
 <div class="app-container flex">
   <!-- TreeView on the left -->
   <div
-    class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16"
+    class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-xl shadow-md p-8 ml-16"
   >
     <span
       on:click={handleAllUsersClick}
@@ -135,7 +142,7 @@
   <div class="flex flex-col flex-grow">
     <div class="folders-area flex-grow flex">
       <div
-        class="folders-area flex-grow border-2 border-[#235789] rounded-[4px] mx-8 min-w-0"
+        class="folders-area flex-grow border-2 border-[#235789] rounded-xl mx-8 min-w-0"
         on:drop={handleDrop}
         on:dragover={allowDrop}
       >
@@ -147,12 +154,14 @@
           {#if $currentParentNode != "AllUsers"}
             <div class="flex flex-row">
               {#if !$editMembers}
-                <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
-                  >Add Folder</button
+                <button
+                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+                  on:click={addNewFolder}>Add Folder</button
                 >
               {:else}
-                <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={cancelEdit}
-                  >Cancel</button
+                <button
+                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+                  on:click={cancelEdit}>Cancel</button
                 >
               {/if}
               {#if $editMembers}
@@ -173,12 +182,18 @@
               {/if}
             </div>
           {:else}
-            <button class="btn variant-filled-tertiary p-2" on:click={addMembers}>
+            <button
+              class="btn variant-filled-tertiary p-2"
+              on:click={addMembers}
+            >
               add members</button
             >
           {/if}
         </div>
-        <div transition:fade class=" py-4 border-t-2 rounded-[4px] border-[#235789]">
+        <div
+          transition:fade
+          class=" py-4 border-t-2 rounded-xl border-[#235789]"
+        >
           <PeopleCard />
         </div>
       </div>
