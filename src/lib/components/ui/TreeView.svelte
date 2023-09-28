@@ -77,7 +77,13 @@
 
 <div transition:fade>
   <ul class="ml-4">
-    <li class="mb-2 mt-2">
+    <li class="mb-2 mt-2 relative">
+      <!-- Add this div for the vertical line -->
+      <div
+        class={`absolute left-4 top-16 bottom-0 ${
+          expanded && isExpanded ? "border-l border-gray-400" : ""
+        }`}
+      />
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <span
         on:click={handleNodeClick}
@@ -88,15 +94,23 @@
         <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
         <span>{label}</span>
         {#if expanded}
-          <Icon icon="grommet-icons:caret-up-fill" class="mr-2 text-2xl ml-auto " />
+          <Icon
+            icon="grommet-icons:caret-up-fill"
+            class="mr-2 text-2xl ml-auto "
+          />
         {:else}
-          <Icon icon="grommet-icons:caret-down-fill" class="mr-2 text-2xl ml-auto" />
+          <Icon
+            icon="grommet-icons:caret-down-fill"
+            class="mr-2 text-2xl ml-auto"
+          />
         {/if}
       </span>
       {#if isExpanded && children}
-        {#each children as child}
-          <svelte:self nodeId={child.id} />
-        {/each}
+        <div class="pl-4">
+          {#each children as child}
+            <svelte:self nodeId={child.id} />
+          {/each}
+        </div>
       {/if}
     </li>
   </ul>
