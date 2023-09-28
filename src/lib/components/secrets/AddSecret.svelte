@@ -1,13 +1,18 @@
 <script>
   import { SlideToggle } from "@skeletonlabs/skeleton";
-  import { secretFields } from "$lib/store/ui";
+  import { secretFields, currentParentNode } from "$lib/store/ui";
   import { popup } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
   import { fade } from "svelte/transition";
   import Icon from "@iconify/svelte";
+  import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { get } from "svelte/store";
+  import { secretsStore } from "$lib/store/secrets";
+  const drawerStore = getDrawerStore();
+
   let description = "";
   const addField = () => {
-    let newField = { fieldName: "", fieldValue: "", sensitive: false };
+    let newField = { fieldKey: "", fieldValue: "", sensitive: false };
     secretFields.update((fields) => {
       return [...fields, newField];
     });
@@ -20,8 +25,29 @@
     });
   };
 
-  const saveSecret = () => {
-    console.log(JSON.stringify($secretFields));
+  const saveSecret = async () => {
+    const credentials = get(secretFields);
+    let data;
+    data = JSON.stringify({
+      name: "test",
+      credentials,
+      parent: get(currentParentNode),
+      description,
+    });
+    const response = await fetch("/api/secrets", {
+      method: "POST",
+      body: data,
+    });
+    fetch(`/api/folder/${$currentParentNode}`)
+      .then((response) => response.json())
+      .then((data) => {
+        console.log(data, "ADD SECRET")
+        const secretData = data.data.secrets.map((ele) => {
+          return { ...ele, id: ele._id.timestamp };
+        });
+        secretsStore.set(secretData);
+      });
+    drawerStore.close();
   };
   let popupHover = {
     event: "hover",
@@ -30,8 +56,8 @@
   };
   onMount(() => {
     secretFields.set([
-      { fieldName: "", fieldValue: "", sensitive: false },
-      { fieldName: "", fieldValue: "", sensitive: false },
+      { fieldKey: "", fieldValue: "", sensitive: false },
+      { fieldKey: "", fieldValue: "", sensitive: false },
     ]);
   });
 </script>
@@ -53,7 +79,7 @@
           id={`key-${index}`}
           type="text"
           placeholder="Field Name"
-          bind:value={field.fieldName}
+          bind:value={field.fieldKey}
         />
         <input
           class="input flex-grow mr-2"

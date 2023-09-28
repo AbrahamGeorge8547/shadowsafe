@@ -4,15 +4,9 @@
   import { AppShell, AppBar } from "@skeletonlabs/skeleton";
   import { initializeStores } from "@skeletonlabs/skeleton";
   import { Toast, Drawer } from "@skeletonlabs/skeleton";
-  import {
-    Login,
-    CreateAdmin,
-    ViewSecret,
-    CreateSecret,
-    CreatePeople,
-    NewFolder,
-    AddSecret,
-  } from "$lib/components";
+  import { AddSecret } from "$lib/components/secrets";
+  import { Login, CreateAdmin, CreatePeople } from "$lib/components/people";
+  import { NewFolder, NewGroup } from "$lib/components/ui";
   import {
     computePosition,
     autoUpdate,
@@ -34,14 +28,14 @@
     <Login />
   {:else if $drawerStore.id === "create-admin"}
     <CreateAdmin />
-  {:else if $drawerStore.id === "secrets"}
-    <ViewSecret />
   {:else if $drawerStore.id === "create-secret"}
     <AddSecret />
   {:else if $drawerStore.id === "create-people"}
     <CreatePeople />
   {:else if $drawerStore.id === "newFolder"}
     <NewFolder />
+  {:else if $drawerStore.id === "newGroup"}
+    <NewGroup/>
   {/if}
 </Drawer>
 <Toast />

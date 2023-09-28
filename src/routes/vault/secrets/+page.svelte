@@ -1,5 +1,5 @@
-<script>
-  import { TreeView } from "$lib/components";
+<script lang="ts">
+  import { TreeView, BreadCrumbs } from "$lib/components/ui";
   import {
     treeStore,
     navigationHistory,
@@ -13,49 +13,18 @@
     createNewFolder,
     createSecretDrawerSettings,
   } from "$lib/util/drawerSettings";
-  import { BreadCrumbs, SecretsCard, GroupListView } from "$lib/components";
+  import { SecretsCard } from "$lib/components/secrets";
+  import { GroupListView } from "$lib/components/people";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   const drawerStore = getDrawerStore();
 
+  export let data;
+
   let currentNode;
-  const tree = {
-    id: 1,
-    label: "VAULT",
-    children: [
-      {
-        id: 2,
-        parentId: 1,
-        label: "UAT",
-        children: [
-          { id: 3, parentId: 2, label: "DB" },
-          {
-            id: 4,
-            label: "USERNAMES",
-            parentId: 2,
-            children: [
-              { id: 6, parentId: 4, label: "Admin" },
-              { id: 8, parentId: 4, label: "corporate-admin" },
-              { id: 7, parentId: 4, label: "spenders" },
-            ],
-          },
-          { id: 5, parentId: 2, label: "KAFKA" },
-        ],
-      },
-      {
-        parentId: 1,
-        id: 9,
-        label: "STAGE",
-        children: [
-          { id: 10, parentId: 9, label: "DB" },
-          { id: 11, parentId: 9, label: "USER NAMES" },
-          { id: 12, parentId: 9, label: "KAFKA" },
-        ],
-      },
-    ],
-  };
-  treeStore.set(tree);
+
+  treeStore.set(data.folder);
   $: {
     currentNode = findNodeById($treeStore, $currentParentNode);
   }

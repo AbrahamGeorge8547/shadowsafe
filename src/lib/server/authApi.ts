@@ -1,5 +1,5 @@
 import { BASE_URL } from "$env/static/private";
-export const login = async (user) => {
+export const login = async (fetch, user) => {
   const response = await fetch(`${BASE_URL}/authenticate`, {
     method: "POST",
     body: JSON.stringify({
