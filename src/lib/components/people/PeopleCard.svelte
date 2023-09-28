@@ -46,6 +46,11 @@
         method: "DELETE",
       }
     );
+    fetch(`/api/groups/${$currentParentNode}`)
+      .then((response) => response.json())
+      .then((data) => {
+        peopleList.set(data.data.users);
+      });
     //TODO: add toast here
   }
 </script>
