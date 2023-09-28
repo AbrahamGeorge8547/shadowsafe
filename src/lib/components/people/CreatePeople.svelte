@@ -1,6 +1,6 @@
 <script>
   import { InputChip } from "@skeletonlabs/skeleton";
-  import { loadPeople } from "$lib/store";
+  import { peopleList } from "$lib/store/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
 
   const drawerStore = getDrawerStore();
@@ -17,8 +17,12 @@
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify(user),
     });
+    fetch("/api/people")
+      .then((response) => response.json())
+      .then((data) => {
+        peopleList.set(data);
+      });
     drawerStore.close();
-    await loadPeople();
   };
 </script>
 

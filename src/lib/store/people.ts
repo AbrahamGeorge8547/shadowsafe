@@ -9,14 +9,6 @@ export const peoplePaginationStore = writable({
   amounts: [5, 10, 20, 40],
 });
 
-export const loadPeople = async () => {
-  const limit = get(peoplePaginationStore).limit;
-  const offset = get(peoplePaginationStore).offset;
-  console.log("reloading people....");
-  const response = await fetch(`/api/people?offset=${offset}&limit=${limit}`);
-  const data = await response.json();
-  peopleStore.set(data.body.people);
-};
 
 export const peopleList = writable([]);
 export const userStore = localStorageStore("user", {});
