@@ -13,6 +13,6 @@ export async function POST({ fetch, cookies, request, params }) {
   const groupId = params.groupId;
   const payload = await request.json();
   const data = await addUserToGroup(fetch, token, { ...payload, groupId });
-  console.log(data);
   return json(data);
 }
+

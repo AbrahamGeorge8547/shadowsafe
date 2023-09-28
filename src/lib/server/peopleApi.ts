@@ -85,3 +85,14 @@ export const getUserDetails = async (fetch: any, userId: string, token: string) 
   })
   return await response.json();
 }
+
+
+export const removeUserFromGroup = async (fetch: any, userId: string, groupId: string, token: string) => {
+  const response = await fetch(`${BASE_URL}/groups/${groupId}/user/${userId}`, {
+    method: 'DELETE',
+    headers: {
+      Authorization: `Bearer ${token}`,
+    },
+  })
+  return await response.json();
+}
