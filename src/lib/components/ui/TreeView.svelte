@@ -1,5 +1,5 @@
 <script context="module">
-  import Icon from '@iconify/svelte';
+  import Icon from "@iconify/svelte";
   const _expansionState = {};
 </script>
 
@@ -11,9 +11,9 @@
     breadCrumbs,
     treeStore,
     expandedNodes,
-  } from '$lib/store/ui';
-  import { findNodeById, findParentNodesById } from '$lib/util/index';
-  import { fade } from 'svelte/transition';
+  } from "$lib/store/ui";
+  import { findNodeById, findParentNodesById } from "$lib/util/index";
+  import { fade } from "svelte/transition";
   export let nodeId;
   let tree;
   let id, label, children, parentId;
@@ -76,21 +76,22 @@
 </script>
 
 <div transition:fade>
-  <ul class="ml-2">
+  <ul class="ml-4">
     <li class="mb-2 mt-2">
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <span
         on:click={handleNodeClick}
-        class={`flex items-center text-lg btn-sm hover:bg-[#34487F] ${
-          $currentParentNode === id ? 'selected-node' : ''
+        class={`flex items-center text-lg btn-sm hover:bg-[#34487F] ml-auto ${
+          $currentParentNode === id ? "selected-node" : ""
         }`}
       >
-        {#if expanded}
-          <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
-        {:else}
-          <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
-        {/if}
+        <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
         <span>{label}</span>
+        {#if expanded}
+          <Icon icon="grommet-icons:caret-up-fill" class="mr-2 text-2xl ml-auto " />
+        {:else}
+          <Icon icon="grommet-icons:caret-down-fill" class="mr-2 text-2xl ml-auto" />
+        {/if}
       </span>
       {#if isExpanded && children}
         {#each children as child}
@@ -105,6 +106,6 @@
   .selected-node {
     background: #33487e;
     border: 1px solid #4ba3e3;
-    border-radius: 8px;
+    border-radius: 4px;
   }
 </style>
