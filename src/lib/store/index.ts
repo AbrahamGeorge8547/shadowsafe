@@ -8,7 +8,6 @@ import {
   selectedPerson,
   peopleStore,
   peoplePaginationStore,
-  loadPeople,
   userStore,
   peopleList,
 } from "./people";
@@ -24,7 +23,6 @@ export {
   selectedPerson,
   peopleStore,
   peoplePaginationStore,
-  loadPeople,
   userStore,
   peopleList,
 };
