@@ -41,10 +41,10 @@
     </div>
 
     <!-- Created By Section -->
-    <div class="mb-4">
+    <!-- <div class="mb-4">
         <h1 class="text-xl font-semibold">Created By:</h1>
         <p class="text-lg">{user.createdBy}</p>
-    </div>
+    </div> -->
 
     <!-- Username Section -->
     <div class="mb-4">
