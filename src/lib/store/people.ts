@@ -12,4 +12,4 @@ export const peoplePaginationStore = writable({
 
 export const peopleList = writable([]);
 export const userStore = localStorageStore("user", {});
-export const groupList = writable(["T1", "Team Leads"]);
+export const groupList = writable(["Avengers", "Tanos"]);
