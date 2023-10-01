@@ -1,61 +1,56 @@
 <script>
   const groupNames = [
     {
-      id: 1,
-      groupName: "test",
-      selected: false,
+      id: "6519318f73e491105e8e348b",
+      groupName: "IronMan Suit Users",
+      parentId: "6519278473e491105e8e3461",
+      children: [],
     },
     {
-      id: 2,
-      groupName: "qa",
-      selected: false,
+      id: "6519319e73e491105e8e348c",
+      groupName: "Team Cap",
+      parentId: "6519278473e491105e8e3461",
+      children: [],
     },
     {
-      id: 3,
-      groupName: "L1-Support",
-      selected: false,
+      id: "651931b973e491105e8e348d",
+      groupName: "Team IronMan",
+      parentId: "6519278473e491105e8e3461",
+      children: [],
     },
     {
-      id: 4,
-      groupName: "L2-Support",
-      selected: false,
+      id: "651931de73e491105e8e348e",
+      groupName: "Asgardians",
+      parentId: "6519278473e491105e8e3461",
+      children: [
+        {
+          id: "651934b873e491105e8e3493",
+          groupName: "Valkyries",
+          parentId: "651931de73e491105e8e348e",
+          children: [],
+        },
+      ],
     },
     {
-      id: 5,
-      groupName: "Team Leads",
-      selected: false,
+      id: "6519349f73e491105e8e3491",
+      groupName: "S.H.I.E.L.D agents",
+      parentId: "6519278473e491105e8e3461",
+      children: [],
     },
     {
-      id: 6,
-      groupName: "PMs",
-      selected: false,
+      id: "651934ab73e491105e8e3492",
+      groupName: "Spies of Natasha",
+      parentId: "6519278473e491105e8e3461",
+      children: [],
     },
     {
-      id: 7,
-      groupName: "Customer Success",
-      selected: false,
-    },
-    {
-      id: 8,
-      groupName: "Corporate Admins",
-      selected: false,
-    },
-    {
-      id: 9,
-      groupName: "T3",
-      selected: false,
-    },
-    {
-      id: 10,
-      groupName: "T2",
-      selected: false,
-    },
-    {
-      id: 11,
-      groupName: "T1",
-      selected: false,
+      id: "6519352673e491105e8e3494",
+      groupName: "Wakandans",
+      parentId: "6519278473e491105e8e3461",
+      children: [],
     },
   ];
+
   let search = "";
   let filteredPeoples;
 
