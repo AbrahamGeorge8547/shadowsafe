@@ -4,14 +4,14 @@
   import { getDrawerStore } from "@skeletonlabs/skeleton";
 
   const drawerStore = getDrawerStore();
-
+  let name = "";
   let username = "";
   let password = "";
   let tags = [];
   let isAdmin = false;
 
   const savePerson = async () => {
-    const user = { id: 2234, username, password, isAdmin, tags };
+    const user = { id: 2234, username, password, isAdmin, tags, name };
     const response = await fetch("/api/people", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
@@ -27,6 +27,9 @@
 </script>
 
 <div class="container mx-auto p-4 relative">
+  <label class="label mb-2">
+    Full Name: <input class="input" type="text" bind:value={name} />
+  </label>
   <label class="label mb-2">
     Username: <input class="input" type="text" bind:value={username} />
   </label>
