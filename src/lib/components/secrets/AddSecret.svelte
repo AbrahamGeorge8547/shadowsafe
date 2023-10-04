@@ -103,7 +103,7 @@
     </div>
   {/each}
   <!-- Add secret btn -->
-  <div class="flex">
+  <div class="flex mr-24">
     <button
       class="py-2 m-4 bg-[#363F61] flex-1 flex justify-center items-center rounded-lg border-dashed border border-[#3D476E]"
       on:click={addField}
@@ -113,7 +113,7 @@
   </div>
 </div>
 <!-- Text Area -->
-<div class="mx-6 px-4 py-5">
+<div class="mx-6 px-4 py-5 mr-[120px]">
   <textarea
     id="textarea"
     class="textarea"
