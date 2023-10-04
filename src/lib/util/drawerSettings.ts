@@ -23,7 +23,7 @@ export const createSecretDrawerSettings = {
   id: "create-secret",
   bgDrawer: "bg-[#2E3654] text-white",
   bgBackdrop: "flex flex-1 justify-center items-center",
-  width: "w-[752px] md:w-[640px]",
+  width: "w-[820px] md:w-[752px]",
   height: "h-[600px]",
   padding: "p-10",
   rounded: "rounded-lg",
