@@ -41,7 +41,7 @@
     fetch(`/api/folder/${$currentParentNode}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data, "ADD SECRET")
+        console.log(data, "ADD SECRET");
         const secretData = data.data.secrets.map((ele) => {
           return { ...ele, id: ele._id.timestamp };
         });
@@ -56,66 +56,85 @@
   };
   onMount(() => {
     secretFields.set([
-      { fieldKey: "", fieldValue: "", sensitive: false },
-      { fieldKey: "", fieldValue: "", sensitive: false },
+      { fieldKey: "Username", fieldValue: "", sensitive: false },
+      { fieldKey: "Password", fieldValue: "", sensitive: false },
+      { fieldKey: "URL", fieldValue: "", sensitive: false },
     ]);
   });
 </script>
 
-<div>
+<div class="mb-2 p-4 mx-6 mt-6">
+  <p class="font-normal text-4xl">Add secret</p>
+</div>
+<div class="mx-6">
   {#each $secretFields as field, index}
-    <div
-      class="field-container card-hover p-4 rounded-md shadow hover:shadow-lg transition relative mt-4 mb-4"
-    >
-      <button
-        class="absolute top-0 right-0 p-2"
-        on:click={() => removeField(index)}
-      >
-        <Icon icon="emojione:cross-mark-button" />
-      </button>
-      <div transition:fade class="flex items-center justify-between mt-4">
+    <div class="field-container rounded-sm transition relative">
+      <div class="flex items-center justify-between p-4">
         <input
-          class="input flex-grow mr-2"
+          class="flex-grow mr-2 bg-[#2E3654] rounded-full w-[256px] h-10"
           id={`key-${index}`}
           type="text"
-          placeholder="Field Name"
+          placeholder="Username"
           bind:value={field.fieldKey}
         />
         <input
-          class="input flex-grow mr-2"
+          class="flex-grow mr-2 bg-[#2E3654] rounded-full w-[256px] h-10"
           id={`value-${index}`}
           type="text"
-          placeholder="Field Value"
+          placeholder="Enter value"
           bind:value={field.fieldValue}
         />
-        <div use:popup={popupHover}>
+        <div use:popup={popupHover} class="flex justify-center">
           <SlideToggle
-            class="self-center ml-4"
+            background="bg-[#4C598B]"
+            active="bg-[#4E46DC]"
             name="slide"
+            size="sm"
             bind:checked={field.sensitive}
           />
         </div>
+        <button
+          class="rounded-full border border-[#4C598B] w-10 h-10 flex justify-center items-center ml-5"
+          on:click={() => removeField(index)}
+        >
+          <Icon icon="mi:delete" color="#828CAE" />
+        </button>
       </div>
     </div>
   {/each}
-  <label class="label m-4 card-hover"
-    >Description: <textarea
-      class="textarea"
-      rows="2"
-      bind:value={description}
-    /></label
-  >
-  <div class="flex justify-end mt-4 mr-4">
-    <button class="btn variant-filled-secondary ml-2" on:click={addField}
-      >Add Field</button
+  <!-- Add secret btn -->
+  <div class="flex">
+    <button
+      class="py-2 m-4 bg-[#363F61] flex-1 flex justify-center items-center rounded-lg border-dashed border border-[#3D476E]"
+      on:click={addField}
     >
-    <button class="btn variant-outline-secondary ml-2" on:click={saveSecret}
-      >Save All</button
-    >
+      <Icon icon="fa6-solid:plus" color="#828CAE" />
+    </button>
   </div>
+</div>
+<!-- Text Area -->
+<div class="mx-6 px-4 py-5">
+  <textarea
+    id="textarea"
+    class="textarea"
+    rows="2"
+    bind:value={description}
+    placeholder="Enter description about the secret"
+  />
+</div>
+<div class="flex justify-start mt-4 pl-4 ml-6">
+  <button class="bg-[#4E46DC] px-[52px] py-2.5 rounded-full mb-6" on:click={saveSecret}
+    >Add secret</button
+  >
 </div>
 
 <div class="card p-4 variant-filled-secondary" data-popup="popupHover">
   <p>toggle if sensitive</p>
   <div class="arrow variant-filled-secondary" />
 </div>
+
+<style>
+  #textarea {
+    background: #2e3654;
+  }
+</style>
