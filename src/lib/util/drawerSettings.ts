@@ -22,7 +22,7 @@ export const adminCreationDrawerSettings = {
 export const createSecretDrawerSettings = {
   id: "create-secret",
   bgDrawer: "bg-[#2E3654] text-white",
-  // bgBackdrop: "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+  bgBackdrop: "flex flex-1 justify-center items-center",
   width: "w-[752px] md:w-[640px]",
   height: "h-[600px]",
   padding: "p-10",
