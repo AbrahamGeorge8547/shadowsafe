@@ -5,6 +5,7 @@ export async function GET({ fetch, cookies, params }) {
   const token = String(cookies.get('token'));
   const groupId = params.groupId;
   const response = await getUsersOfGroup(fetch, groupId, token);
+  console.log(response.data.users);
   return json(response);
 }
 

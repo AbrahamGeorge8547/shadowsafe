@@ -10,3 +10,4 @@ export const breadCrumbs = writable([]);
 export const expandedNodes = writable(new Set());
 export const secretFields = writable([]);
 export const editMembers = writable(false);
+export const selectedGroup = writable('AllUsers');

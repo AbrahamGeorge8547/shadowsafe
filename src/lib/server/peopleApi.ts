@@ -27,12 +27,14 @@ export const createPeople = async (user, token: string) => {
   });
 };
 export const getgroups = async (fetch: any, token: string) => {
-  const response = await fetch(`${BASE_URL}/groups`, {
+  const response = await fetch(`${BASE_URL}/users/group`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
   })
+  console.log('fetching groups...')
   const data = await response.json();
+  console.log(data)
   return data;
 }
 

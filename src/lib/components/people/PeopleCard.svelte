@@ -1,6 +1,7 @@
 <script lang="ts">
   import { peopleList } from "$lib/store/people";
   import { currentParentNode, editMembers } from "$lib/store/ui";
+  import { selectedGroup } from "$lib/store/ui";
   import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
   import UserProfile from "./UserProfile.svelte";
@@ -8,11 +9,11 @@
 
   const selectedUserId = writable(null);
   onMount(() => {
-    const unsubscribe = currentParentNode.subscribe((value) => {
+    const unsubscribe = selectedGroup.subscribe((group) => {
       selectedUserId.set(null);
-      if (value !== undefined && value !== null) {
-        if (value != "AllUsers") {
-          fetch(`/api/groups/${value}`)
+      if (group !== undefined && group !== null) {
+        if (group.name != "AllUsers") {
+          fetch(`/api/groups/${group.groupId}`)
             .then((response) => response.json())
             .then((data) => {
               peopleList.set(data.data.users);
@@ -41,12 +42,12 @@
   async function handleDeleteUsers(id: string) {
     console.log("Clicked to delete the user");
     const response = await fetch(
-      `/api/groups/${$currentParentNode}/users/${id}`,
+      `/api/groups/${$selectedGroup.id}/users/${id}`,
       {
         method: "DELETE",
       }
     );
-    fetch(`/api/groups/${$currentParentNode}`)
+    fetch(`/api/groups/${$selectedGroup.id}`)
       .then((response) => response.json())
       .then((data) => {
         peopleList.set(data.data.users);
@@ -65,7 +66,7 @@
             class="card card-hover flex items-center justify-between w-full cursor-pointer p-4"
             on:click={() => handleUsernameClick(people._id)}
           >
-            <span>{people.username}</span>
+            <span>{people.name}</span>
             {#if $editMembers}
               <button
                 class="focus:outline-none"
