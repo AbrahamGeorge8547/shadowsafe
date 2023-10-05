@@ -1,17 +1,16 @@
-<script >
-
-  import {onMount} from 'svelte';
+<script>
+  import { onMount } from "svelte";
 
   let usernames = [];
 
   onMount(() => {
-    fetch('/api/people')
+    fetch("/api/people")
       .then((response) => response.json())
       .then((data) => {
         console.log(data);
-        usernames = data
+        usernames = data;
       });
-  })
+  });
   let search = "";
   let filteredPeoples;
 
