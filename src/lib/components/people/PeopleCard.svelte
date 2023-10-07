@@ -23,6 +23,8 @@
             .then((response) => response.json())
             .then((data) => {
               peopleList.set(data);
+
+              console.log($peopleList);
             });
         }
       }
@@ -64,7 +66,7 @@
         <li class="p-2 m-2 flex items-center justify-between">
           <div
             class="card card-hover flex items-center justify-between w-full cursor-pointer p-4"
-            on:click={() => handleUsernameClick(people._id)}
+            on:click={() => handleUsernameClick(people.userId)}
           >
             <span>{people.name}</span>
             {#if $editMembers}
