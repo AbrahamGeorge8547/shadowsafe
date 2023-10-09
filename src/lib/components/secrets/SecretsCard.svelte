@@ -11,13 +11,11 @@
   let secretData = [];
   onMount(() => {
     const unsubscribe = currentParentNode.subscribe((value) => {
-      if (value !== undefined && value !== null) {
+      if (value !== undefined && value !== null && value != "root") {
         fetch(`/api/folder/${value}`)
           .then((response) => response.json())
           .then((data) => {
-            secretData = data.data.secrets.map((ele) => {
-              return { ...ele, id: ele._id.timestamp };
-            });
+            secretData = data.data.secrets;
             secretsStore.set(secretData);
             // Do something with the data
           });

@@ -32,9 +32,7 @@ export const getgroups = async (fetch: any, token: string) => {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log('fetching groups...')
   const data = await response.json();
-  console.log(data)
   return data;
 }
 
@@ -62,6 +60,7 @@ export const addUserToGroup = async (fetch: any, token: string, payload: any) =>
     },
     body: JSON.stringify(payload)
   })
+  console.log(payload);
   return await response.json()
 }
 

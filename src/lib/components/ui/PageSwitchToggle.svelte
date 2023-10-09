@@ -1,5 +1,4 @@
 <script>
-    import { selectedTab } from "$lib/store/ui";
     import { goto } from "$app/navigation";
     import { RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
     let value = "Secrets";

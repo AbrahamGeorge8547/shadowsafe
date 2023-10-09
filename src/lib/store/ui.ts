@@ -12,3 +12,5 @@ export const secretFields = writable([]);
 export const editMembers = writable(false);
 export const selectedGroup = writable('AllUsers');
 export const selectedTab = writable('secrets');
+export const droppedItem = writable({});
+export const selectedPermission = writable(null);

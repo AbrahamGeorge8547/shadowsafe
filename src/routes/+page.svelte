@@ -1,18 +1,6 @@
 <script>
   import { AdminCheck } from "$lib/components/people";
-  import { userStore } from "$lib/store";
-
   import "font-awesome/css/font-awesome.min.css";
-  import { goto } from "$app/navigation";
-  import { onMount } from "svelte";
-  import { get } from "svelte/store";
-
-  onMount(() => {
-    const user = get(userStore);
-    if (user.email) {
-      goto("/vault/secrets");
-    }
-  });
 </script>
 
 <!-- <img src="/logo.svg" alt="Logo" /> -->

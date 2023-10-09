@@ -29,7 +29,10 @@
     event.preventDefault();
     const personData = event.dataTransfer.getData("person");
     const person = JSON.parse(personData);
-    addedUsers = [...addedUsers, { userId: person._id, accessType: "MEMBER" }];
+    addedUsers = [
+      ...addedUsers,
+      { userId: person.userId, accessType: "MEMBER" },
+    ];
     peopleList.update((people) => {
       return [...people, person];
     });
