@@ -59,7 +59,6 @@ export const createSecret = async (fetch: any, secret, token: string) => {
 export const getFolderStrucure = async (
   fetch: any,
   token: string,
-  orgId: string
 ) => {
   try {
     const headers = new Headers();
@@ -77,7 +76,6 @@ export const getFolderStrucure = async (
     );
 
     const data = await response.json();
-    console.log(data);
     return data.data;
   } catch (error) {
     console.log(error, "ERR");

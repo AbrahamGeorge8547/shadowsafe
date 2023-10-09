@@ -3,7 +3,6 @@
   import { secretFields, currentParentNode } from "$lib/store/ui";
   import { popup } from "@skeletonlabs/skeleton";
   import { onMount } from "svelte";
-  import { fade } from "svelte/transition";
   import Icon from "@iconify/svelte";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import { get } from "svelte/store";
@@ -42,9 +41,7 @@
       .then((response) => response.json())
       .then((data) => {
         console.log(data, "ADD SECRET");
-        const secretData = data.data.secrets.map((ele) => {
-          return { ...ele, id: ele._id.timestamp };
-        });
+        const secretData = data.data.secrets;
         secretsStore.set(secretData);
       });
     drawerStore.close();
@@ -57,7 +54,7 @@
   onMount(() => {
     secretFields.set([
       { fieldKey: "Username", fieldValue: "", sensitive: false },
-      { fieldKey: "Password", fieldValue: "", sensitive: false },
+      { fieldKey: "Password", fieldValue: "", sensitive: true },
       { fieldKey: "URL", fieldValue: "", sensitive: false },
     ]);
   });
@@ -123,8 +120,9 @@
   />
 </div>
 <div class="flex justify-start mt-4 pl-4 ml-6">
-  <button class="bg-[#4E46DC] px-[52px] py-2.5 rounded-full mb-6" on:click={saveSecret}
-    >Add secret</button
+  <button
+    class="bg-[#4E46DC] px-[52px] py-2.5 rounded-full mb-6"
+    on:click={saveSecret}>Add secret</button
   >
 </div>
 

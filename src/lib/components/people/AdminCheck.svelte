@@ -4,7 +4,7 @@
   const drawerStore = getDrawerStore();
 
   import { onMount } from "svelte";
-  import { userStore } from "$lib/store";
+  import { userStore } from "$lib/store/people";
   import { get } from "svelte/store";
   import { goto } from "$app/navigation";
   import {

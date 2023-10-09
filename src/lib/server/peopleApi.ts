@@ -62,6 +62,7 @@ export const addUserToGroup = async (fetch: any, token: string, payload: any) =>
     },
     body: JSON.stringify(payload)
   })
+  console.log(payload);
   return await response.json()
 }
 

@@ -70,3 +70,11 @@ export const createNewGroup = {
   rounded: "rounded-xl",
   position: "right",
 };
+
+export const permissions = {
+  id: 'permissions',
+  width: "w-[200px] md:w-[340px]",
+  height: "h-[400px]",
+  padding: "p-10",
+  rounded: "rounded-xl",
+}

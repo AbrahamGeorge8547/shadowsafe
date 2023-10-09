@@ -1,6 +1,6 @@
 <script lang="ts">
   import { peopleList } from "$lib/store/people";
-  import { currentParentNode, editMembers } from "$lib/store/ui";
+  import { editMembers } from "$lib/store/ui";
   import { selectedGroup } from "$lib/store/ui";
   import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
@@ -64,7 +64,7 @@
         <li class="p-2 m-2 flex items-center justify-between">
           <div
             class="card card-hover flex items-center justify-between w-full cursor-pointer p-4"
-            on:click={() => handleUsernameClick(people._id)}
+            on:click={() => handleUsernameClick(people.userId)}
           >
             <span>{people.name}</span>
             {#if $editMembers}

@@ -8,20 +8,27 @@
     breadCrumbs,
     currentParentNode,
   } from "$lib/store/ui";
-  import { groupList } from "$lib/store/people";
-  import { createNewFolder, createSecretDrawerSettings } from "$lib/util/drawerSettings";
+  import {
+    createNewFolder,
+    createSecretDrawerSettings,
+  } from "$lib/util/drawerSettings";
   import { SecretsCard } from "$lib/components/secrets";
-  import { GroupListView } from "$lib/components/people";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import { AccessList } from "$lib/components/ui";
   const drawerStore = getDrawerStore();
 
   export let data;
 
   let currentNode;
-
-  treeStore.set(data.folder);
+  const fakeParent = {
+    id: "root",
+    label: "Vault",
+    children: data.folders,
+  };
+  console.log(data.folders);
+  treeStore.set(fakeParent);
   $: {
     currentNode = findNodeById($treeStore, $currentParentNode);
   }
@@ -52,24 +59,9 @@
     drawerStore.open(createSecretDrawerSettings);
   };
   const addNewFolder = async () => {
-    // @ts-ignore
     drawerStore.open(createNewFolder);
   };
 
-  function allowDrop(event) {
-    event.preventDefault();
-  }
-  function handleDrop(event) {
-    event.preventDefault();
-
-    const personData = event.dataTransfer.getData("person");
-    const person = JSON.parse(personData);
-    groupList.update((people) => {
-      return [...people, person.groupName];
-    });
-    // Now `person` is available to be added to your folder or whatever structure you have
-    // console.log("Dropped:", person);
-  }
   let isIconChanged = false;
   let isHidden = false;
   const toggleIcon = () => {
@@ -79,7 +71,11 @@
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
-  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
+  <button
+    type="button"
+    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
+    on:click={goBack}
+  >
     <Icon icon="ep:back" />
   </button>
   <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
@@ -104,15 +100,14 @@
 </div>
 
 <div class="app-container flex">
-  <!-- TreeView on the left -->
   <div
     class="flex-none flex-shrink-0 flex-grow-0 min-w-[250px] max-w-sm card-hover variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16 self-start"
   >
     <TreeView nodeId={$treeStore.id} />
   </div>
-
-  <!-- FoldersView on the right -->
-  <div class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-[4px] mx-8">
+  <div
+    class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-[4px] mx-8"
+  >
     <div class="flex flex-row justify-between px-8 items-center py-6">
       <div class="flex items-center">
         <h1 class="mr-2">{`${currentNode ? currentNode.label : ""}`}</h1>
@@ -127,11 +122,13 @@
 
       {#if !isHidden}
         <div class="flex flex-row">
-          <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl" on:click={createSecret}
-            >Add Secret</button
+          <button
+            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl"
+            on:click={createSecret}>Add Secret</button
           >
-          <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
-            >Add Folder</button
+          <button
+            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
+            on:click={addNewFolder}>Add Folder</button
           >
         </div>
       {/if}
@@ -142,26 +139,7 @@
         <SecretsCard />
       </div>
     {:else}
-      <div class="flex">
-        <!-- The ul with the $groupList -->
-        <div class="w-1/2" on:drop={handleDrop} on:dragover={allowDrop}>
-          <ul class="grid grid-cols-3 gap-4">
-            {#each $groupList as group}
-              <li class="text-center">
-                <div class="flex flex-col items-center">
-                  <Icon icon="dashicons:groups" class="text-3xl" />
-                  <span>{group}</span>
-                </div>
-              </li>
-            {/each}
-          </ul>
-        </div>
-
-        <!-- The GroupListView -->
-        <div class="w-1/2">
-          <GroupListView />
-        </div>
-      </div>
+      <AccessList />
     {/if}
   </div>
 </div>
