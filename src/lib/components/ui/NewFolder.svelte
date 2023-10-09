@@ -41,7 +41,6 @@
       if ($currentParentNode == "root") {
         parentId = null;
       }
-      console.log($currentParentNode, "PAER");
       const response = await fetch("/api/folder", {
         method: "POST",
         body: JSON.stringify({
@@ -51,8 +50,6 @@
       });
       const responseJson = await response.json();
       drawerStore.close();
-      console.log(responseJson);
-      // Update your treeStore to include the new folder
       treeStore.set(responseJson);
       const parentNode = findNodeById($treeStore, parentId);
       selectedNodeChildren.set(parentNode.children);

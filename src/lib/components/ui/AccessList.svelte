@@ -38,7 +38,6 @@
 
     $: {
         if ($selectedPermission === "Cancelled") {
-            console.log("Cancelled");
         } else if (droppedItemType == "user" && $selectedPermission != null) {
             payload.userAccess.push({
                 userId: get(droppedItem).id,
@@ -54,13 +53,25 @@
                     id: droppedItem.id,
                 },
             ];
-            console.log(unsavedUserList);
         } else if (droppedItemType == "group" && $selectedPermission != null) {
             payload.groupAccess.push({
                 groupId: get(droppedItem).id,
                 type: $selectedPermission,
             });
             console.log(payload);
+            const permission = get(selectedPermission);
+            fetch(`/api/groups/${$droppedItem.id}`)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    const groupUsers = responseJson.data.users.map((ele) => {
+                        return {
+                            name: ele.name,
+                            permission,
+                            team: get(droppedItem).name,
+                        };
+                    });
+                    unsavedUserList = [...unsavedUserList, ...groupUsers];
+                });
         }
 
         selectedPermission.set(null);
@@ -76,9 +87,30 @@
                 groupAccess: [],
             };
         }
+        unsavedUserList = [];
     });
+    const addUsersToFolder = () => {
+        fetch(`/api/folder/${$currentParentNode}`, {
+            method: "POST",
+            body: JSON.stringify(payload),
+        });
+        unsavedUserList = [];
+        droppedItemType = null;
+        droppedItem.set(null);
+        payload = {
+            folderId: get(currentParentNode),
+            userAccess: [],
+            groupAccess: [],
+        };
+    };
 </script>
 
+<!-- disable the button if unsaveduserList is 0 -->
+{#if unsavedUserList.length}
+    <button class="btn variant-filled-primary" on:click={addUsersToFolder}>
+        save changes
+    </button>
+{/if}
 <div class="flex">
     <!-- The ul with the $groupList -->
     <div class="w-1/2" on:drop={handleDrop} on:dragover={allowDrop}>

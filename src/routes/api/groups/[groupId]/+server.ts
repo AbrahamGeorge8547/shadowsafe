@@ -5,7 +5,6 @@ export async function GET({ fetch, cookies, params }) {
   const token = String(cookies.get('token'));
   const groupId = params.groupId;
   const response = await getUsersOfGroup(fetch, groupId, token);
-  console.log(response.data.users, "FETCHED USERS");
   return json(response);
 }
 
@@ -14,7 +13,6 @@ export async function POST({ fetch, cookies, request, params }) {
   const groupId = params.groupId;
   const payload = await request.json();
   const data = await addUserToGroup(fetch, token, { ...payload, groupId });
-  console.log('RESPONSE ADD USER', data)
   return json(data);
 }
 

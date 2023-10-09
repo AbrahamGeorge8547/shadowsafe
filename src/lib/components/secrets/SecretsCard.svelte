@@ -15,7 +15,6 @@
         fetch(`/api/folder/${value}`)
           .then((response) => response.json())
           .then((data) => {
-            console.log(data.data, "YYOOOOO");
             secretData = data.data.secrets;
             secretsStore.set(secretData);
             // Do something with the data

@@ -110,3 +110,15 @@ export const getSecretsByFolder = async (
   const data = await response.json();
   return data;
 };
+
+
+export const addUsersToFolder = async (fetch: any, payload: any, token: string) => {
+
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${token}`);
+  headers.append("Content-Type", "application/json");
+
+  const response = await fetch(`${BASE_URL}/access`, { headers, method: 'POST', body: JSON.stringify(payload) });
+  const data = await response.json();
+  console.log(data);
+}

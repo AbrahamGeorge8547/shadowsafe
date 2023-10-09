@@ -27,7 +27,6 @@
     label: "Vault",
     children: data.folders,
   };
-  console.log(data.folders);
   treeStore.set(fakeParent);
   $: {
     currentNode = findNodeById($treeStore, $currentParentNode);

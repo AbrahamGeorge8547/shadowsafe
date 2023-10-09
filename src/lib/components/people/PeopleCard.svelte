@@ -34,13 +34,11 @@
     };
   });
   function handleUsernameClick(id: string) {
-    console.log("clicked on user", id);
     if (!$editMembers) {
       selectedUserId.set(id);
     }
   }
   async function handleDeleteUsers(id: string) {
-    console.log("Clicked to delete the user");
     const response = await fetch(
       `/api/groups/${$selectedGroup.id}/users/${id}`,
       {

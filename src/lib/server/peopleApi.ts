@@ -32,9 +32,7 @@ export const getgroups = async (fetch: any, token: string) => {
       Authorization: `Bearer ${token}`
     }
   })
-  console.log('fetching groups...')
   const data = await response.json();
-  console.log(data)
   return data;
 }
 

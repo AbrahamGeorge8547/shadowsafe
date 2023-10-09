@@ -1,4 +1,4 @@
-import { getSecretsByFolder } from "$lib/server/secretsApi";
+import { getSecretsByFolder, addUsersToFolder } from "$lib/server/secretsApi";
 import { json } from "@sveltejs/kit";
 export async function GET({ fetch, cookies, params }) {
   const { folderId } = params;
@@ -19,3 +19,11 @@ export async function GET({ fetch, cookies, params }) {
 
 //   return json({ success: true });
 // }
+
+export async function POST({ fetch, cookies, request }) {
+  const token = String(cookies.get("token"));
+  const payload = await request.json();
+  console.log(payload, 'SERVER')
+  const response = await addUsersToFolder(fetch, payload, token)
+  return json({ success: true })
+}

@@ -10,14 +10,13 @@ export async function GET({ fetch, cookies }) {
   return json(data);
 }
 
- export async function POST({ fetch, cookies, request }) {
-   const token = String(cookies.get("token"));
-   const payload = await request.json();
-   console.log(payload)
-   const data = await addGroups(fetch, token, payload);
-   return json({
-     body: {
-       data,
-     },
-   });
- }
+export async function POST({ fetch, cookies, request }) {
+  const token = String(cookies.get("token"));
+  const payload = await request.json();
+  const data = await addGroups(fetch, token, payload);
+  return json({
+    body: {
+      data,
+    },
+  });
+}
