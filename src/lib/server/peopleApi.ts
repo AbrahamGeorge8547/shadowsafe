@@ -27,7 +27,7 @@ export const createPeople = async (user, token: string) => {
   });
 };
 export const getgroups = async (fetch: any, token: string) => {
-  const response = await fetch(`${BASE_URL}/groups`, {
+  const response = await fetch(`${BASE_URL}/users/group`, {
     headers: {
       Authorization: `Bearer ${token}`
     }
@@ -60,6 +60,7 @@ export const addUserToGroup = async (fetch: any, token: string, payload: any) =>
     },
     body: JSON.stringify(payload)
   })
+  console.log(payload);
   return await response.json()
 }
 

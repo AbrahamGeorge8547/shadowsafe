@@ -6,7 +6,6 @@ export async function GET({ fetch, cookies }) {
   const data = await getFolderStrucure(
     fetch,
     token,
-    "650a9fc08d21ba79d1bd5ab5"
   );
   return json({
     body: {

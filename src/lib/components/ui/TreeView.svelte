@@ -51,7 +51,6 @@
     if (children) {
       selectedNodeChildren.set(children);
     } else {
-      console.log(`Leaf node clicked with ID: ${id}`);
       selectedNodeChildren.set([]);
     }
 

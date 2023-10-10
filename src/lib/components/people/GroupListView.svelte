@@ -1,65 +1,42 @@
 <script>
-  const groupNames = [
-    {
-      id: "6519318f73e491105e8e348b",
-      groupName: "IronMan Suit Users",
-      parentId: "6519278473e491105e8e3461",
-      children: [],
-    },
-    {
-      id: "6519319e73e491105e8e348c",
-      groupName: "Team Cap",
-      parentId: "6519278473e491105e8e3461",
-      children: [],
-    },
-    {
-      id: "651931b973e491105e8e348d",
-      groupName: "Team IronMan",
-      parentId: "6519278473e491105e8e3461",
-      children: [],
-    },
-    {
-      id: "651931de73e491105e8e348e",
-      groupName: "Asgardians",
-      parentId: "6519278473e491105e8e3461",
-      children: [
-        {
-          id: "651934b873e491105e8e3493",
-          groupName: "Valkyries",
-          parentId: "651931de73e491105e8e348e",
-          children: [],
-        },
-      ],
-    },
-    {
-      id: "6519349f73e491105e8e3491",
-      groupName: "S.H.I.E.L.D agents",
-      parentId: "6519278473e491105e8e3461",
-      children: [],
-    },
-    {
-      id: "651934ab73e491105e8e3492",
-      groupName: "Spies of Natasha",
-      parentId: "6519278473e491105e8e3461",
-      children: [],
-    },
-    {
-      id: "6519352673e491105e8e3494",
-      groupName: "Wakandans",
-      parentId: "6519278473e491105e8e3461",
-      children: [],
-    },
-  ];
-
+  import { RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
+  let listNames = [];
   let search = "";
-  let filteredPeoples;
+  let filteredList = [];
 
-  $: filteredPeoples = groupNames.filter((person) =>
-    person.groupName.toLowerCase().includes(search.toLowerCase())
+  $: filteredList = listNames.filter((group) =>
+    group.name.toLowerCase().includes(search.toLowerCase())
   );
-  function handleDragStart(event, person) {
-    event.dataTransfer.setData("person", JSON.stringify(person));
+  function handleDragStart(event, data) {
+    if (value == "Groups") {
+      event.dataTransfer.setData("group", true);
+      event.dataTransfer.setData("groupData", JSON.stringify(data));
+    } else {
+      event.dataTransfer.setData("group", false);
+      event.dataTransfer.setData("personData", JSON.stringify(data));
+    }
     search = "";
+  }
+  let value = "Groups";
+  const getAllGroups = async () => {
+    const response = await fetch(`/api/groups`);
+    const responseJson = await response.json();
+    listNames = responseJson.data.groups;
+  };
+
+  const getAllUsers = async () => {
+    const respone = await fetch("/api/people");
+    const responseJson = await respone.json();
+    listNames = responseJson;
+  };
+
+  $: if (!import.meta.env.SSR) {
+    // Check if running on client
+    if (value === "Groups") {
+      getAllGroups();
+    } else if (value === "Users") {
+      getAllUsers();
+    }
   }
 </script>
 
@@ -77,14 +54,21 @@
     </div>
   </div>
 </div>
+
+<RadioGroup active="variant-filled-primary" hover="hover:variant-soft-primary">
+  <RadioItem bind:group={value} name="justify" value="Users"
+    >All Users</RadioItem
+  >
+  <RadioItem bind:group={value} name="justify" value="Groups">Groups</RadioItem>
+</RadioGroup>
 <ul class="mt-4 px-3">
-  {#each filteredPeoples as person}
+  {#each filteredList as element}
     <li
       draggable="true"
-      on:dragstart={(e) => handleDragStart(e, person)}
+      on:dragstart={(e) => handleDragStart(e, element)}
       class="card ml-2 p-2"
     >
-      {person.groupName}
+      {element.name}
     </li>
   {/each}
 </ul>

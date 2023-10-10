@@ -12,7 +12,6 @@
                     `/api/people/details/${userId}`
                 );
                 const responseJson = await responseData.json();
-                console.log(responseJson.data);
                 user = responseJson.data;
             } catch (error) {
                 console.error("Failed to update user data:", error);

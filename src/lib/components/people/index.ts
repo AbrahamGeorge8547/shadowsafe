@@ -5,6 +5,7 @@ import GroupListView from "./GroupListView.svelte";
 import Login from "./Login.svelte";
 import PeopleCard from "./PeopleCard.svelte";
 import PeopleListView from "./PeopleListView.svelte";
+import GroupsView from "./GroupsView.svelte";
 
 export {
   AdminCheck,
@@ -14,4 +15,5 @@ export {
   Login,
   PeopleCard,
   PeopleListView,
+  GroupsView
 };
