@@ -28,9 +28,6 @@
     children: data.folders,
   };
   treeStore.set(fakeParent);
-  $: {
-    currentNode = findNodeById($treeStore, $currentParentNode);
-  }
 
   const goBack = () => {
     navigationHistory.update((history) => {
