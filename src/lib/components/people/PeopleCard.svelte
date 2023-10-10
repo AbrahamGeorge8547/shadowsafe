@@ -10,13 +10,16 @@
   const selectedUserId = writable(null);
   onMount(() => {
     const unsubscribe = selectedGroup.subscribe((group) => {
+      console.log("GROUP", group);
       selectedUserId.set(null);
       if (group !== undefined && group !== null) {
         if (group.name != "AllUsers") {
           fetch(`/api/groups/${group.groupId}`)
             .then((response) => response.json())
             .then((data) => {
-              peopleList.set(data.data.users);
+              if (data.data) {
+                peopleList.set(data.data.users);
+              }
             });
         } else {
           fetch("/api/people")
