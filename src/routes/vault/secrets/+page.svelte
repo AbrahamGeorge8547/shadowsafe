@@ -64,6 +64,10 @@
     isIconChanged = !isIconChanged;
     isHidden = !isHidden;
   };
+
+  $: {
+    currentNode = findNodeById($treeStore, $currentParentNode);
+  }
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
