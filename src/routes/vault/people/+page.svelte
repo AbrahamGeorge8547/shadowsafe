@@ -19,8 +19,9 @@
   const toastStore = getToastStore();
   export let data;
   groupList.set(data.folder);
-
-  selectedGroup.set(data.folder[0]);
+  if (data.folder[0]) {
+    selectedGroup.set(data.folder[0]);
+  }
   function allowDrop(event) {
     event.preventDefault();
   }
