@@ -41,21 +41,24 @@
       if ($currentParentNode == "root") {
         parentId = null;
       }
-      const response = await fetch("/api/folder", {
+      await fetch("/api/folder", {
         method: "POST",
         body: JSON.stringify({
           label: folderName,
           parent: parentId,
         }),
       });
-      const responseJson = await response.json();
+      fetch(`/api/folder`)
+        .then((response) => response.json())
+        .then((responseJson) => {
+          const fakeParent = {
+            id: "root",
+            label: "Vault",
+            children: responseJson.body.data.folders,
+          };
+          treeStore.set(fakeParent);
+        });
       drawerStore.close();
-      treeStore.set(responseJson);
-      const parentNode = findNodeById($treeStore, parentId);
-      selectedNodeChildren.set(parentNode.children);
-
-      // Optionally, you might want to expand the parent folder
-      expandedNodes.update((nodes) => nodes.add(parentId));
     }
   };
 </script>
