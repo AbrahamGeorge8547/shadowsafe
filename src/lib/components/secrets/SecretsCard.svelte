@@ -60,11 +60,11 @@
   };
 </script>
 
-<div class="flex flex-wrap transition-all duration-500">
+<div class="flex flex-wrap transition-all duration-500 p-6">
   {#each $secretsStore as secret}
-    <div class="w-1/3 px-2 mb-4">
+    <div class="mb-6 mr-6">
       <div
-        class="container mx-auto p-4 relative card card-hover max-w-xs rounded-lg group h-auto"
+        class="container mx-auto p-4 relative card card-hover max-w-xs rounded-lg group h-auto !bg-[#3A4468]"
         on:mouseenter={() => handleMouseEnter(secret.id)}
         on:mouseleave={() => handleMouseLeave(secret.id)}
       >
@@ -76,12 +76,8 @@
                   <label class="label block mb-2">{field.fieldKey}</label>
                   <input
                     class="input pr-16"
-                    type={showSensitive[`${secret.id}_${index}`]
-                      ? "text"
-                      : "password"}
-                    value={showSensitive[`${secret.id}_${index}`]
-                      ? field.fieldValue
-                      : "****"}
+                    type={showSensitive[`${secret.id}_${index}`] ? "text" : "password"}
+                    value={showSensitive[`${secret.id}_${index}`] ? field.fieldValue : "****"}
                   />
                   <button
                     on:click={() => toggleVisibility(secret.id, index)}
@@ -99,7 +95,7 @@
               {:else if !field.sensitive}
                 <label class="label block mb-2">{field.fieldKey}</label>
                 <input
-                  class="input pr-10 w-full items-center"
+                  class="input pr-10 w-full items-center !bg-[#3A4468]"
                   type="text"
                   value={field.fieldValue}
                 />

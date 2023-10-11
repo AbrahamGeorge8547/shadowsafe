@@ -8,10 +8,7 @@
     breadCrumbs,
     currentParentNode,
   } from "$lib/store/ui";
-  import {
-    createNewFolder,
-    createSecretDrawerSettings,
-  } from "$lib/util/drawerSettings";
+  import { createNewFolder, createSecretDrawerSettings } from "$lib/util/drawerSettings";
   import { SecretsCard } from "$lib/components/secrets";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
@@ -71,14 +68,10 @@
 </script>
 
 <div class="bread-crumbs-container flex items-center ml-4">
-  <button
-    type="button"
-    class="btn-icon btn-icon-sm variant-filled-tertiary m-4"
-    on:click={goBack}
-  >
+  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
     <Icon icon="ep:back" />
   </button>
-  <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
+  <div class="flex-box ">
     <BreadCrumbs />
   </div>
 </div>
@@ -105,37 +98,62 @@
   >
     <TreeView nodeId={$treeStore.id} />
   </div>
-  <div
-    class="flex flex-col flex-grow h-4/5 border-2 border-[#235789] rounded-[4px] mx-8"
-  >
+  <div class="flex flex-col flex-grow h-4/5 rounded-[4px] mx-8 bg-[#2E3654]">
     <div class="flex flex-row justify-between px-8 items-center py-6">
-      <div class="flex items-center">
-        <h1 class="mr-2">{`${currentNode ? currentNode.label : ""}`}</h1>
-        <button on:click={toggleIcon} class="ml-2">
-          {#if isIconChanged}
-            <Icon icon="ic:baseline-groups" class="text-3xl" />
-          {:else}
-            <Icon icon="ic:outline-groups" class="text-3xl" />
-          {/if}
-        </button>
-      </div>
+      <div class="flex">
+        <div class="flex items-center mr-4">
+          <h1 class="mr-2 text-4xl">{`${currentNode ? currentNode.label : ""}`}</h1>
+          <button on:click={toggleIcon} class="ml-2">
+            {#if isIconChanged}
+              <Icon icon="ic:baseline-groups" class="text-3xl" />
+            {:else}
+              <Icon icon="ic:outline-groups" class="text-3xl" />
+            {/if}
+          </button>
+        </div>
 
+        <!-- Share button -->
+        <button
+          class="bg-[#3F4766] px-4 py-1.5 rounded-full flex justify-center items-center text-[#828CAE] mr-4"
+          on:click={() => console.log("Share")}
+        >
+          <Icon icon="tdesign:share" class="h-[14px] w-[14px] mr-2" />
+          Share
+        </button>
+
+        <!-- Search component -->
+        <div class="flex rounded-full searchWrapper justify-between">
+          <input
+            type="search"
+            class="variant-filled-surface border-0 rounded-l-full !bg-[#2E3654] flex-1"
+            placeholder="Search..."
+            id="search-input"
+            on:change={(text) => {
+              console.log(text);
+            }}
+          />
+          <div class="flex items-center bg-[#2E3654] rounded-r-full px-3 justify-center">
+            <Icon icon="ic:baseline-search" class="h-6 w-6" color="#4C598B" />
+          </div>
+        </div>
+      </div>
       {#if !isHidden}
         <div class="flex flex-row">
           <button
-            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl"
-            on:click={createSecret}>Add Secret</button
-          >
-          <button
-            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
-            on:click={addNewFolder}>Add Folder</button
+            class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl flex justify-center items-center"
+            on:click={createSecret}
+            >Add new secret
+            <Icon icon="ic:round-plus" class="h-5 w-5 ml-1" />
+          </button>
+          <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
+            >Add Folder</button
           >
         </div>
       {/if}
     </div>
 
     {#if !isHidden}
-      <div class="folders-area py-4 border-t-2 rounded-t-xl border-[#235789]">
+      <div class="folders-area mt-6">
         <SecretsCard />
       </div>
     {:else}
@@ -143,3 +161,11 @@
     {/if}
   </div>
 </div>
+
+<style>
+  .searchWrapper {
+    border: 1px solid #374165;
+    width: 306px;
+    /* border-radius: 4px; */
+  }
+</style>
