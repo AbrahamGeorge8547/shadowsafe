@@ -90,12 +90,15 @@
                     groupAccess: [],
                 };
             }
-            console.log("ACCESS LIST CHANGE");
-            fetch(`/api/folder/${node}?access=true`)
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    accessUserList = responseJson.users;
-                });
+            if (node != "root") {
+                fetch(`/api/folder/${node}?access=true`)
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        accessUserList = responseJson.users;
+                    });
+            } else {
+                accessUserList = [];
+            }
             unsavedUserList = [];
         });
     });
