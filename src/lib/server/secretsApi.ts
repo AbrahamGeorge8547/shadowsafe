@@ -119,6 +119,15 @@ export const addUsersToFolder = async (fetch: any, payload: any, token: string) 
   headers.append("Content-Type", "application/json");
 
   const response = await fetch(`${BASE_URL}/access`, { headers, method: 'POST', body: JSON.stringify(payload) });
-  const data = await response.json();
-  console.log(data);
+  const responseJson = await response.json();
+  return responseJson;
+}
+
+export const getAccessList = async (fetch: any, folderId: string, token: string) => {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${token}`);
+  headers.append("Content-Type", "application/json");
+  const response = await fetch(`${BASE_URL}/folder/user?id=${folderId}`, { headers });
+  return response.json();
+
 }
