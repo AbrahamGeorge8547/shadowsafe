@@ -80,29 +80,32 @@
       <!-- Add this div for the vertical line -->
       <div
         class={`absolute left-4 top-16 bottom-0 ${
-          expanded && isExpanded ? "border-l border-gray-400" : ""
+          expanded && isExpanded ? "border-l border-[#323A5A]" : ""
         }`}
       />
       <!-- svelte-ignore a11y-click-events-have-key-events -->
       <span
         on:click={handleNodeClick}
-        class={`flex items-center text-lg btn-sm hover:bg-[#34487F] ml-auto ${
-          $currentParentNode === id ? "selected-node" : ""
+        class={`flex items-center text-lg btn-sm ml-auto rounded ${
+          $currentParentNode === id ? "selected-node" : "hoverItem"
         }`}
       >
-        <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
-        <span>{label}</span>
+        <!-- Hide caret if no children -->
         {#if expanded}
-          <Icon
-            icon="grommet-icons:caret-up-fill"
-            class="mr-2 text-2xl ml-auto "
-          />
+          <Icon icon="ph:caret-up-bold" class="mr-1 text-[16px]" />
         {:else}
-          <Icon
-            icon="grommet-icons:caret-down-fill"
-            class="mr-2 text-2xl ml-auto"
-          />
+          <Icon icon="ph:caret-down-bold" class="mr-1 text-[16px]" />
         {/if}
+        <Icon
+          icon="ph:folder"
+          class="mr-2 text-2xl"
+          color={`${$currentParentNode === id ? "#fff" : "#828CAE"}`}
+        />
+        <span
+          class={`${
+            $currentParentNode === id ? "text-[#fff]" : "text-[#828CAE]"
+          } w-[152px] text-lg`}>{label}</span
+        >
       </span>
       {#if isExpanded && children}
         <div class="pl-4">
@@ -117,8 +120,12 @@
 
 <style>
   .selected-node {
-    background: #33487e;
-    border: 1px solid #4ba3e3;
+    background: #2e3654;
+    border: 1px solid #374165;
+    border-radius: 4px;
+  }
+  .hoverItem:hover {
+    border: 1px solid #374165;
     border-radius: 4px;
   }
 </style>
