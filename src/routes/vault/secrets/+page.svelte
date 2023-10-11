@@ -78,7 +78,7 @@
   >
     <Icon icon="ep:back" />
   </button>
-  <div class="flex-box card-hover variant-outline-tertiary rounded-md p-1">
+  <div class="flex-box ">
     <BreadCrumbs />
   </div>
 </div>

@@ -73,8 +73,10 @@ export const createNewGroup = {
 
 export const permissions = {
   id: 'permissions',
-  width: "w-[200px] md:w-[340px]",
-  height: "h-[400px]",
+  width: "w-[220px] md:w-[340px]",
+  bgBackdrop: "flex flex-1 justify-center items-center",
+  height: "h-[440px]",
   padding: "p-10",
-  rounded: "rounded-xl",
+  rounded: "rounded-lg",
+  bgDrawer: "bg-[#3A4468] text-white",
 }
