@@ -10,6 +10,7 @@
     import { getDrawerStore } from "@skeletonlabs/skeleton";
     import { get } from "svelte/store";
     import { permissions } from "$lib/util/drawerSettings";
+    import { onDestroy, onMount } from "svelte";
     const drawerStore = getDrawerStore();
 
     function allowDrop(event) {
@@ -20,6 +21,7 @@
         userAccess: [],
         groupAccess: [],
     };
+    let accessUserList = [];
     let unsavedUserList = [];
     let droppedItemType: string = null;
     function handleDrop(event) {
@@ -76,23 +78,42 @@
 
         selectedPermission.set(null);
     }
-
-    currentParentNode.subscribe((node) => {
-        if (node !== undefined && node !== null) {
-            droppedItemType = null;
-            droppedItem.set(null);
-            payload = {
-                folderId: node,
-                userAccess: [],
-                groupAccess: [],
-            };
+    let unsubscribe;
+    onMount(() => {
+        unsubscribe = currentParentNode.subscribe((node) => {
+            if (node !== undefined && node !== null) {
+                droppedItemType = null;
+                droppedItem.set(null);
+                payload = {
+                    folderId: node,
+                    userAccess: [],
+                    groupAccess: [],
+                };
+            }
+            console.log("ACCESS LIST CHANGE");
+            fetch(`/api/folder/${node}?access=true`)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    accessUserList = responseJson.users;
+                });
+            unsavedUserList = [];
+        });
+    });
+    onDestroy(() => {
+        if (unsubscribe) {
+            unsubscribe();
         }
-        unsavedUserList = [];
     });
     const addUsersToFolder = () => {
         fetch(`/api/folder/${$currentParentNode}`, {
             method: "POST",
             body: JSON.stringify(payload),
+        }).then((data) => {
+            fetch(`/api/folder/${$currentParentNode}?access=true`)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    accessUserList = responseJson.users;
+                });
         });
         unsavedUserList = [];
         droppedItemType = null;
@@ -114,7 +135,7 @@
 <div class="flex">
     <!-- The ul with the $groupList -->
     <div class="w-1/2" on:drop={handleDrop} on:dragover={allowDrop}>
-        <ul class="grid grid-cols-3 gap-4">
+        <ul class="grid gap-4">
             {#each unsavedUserList as user}
                 <div class="card p-4">
                     {user.name}
@@ -122,11 +143,16 @@
                     {user.team}
                 </div>
             {/each}
-            {#each $accessList as group}
+            {#each accessUserList as user}
                 <li class="text-center">
-                    <div class="flex flex-col items-center">
-                        <Icon icon="dashicons:groups" class="text-3xl" />
-                        <span>{group}</span>
+                    <div class="card p-4">
+                        <span>{user.name}</span>
+                        <span>{user.accessType}</span>
+                        {#if user.group}
+                            {#each user?.group as group}
+                                <span>{group.name}</span>
+                            {/each}
+                        {/if}
                     </div>
                 </li>
             {/each}
