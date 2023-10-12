@@ -75,20 +75,21 @@
     <BreadCrumbs />
   </div>
 </div>
-<div class="flex justify-end px-14 mb-4">
-  <div class="flex rounded-md">
+<div class="w-full flex justify-center items-center mb-2 ">
+  <div class="flex  searchWrapper justify-between !w-[600px] !bg-[#2E3654] ">
+    <div class="flex items-center bg-[#2E3654] rounded-r-full px-3 justify-center">
+      <Icon icon="ic:baseline-search" class="h-6 w-6" color="#828CAE" />
+    </div>
     <input
       type="search"
-      class="variant-filled-surface border-0 rounded-l-lg"
-      placeholder="Search..."
+      class="variant-filled-surface border-0  !bg-[#2E3654] flex-1"
+      placeholder="Find Secrets, Folders, Groups and people"
       id="search-input"
       on:change={(text) => {
         console.log(text);
       }}
     />
-    <div class="flex items-center bg-[#495A8F] rounded-r-lg pr-3">
-      <img src="/search.svg" alt="search-icon" />
-    </div>
+
   </div>
 </div>
 
@@ -98,7 +99,7 @@
   >
     <TreeView nodeId={$treeStore.id} />
   </div>
-  <div class="flex flex-col flex-grow h-4/5 rounded-[4px] mx-8 bg-[#2E3654]">
+  <div class="flex flex-col flex-grow h-4/5 rounded-[4px] mx-8 bg-[#2E3654] relative">
     <div class="flex flex-row justify-between px-8 items-center py-6">
       <div class="flex">
         <div class="flex items-center mr-4">
@@ -122,7 +123,7 @@
         </button>
 
         <!-- Search component -->
-        <div class="flex rounded-full searchWrapper justify-between">
+        <div class="flex rounded-full searchWrapper justify-between ">
           <input
             type="search"
             class="variant-filled-surface border-0 rounded-l-full !bg-[#2E3654] flex-1"
