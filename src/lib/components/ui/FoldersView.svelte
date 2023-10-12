@@ -4,14 +4,13 @@
     navigationHistory,
     currentParentNode,
     expandedNodes,
-  } from '$lib/store/ui';
-  import { fade } from 'svelte/transition';
-  import Icon from '@iconify/svelte';
-  import { findNodeById, findParentNodesById } from '$lib/util';
-  import { treeStore, breadCrumbs } from '$lib/store/ui';
-  import { onMount } from 'svelte';
+  } from "$lib/store/ui";
+  import { fade } from "svelte/transition";
+  import Icon from "@iconify/svelte";
+  import { findNodeById, findParentNodesById } from "$lib/util";
+  import { treeStore, breadCrumbs } from "$lib/store/ui";
+  import { onMount } from "svelte";
   const handleFolderClick = (folder) => {
-    console.log(`Clicked folder with ID: ${folder.id}, Label: ${folder.label}`);
     navigationHistory.update((history) => {
       history.push(folder);
       return [...history];

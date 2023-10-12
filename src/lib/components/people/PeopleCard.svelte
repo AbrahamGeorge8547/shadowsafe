@@ -1,6 +1,6 @@
 <script lang="ts">
   import { peopleList } from "$lib/store/people";
-  import { currentParentNode, editMembers } from "$lib/store/ui";
+  import { editMembers } from "$lib/store/ui";
   import { selectedGroup } from "$lib/store/ui";
   import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
@@ -10,13 +10,16 @@
   const selectedUserId = writable(null);
   onMount(() => {
     const unsubscribe = selectedGroup.subscribe((group) => {
+      console.log("GROUP", group);
       selectedUserId.set(null);
       if (group !== undefined && group !== null) {
         if (group.name != "AllUsers") {
           fetch(`/api/groups/${group.groupId}`)
             .then((response) => response.json())
             .then((data) => {
-              peopleList.set(data.data.users);
+              if (data.data) {
+                peopleList.set(data.data.users);
+              }
             });
         } else {
           fetch("/api/people")
@@ -36,13 +39,11 @@
     };
   });
   function handleUsernameClick(id: string) {
-    console.log("clicked on user", id);
     if (!$editMembers) {
       selectedUserId.set(id);
     }
   }
   async function handleDeleteUsers(id: string) {
-    console.log("Clicked to delete the user");
     const response = await fetch(
       `/api/groups/${$selectedGroup.id}/users/${id}`,
       {

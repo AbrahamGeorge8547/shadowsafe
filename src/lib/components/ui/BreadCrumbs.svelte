@@ -17,7 +17,7 @@
   };
 </script>
 
-<div>
+<div class="border border-[#4C598B4D] px-3 py-3 rounded-lg">
   <ol class="breadcrumb">
     {#each $breadCrumbs as node, index (node.id)}
       <li class="crumb">

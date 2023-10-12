@@ -4,7 +4,7 @@
   const drawerStore = getDrawerStore();
 
   import { onMount } from "svelte";
-  import { userStore } from "$lib/store";
+  import { userStore } from "$lib/store/people";
   import { get } from "svelte/store";
   import { goto } from "$app/navigation";
   import {
@@ -15,13 +15,13 @@
   let hasAdmin = true;
   onMount(async () => {
     const user = get(userStore);
-    if (user.email) {
-      goto("/vault/secrets");
-    } else {
-      const result = await fetch("/api/people/hasAdmin");
-      await result.json();
-      openDrawer();
-    }
+    // if (user.email) {
+    //   goto("/vault/secrets");
+    // } else {
+    //   const result = await fetch("/api/people/hasAdmin");
+    //   await result.json();
+    //   openDrawer();
+    // }
   });
   let buttonText = "Login";
 

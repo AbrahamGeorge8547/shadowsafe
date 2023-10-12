@@ -1,17 +1,13 @@
 <script>
-  import { userStore } from "$lib/store";
-  import { createEventDispatcher } from "svelte";
+  import { userStore } from "$lib/store/people";
   import Icon from "@iconify/svelte";
   import { goto } from "$app/navigation";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
-
   const drawerStore = getDrawerStore();
-
   let username = "";
   let password = "";
   let showPassword = false;
   let errorMessage = "";
-
   function togglePasswordVisibility() {
     showPassword = !showPassword;
   }
@@ -47,6 +43,22 @@
     } catch (error) {
       console.log("LOGIN ERR", error);
     }
+    const token = responseData.data.token;
+    userStore.set(responseData.data.user);
+    const isProduction = process.env.NODE_ENV === "production";
+    const secureFlag = isProduction ? "Secure;" : "";
+    const sameSite = isProduction ? "None" : "Lax"; // Use 'Lax' in development
+
+    if (isProduction && location.protocol !== "https:") {
+      console.warn(
+        "SameSite=None requires HTTPS. Please ensure your production environment uses HTTPS."
+      );
+    }
+
+    document.cookie = `token=${token}; path=/; ${secureFlag} SameSite=${sameSite}`;
+
+    drawerStore.close();
+    goto("/vault/secrets");
   }
 </script>
 
@@ -54,16 +66,13 @@
   <label class="label mb-2 block">
     <span class="block text-left">Username:</span>
     <input class="input h-10 pl-4" type="text" bind:value={username} />
-    <!-- Added h-12 for height -->
   </label>
   <div class="relative label mb-2">
     <span class="block text-left">Password:</span>
     {#if showPassword}
       <input class="input h-10 pl-4" type="text" bind:value={password} />
-      <!-- Added h-12 for height -->
     {:else}
       <input class="input h-10 pl-4" type="password" bind:value={password} />
-      <!-- Added h-12 for height -->
     {/if}
     <button
       on:click={togglePasswordVisibility}
