@@ -15,13 +15,13 @@
   let hasAdmin = true;
   onMount(async () => {
     const user = get(userStore);
-    if (user.email) {
-      goto("/vault/secrets");
-    } else {
-      const result = await fetch("/api/people/hasAdmin");
-      await result.json();
-      openDrawer();
-    }
+    // if (user.email) {
+    //   goto("/vault/secrets");
+    // } else {
+    //   const result = await fetch("/api/people/hasAdmin");
+    //   await result.json();
+    //   openDrawer();
+    // }
   });
   let buttonText = "Login";
 
