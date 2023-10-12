@@ -90,12 +90,16 @@
                     groupAccess: [],
                 };
             }
-            console.log("ACCESS LIST CHANGE");
-            fetch(`/api/folder/${node}?access=true`)
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    accessUserList = responseJson.users;
-                });
+
+            if (node != "root") {
+                fetch(`/api/folder/${node}?access=true`)
+                    .then((response) => response.json())
+                    .then((responseJson) => {
+                        accessUserList = responseJson.users;
+                    });
+            } else {
+                accessUserList = [];
+            }
             unsavedUserList = [];
         });
     });
@@ -182,7 +186,9 @@
                 </div>
             {/each}
             {#each accessUserList as user}
+
                 <li class="text-center bg-[#2E3654]">
+
                     <div class="card p-4">
                         <span>{user.name}</span>
                         <span>{user.accessType}</span>
