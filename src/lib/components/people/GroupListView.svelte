@@ -1,5 +1,6 @@
 <script>
   import { RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
+  import Icon from "@iconify/svelte";
   let listNames = [];
   let search = "";
   let filteredList = [];
@@ -41,16 +42,18 @@
 </script>
 
 <div class="flex">
-  <div class="flex rounded-md flex-grow">
+  <div class="flex rounded-full searchWrapper justify-between border border-[#4C598B4D] ml-2">
     <input
       type="search"
-      class="variant-filled-surface border-0 rounded-l-lg flex-grow"
+      class="variant-filled-surface border-0 rounded-l-full !bg-[#2E3654] flex-1"
       placeholder="Search..."
       id="search-input"
-      bind:value={search}
+      on:change={(text) => {
+        console.log(text);
+      }}
     />
-    <div class="flex items-center bg-[#495A8F] rounded-r-lg pr-3">
-      <img src="/search.svg" alt="search-icon" />
+    <div class="flex items-center bg-[#2E3654] rounded-r-full px-3 justify-center">
+      <Icon icon="ic:baseline-search" class="h-6 w-6" color="#4C598B" />
     </div>
   </div>
 </div>

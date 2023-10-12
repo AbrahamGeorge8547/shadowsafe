@@ -90,6 +90,7 @@
                     groupAccess: [],
                 };
             }
+
             if (node != "root") {
                 fetch(`/api/folder/${node}?access=true`)
                     .then((response) => response.json())
@@ -130,24 +131,64 @@
 </script>
 
 <!-- disable the button if unsaveduserList is 0 -->
-{#if unsavedUserList.length}
-    <button class="btn variant-filled-primary" on:click={addUsersToFolder}>
-        save changes
-    </button>
-{/if}
+<div class="flex justify-end mx-10 mb-2 absolute right-2 top-4">
+    {#if unsavedUserList.length}
+        <button class="btn bg-[#828CAE]" on:click={addUsersToFolder}>
+            Save changes
+        </button>
+    {/if}
+</div>
 <div class="flex">
     <!-- The ul with the $groupList -->
-    <div class="w-1/2" on:drop={handleDrop} on:dragover={allowDrop}>
-        <ul class="grid gap-4">
+    <div class="w-8/12" on:drop={handleDrop} on:dragover={allowDrop}>
+        <ul class="flex flex-col bg-[#2E3654]">
             {#each unsavedUserList as user}
-                <div class="card p-4">
-                    {user.name}
-                    {user.permission}
-                    {user.team}
+                <div class="card p-[10px] !bg-[#2E3654] flex justify-between">
+                    <li
+                        class="w-2/5 flex justify-start items-center !text-xs font-light ml-3"
+                    >
+                        <span
+                            class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2"
+                        >
+                            <Icon
+                                icon="tabler:user"
+                                class="text-3xl h-[15px] w-[15px]"
+                                color="#fff"
+                            />
+                        </span>
+                        {user.name}
+                    </li>
+                    <div
+                        class="w-auto flex justify-center align-middle font-light !text-xs"
+                    >
+                        <li
+                            class=" bg-[#837EE633] flex justify-center align-middle py-[6px] px-[7px] rounded mr-2"
+                        >
+                            {user.permission.toLowerCase()}
+                        </li>
+                        {#if user.team}
+                            <li
+                                class=" bg-[#837EE633] flex justify-center align-middle py-[6px] px-[7px] rounded flex-nowrap whitespace-nowrap"
+                            >
+                                {user.team}
+                            </li>
+                        {/if}
+                    </div>
+                    <li class="w-1/4 flex justify-center align-middle pl-6">
+                        <button>
+                            <Icon
+                                icon="simple-line-icons:options-vertical"
+                                class=""
+                                color="#828CAE"
+                            />
+                        </button>
+                    </li>
                 </div>
             {/each}
             {#each accessUserList as user}
-                <li class="text-center">
+
+                <li class="text-center bg-[#2E3654]">
+
                     <div class="card p-4">
                         <span>{user.name}</span>
                         <span>{user.accessType}</span>
@@ -163,7 +204,7 @@
     </div>
 
     <!-- The GroupListView -->
-    <div class="w-1/2">
+    <div class="w-4/12">
         <GroupListView />
     </div>
 </div>
