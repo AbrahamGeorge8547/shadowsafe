@@ -1,6 +1,6 @@
 import { writable } from "svelte/store";
 
-export const activeTab = writable("secrets");
+import { localStorageStore } from "@skeletonlabs/skeleton";
 export const isEditing = writable(false);
 export const selectedNodeChildren = writable([]);
 export const navigationHistory = writable([]);
@@ -13,4 +13,5 @@ export const editMembers = writable(false);
 export const selectedGroup = writable('AllUsers');
 export const selectedTab = writable('secrets');
 export const droppedItem = writable({});
-export const selectedPermission = writable(null);
+export const selectedPermission = writable(null)
+export const activeTab = localStorageStore("activeTab", {});
