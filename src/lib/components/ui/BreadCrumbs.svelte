@@ -17,11 +17,11 @@
   };
 </script>
 
-<div class="border border-[#4C598B4D] px-3 py-3 rounded-lg">
-  <ol class="breadcrumb">
+<div class="border-0 px-3 py-3">
+  <ol class="breadcrumb ">
     {#each $breadCrumbs as node, index (node.id)}
-      <li class="crumb">
-        <span class="anchor cursor-pointer" on:click={() => handleClick(node)}>
+      <li class="underline-offset-[3px] ">
+        <span class="anchor cursor-pointer !text-[#78CCA9]" on:click={() => handleClick(node)}>
           {node.label}
         </span>
       </li>
