@@ -1,6 +1,6 @@
 <script>
   import { onMount } from "svelte";
-
+  import Icon from "@iconify/svelte";
   let usernames = [];
 
   onMount(() => {
@@ -36,14 +36,18 @@
     </div>
   </div>
 </div>
-<ul class="mt-4 px-3">
+<ul class="w-full !text-xs !font-light bg-[#2E3654]">
   {#each filteredPeoples as person}
     <li
       draggable="true"
       on:dragstart={(e) => handleDragStart(e, person)}
-      class="card ml-2 p-2"
+      class="px-2 py-3 !bg-[#262844] w-full flex border-t-[1px] border-[#374165]"
     >
-      {person.username}
+      <Icon
+        icon="tabler:user"
+        class="text-3xl h-[15px] w-[15px] bg-[#343D5F] rounded-full mr-2 "
+      />
+      {person.name}
     </li>
   {/each}
 </ul>

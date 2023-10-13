@@ -143,41 +143,40 @@
     <div class="w-8/12" on:drop={handleDrop} on:dragover={allowDrop}>
         <ul class="flex flex-col bg-[#2E3654]">
             {#each unsavedUserList as user}
-                <div class="card p-[10px] !bg-[#2E3654] flex justify-between !border-b-0">
-
+                <div class="card p-[10px] flex justify-between !border-b-0">
                     <div class="w-4/5 !bg-[#2E3654] flex ml-4">
-                    <li
-                        class="w-11/12 flex justify-start items-center !text-xs font-light "
-                    >
-                        <span
-                            class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2"
-                        >
-                            <Icon
-                                icon="tabler:user"
-                                class="text-3xl h-[15px] w-[15px]"
-                                color="#fff"
-                            />
-                        </span>
-                        {user.name}
-                    </li>
-                    <div
-                        class="w-full flex justify-start items-center font-light !text-xs"
-                    >
                         <li
-                            class=" bg-[#837EE633]  mr-2  py-2 px-2 rounded flex-nowrap whitespace-nowrap "
+                            class="w-11/12 flex justify-start items-center !text-xs font-light"
                         >
-                            {user.permission}
-                        </li>
-                        {#if user.team}
-                            <li
-                                class=" bg-[#837EE633] py-2 px-2   rounded flex-nowrap whitespace-nowrap"
+                            <span
+                                class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2"
                             >
-                                {user.team}
+                                <Icon
+                                    icon="tabler:user"
+                                    class="text-3xl h-[15px] w-[15px]"
+                                    color="#fff"
+                                />
+                            </span>
+                            {user.name}
+                        </li>
+                        <div
+                            class="w-full flex justify-start items-center font-light !text-xs"
+                        >
+                            <li
+                                class=" bg-[#837EE633] mr-2 py-2 px-2 rounded flex-nowrap whitespace-nowrap"
+                            >
+                                {user.permission}
                             </li>
-                        {/if}
+                            {#if user.team}
+                                <li
+                                    class=" bg-[#837EE633] py-2 px-2 rounded flex-nowrap whitespace-nowrap"
+                                >
+                                    {user.team}
+                                </li>
+                            {/if}
+                        </div>
                     </div>
-                </div>
-                    <li class="w-1/6  flex justify-center items-center">
+                    <li class="w-1/6 flex justify-center items-center">
                         <button>
                             <Icon
                                 icon="simple-line-icons:options-vertical"
@@ -189,51 +188,53 @@
                 </div>
             {/each}
             {#each accessUserList as user}
-
                 <div class="flex flex-col bg-[#2E3654]">
-
-                    <div class="card p-[10px] !bg-[#3A4468] flex justify-between  !border-b-0">
+                    <div
+                        class="card p-[10px] !bg-[#3A4468] flex justify-between !border-b-0"
+                    >
                         <div class="w-4/5 flex ml-4">
                             <li
-                            class="w-11/12 flex justify-start items-center !text-xs font-light ">
-                            <span
-                                class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2" >
-                                <Icon
-                                    icon="tabler:user"
-                                    class="text-3xl h-[15px] w-[15px]"
-                                    color="#fff"
-                                />
-                            </span>
-                            {user.name}
-                            </li>
-                        <div
-                        class="w-full flex justify-start items-center font-light !text-xs">
-                        <li
-                            class=" bg-[#837EE633]  mr-2  py-2 px-2 rounded flex-nowrap whitespace-nowrap "
-                        >
-                            {user.accessType}
-                        </li>
-                        {#if user.team}
-                            <li
-                                class=" bg-[#837EE633] py-2 px-2   rounded flex-nowrap whitespace-nowrap mr-2"
+                                class="w-11/12 flex justify-start items-center !text-xs font-light"
                             >
-                                {user.team}
+                                <span
+                                    class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2"
+                                >
+                                    <Icon
+                                        icon="tabler:user"
+                                        class="text-3xl h-[15px] w-[15px]"
+                                        color="#fff"
+                                    />
+                                </span>
+                                {user.name}
                             </li>
-                        {/if}
+                            <div
+                                class="w-full flex justify-start items-center font-light !text-xs"
+                            >
+                                <li
+                                    class=" bg-[#837EE633] mr-2 py-2 px-2 rounded flex-nowrap whitespace-nowrap"
+                                >
+                                    {user.accessType}
+                                </li>
+                                {#if user.team}
+                                    <li
+                                        class=" bg-[#837EE633] py-2 px-2 rounded flex-nowrap whitespace-nowrap mr-2"
+                                    >
+                                        {user.team}
+                                    </li>
+                                {/if}
 
-                        {#if user.group}
-                            {#each user?.group as group}
-                            <li
-                            class=" bg-[#837EE633] py-2 px-2   rounded flex-nowrap whitespace-nowrap mr-2"
-                              >
-                             {group.name}
-                            </li>
-                            {/each}
-                        {/if}
-
-                          </div>
+                                {#if user.group}
+                                    {#each user?.group as group}
+                                        <li
+                                            class=" bg-[#837EE633] py-2 px-2 rounded flex-nowrap whitespace-nowrap mr-2"
+                                        >
+                                            {group.name}
+                                        </li>
+                                    {/each}
+                                {/if}
+                            </div>
                         </div>
-                        <li class="w-1/6  flex justify-center items-center">
+                        <li class="w-1/6 flex justify-center items-center">
                             <button>
                                 <Icon
                                     icon="simple-line-icons:options-vertical"
@@ -243,7 +244,6 @@
                             </button>
                         </li>
                     </div>
-                    
                 </div>
             {/each}
         </ul>

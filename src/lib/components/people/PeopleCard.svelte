@@ -1,5 +1,5 @@
 <script lang="ts">
-  import { peopleList } from "$lib/store/people";
+  import { accessList, peopleList } from "$lib/store/people";
   import { editMembers } from "$lib/store/ui";
   import { selectedGroup } from "$lib/store/ui";
   import { onMount } from "svelte";
@@ -57,35 +57,63 @@
   }
 </script>
 
-<div class="flex">
+<div class="flex flex-1">
   <!-- People List -->
   <div class="flex-1">
     <ul class="p-4">
       {#each $peopleList as people}
-        <li class="p-2 m-2 flex items-center justify-between">
-          <div
-            class="card card-hover flex items-center justify-between w-full cursor-pointer p-4"
-            on:click={() => handleUsernameClick(people.userId)}
-          >
-            <span>{people.name}</span>
-            {#if $editMembers}
-              <button
-                class="focus:outline-none"
-                on:click|stopPropagation={() => handleDeleteUsers(people._id)}
+        <div
+          class="card p-[10px] flex justify-between !border-b-0 {people.unsaved
+            ? '!bg-[#3A4468]'
+            : '!bg-[#2E3654]'}"
+        >
+          <div class="w-4/5 flex ml-4">
+            <li
+              class="w-11/12 flex justify-start items-center !text-xs font-light"
+            >
+              <span
+                class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2"
               >
-                <Icon icon="mingcute:delete-2-line" />
-              </button>
-            {/if}
+                <Icon
+                  icon="tabler:user"
+                  class="text-3xl h-[15px] w-[15px]"
+                  color="#fff"
+                />
+              </span>
+              {people.name}
+            </li>
+            <div
+              class="w-full flex justify-start items-center font-light !text-xs"
+            >
+              <li
+                class="bg-[#837EE633] mr-2 py-2 px-2 rounded flex-nowrap whitespace-nowrap"
+              >
+                {people.accessType}
+              </li>
+              {#if people.team}
+                <li
+                  class="bg-[#837EE633] py-2 px-2 rounded flex-nowrap whitespace-nowrap"
+                >
+                  {people.team}
+                </li>
+              {/if}
+            </div>
           </div>
-        </li>
+          <li class="w-1/6 flex justify-center items-center">
+            <button>
+              <Icon
+                icon="simple-line-icons:options-vertical"
+                class=""
+                color="#828CAE"
+              />
+            </button>
+          </li>
+        </div>
       {/each}
     </ul>
   </div>
 
-  <!-- UserProfile Component -->
-  <div class="flex-1">
-    {#if $selectedUserId !== null && !$editMembers}
-      <UserProfile userId={$selectedUserId} />
-    {/if}
-  </div>
+  {#if $selectedUserId !== null && !$editMembers}
+    <UserProfile userId={$selectedUserId} />
+  {/if}
 </div>
