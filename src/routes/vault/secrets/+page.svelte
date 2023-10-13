@@ -85,24 +85,6 @@
     <BreadCrumbs />
   </div>
 </div>
-<div class="w-full flex justify-end items-center mb-2">
-  <div
-    class="flex searchWrapper justify-between rounded-lg !w-[40%] !bg-[#2E3654] absolute top-[130px] mr-10"
-  >
-    <div class="flex items-center bg-[#2E3654] rounded-full px-3 justify-center">
-      <Icon icon="ic:baseline-search" class="h-6 w-6 rounded-lg" color="#828CAE" />
-    </div>
-    <input
-      type="search"
-      class="variant-filled-surface border-0 rounded-lg !bg-[#2E3654] flex-1"
-      placeholder="Find Secrets, Folders, Groups and people"
-      id="search-input"
-      on:change={(text) => {
-        console.log(text);
-      }}
-    />
-  </div>
-</div>
 
 <div class="app-container flex">
   <div
