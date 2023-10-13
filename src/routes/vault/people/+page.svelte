@@ -32,10 +32,18 @@
     const person = JSON.parse(personData);
     addedUsers = [
       ...addedUsers,
-      { userId: person.userId, accessType: "MEMBER" },
+      { userId: person.userId, accessType: "MEMBER", name: person.name },
     ];
     peopleList.update((people) => {
-      return [...people, person];
+      return [
+        ...people,
+        {
+          userId: person.userId,
+          accessType: "MEMBER",
+          name: person.name,
+          unsaved: true,
+        },
+      ];
     });
   }
   const addUserstoGroup = async () => {
@@ -48,6 +56,13 @@
       method: "POST",
       body: JSON.stringify({ userAccessList: addedUsers }),
     });
+    fetch(`/api/groups/${group.groupId}`)
+      .then((response) => response.json())
+      .then((data) => {
+        if (data.data) {
+          peopleList.set(data.data.users);
+        }
+      });
     editMembers.set(false);
     toastStore.trigger(t);
     addedUsers = [];
@@ -78,14 +93,11 @@
   <div
     class="min-w-[250px] max-w-sm h-screen variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16"
   >
-    <button class="btn variant-filled-primary" on:click={addNewFolder}
-      >Create Group</button
-    >
     <span
       on:click={handleAllUsersClick}
       class="flex items-center text-lg btn-sm hover:bg-[#34487F] all-users-node"
     >
-      <Icon icon="twemoji:file-folder" class="mr-2 text-2xl" />
+      <Icon icon="clarity:group-line" class="mr-2" />
       <span>All Users</span>
     </span>
     <!-- tree here -->
@@ -96,7 +108,7 @@
   <div class="flex flex-col flex-grow">
     <div class="folders-area flex-grow flex">
       <div
-        class="folders-area flex-grow border-2 border-[#235789] rounded-[4px] mx-8 min-w-0"
+        class="folders-area flex-grow rounded-[4px] mx-8 min-w-0 bg-[#2E3654]"
         on:drop={handleDrop}
         on:dragover={allowDrop}
       >
@@ -123,6 +135,10 @@
                 >
               {:else}
                 <button
+                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl flex justify-center items-center mr-2"
+                  on:click={addNewFolder}>Add Group</button
+                >
+                <button
                   class="btn variant-filled-tertiary p-2"
                   on:click={() => editMembers.set(true)}
                 >
@@ -139,18 +155,17 @@
             >
           {/if}
         </div>
-        <div
-          transition:fade
-          class=" py-4 border-t-2 rounded-[4px] border-[#235789]"
-        >
-          <PeopleCard />
+        <div transition:fade class="flex flex-1 py-4">
+          <div class="flex-1 flex">
+            <PeopleCard />
+          </div>
+          {#if $editMembers}
+            <div transition:fade class="flex-grow mr-8 max-w-[400px]">
+              <PeopleListView />
+            </div>
+          {/if}
         </div>
       </div>
-      {#if $editMembers}
-        <div transition:fade class="flex-grow mr-8 max-w-[400px]">
-          <PeopleListView />
-        </div>
-      {/if}
     </div>
   </div>
 </div>
