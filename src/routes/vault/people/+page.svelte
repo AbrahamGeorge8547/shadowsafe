@@ -76,7 +76,7 @@
 
 <div class="app-container flex">
   <div
-    class="min-w-[250px] max-w-sm h-screen card-hover variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16"
+    class="min-w-[250px] max-w-sm h-screen variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16"
   >
     <button class="btn variant-filled-primary" on:click={addNewFolder}
       >Create Group</button

@@ -64,7 +64,7 @@
       {#each $peopleList as people}
         <li class="p-2 m-2 flex items-center justify-between">
           <div
-            class="card card-hover flex items-center justify-between w-full cursor-pointer p-4"
+            class="card flex items-center justify-between w-full cursor-pointer p-4"
             on:click={() => handleUsernameClick(people.userId)}
           >
             <span>{people.name}</span>
