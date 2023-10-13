@@ -67,22 +67,22 @@
   }
 </script>
 
-<div class="bread-crumbs-container flex items-center ml-4">
-  <button type="button" class="btn-icon btn-icon-sm variant-filled-tertiary m-4" on:click={goBack}>
+<div class="bread-crumbs-container flex justify-start items-center ml-8 ">
+  <button type="button" class="btn-icon btn-icon-sm bg-[#3F4766] m-4" on:click={goBack}>
     <Icon icon="ep:back" />
   </button>
   <div class="flex-box ">
     <BreadCrumbs />
   </div>
 </div>
-<div class="w-full flex justify-center items-center mb-2 ">
-  <div class="flex  searchWrapper justify-between !w-[600px] !bg-[#2E3654] ">
-    <div class="flex items-center bg-[#2E3654] rounded-r-full px-3 justify-center">
-      <Icon icon="ic:baseline-search" class="h-6 w-6" color="#828CAE" />
+<div class="w-full flex justify-end items-center mb-2 ">
+  <div class="flex  searchWrapper justify-between rounded-lg !w-[40%] !bg-[#2E3654] absolute top-[130px] mr-10">
+    <div class="flex items-center bg-[#2E3654] rounded-full  px-3 justify-center">
+      <Icon icon="ic:baseline-search" class="h-6 w-6 rounded-lg" color="#828CAE" />
     </div>
     <input
       type="search"
-      class="variant-filled-surface border-0  !bg-[#2E3654] flex-1"
+      class="variant-filled-surface border-0 rounded-lg  !bg-[#2E3654] flex-1"
       placeholder="Find Secrets, Folders, Groups and people"
       id="search-input"
       on:change={(text) => {
