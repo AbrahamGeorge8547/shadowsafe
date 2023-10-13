@@ -143,9 +143,11 @@
     <div class="w-8/12" on:drop={handleDrop} on:dragover={allowDrop}>
         <ul class="flex flex-col bg-[#2E3654]">
             {#each unsavedUserList as user}
-                <div class="card p-[10px] !bg-[#2E3654] flex justify-between">
+                <div class="card p-[10px] !bg-[#2E3654] flex justify-between !border-b-0">
+
+                    <div class="w-4/5 !bg-[#2E3654] flex ml-4">
                     <li
-                        class="w-2/5 flex justify-start items-center !text-xs font-light ml-3"
+                        class="w-11/12 flex justify-start items-center !text-xs font-light "
                     >
                         <span
                             class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2"
@@ -159,22 +161,23 @@
                         {user.name}
                     </li>
                     <div
-                        class="w-auto flex justify-center align-middle font-light !text-xs"
+                        class="w-full flex justify-start items-center font-light !text-xs"
                     >
                         <li
-                            class=" bg-[#837EE633] flex justify-center align-middle py-[6px] px-[7px] rounded mr-2"
+                            class=" bg-[#837EE633]  mr-2  py-2 px-2 rounded flex-nowrap whitespace-nowrap "
                         >
-                            {user.permission.toLowerCase()}
+                            {user.permission}
                         </li>
                         {#if user.team}
                             <li
-                                class=" bg-[#837EE633] flex justify-center align-middle py-[6px] px-[7px] rounded flex-nowrap whitespace-nowrap"
+                                class=" bg-[#837EE633] py-2 px-2   rounded flex-nowrap whitespace-nowrap"
                             >
                                 {user.team}
                             </li>
                         {/if}
                     </div>
-                    <li class="w-1/4 flex justify-center align-middle pl-6">
+                </div>
+                    <li class="w-1/6  flex justify-center items-center">
                         <button>
                             <Icon
                                 icon="simple-line-icons:options-vertical"
@@ -187,18 +190,61 @@
             {/each}
             {#each accessUserList as user}
 
-                <li class="text-center bg-[#2E3654]">
+                <div class="flex flex-col bg-[#2E3654]">
 
-                    <div class="card p-4">
-                        <span>{user.name}</span>
-                        <span>{user.accessType}</span>
+                    <div class="card p-[10px] !bg-[#3A4468] flex justify-between  !border-b-0">
+                        <div class="w-4/5 flex ml-4">
+                            <li
+                            class="w-11/12 flex justify-start items-center !text-xs font-light ">
+                            <span
+                                class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-2" >
+                                <Icon
+                                    icon="tabler:user"
+                                    class="text-3xl h-[15px] w-[15px]"
+                                    color="#fff"
+                                />
+                            </span>
+                            {user.name}
+                            </li>
+                        <div
+                        class="w-full flex justify-start items-center font-light !text-xs">
+                        <li
+                            class=" bg-[#837EE633]  mr-2  py-2 px-2 rounded flex-nowrap whitespace-nowrap "
+                        >
+                            {user.accessType}
+                        </li>
+                        {#if user.team}
+                            <li
+                                class=" bg-[#837EE633] py-2 px-2   rounded flex-nowrap whitespace-nowrap mr-2"
+                            >
+                                {user.team}
+                            </li>
+                        {/if}
+
                         {#if user.group}
                             {#each user?.group as group}
-                                <span>{group.name}</span>
+                            <li
+                            class=" bg-[#837EE633] py-2 px-2   rounded flex-nowrap whitespace-nowrap mr-2"
+                              >
+                             {group.name}
+                            </li>
                             {/each}
                         {/if}
+
+                          </div>
+                        </div>
+                        <li class="w-1/6  flex justify-center items-center">
+                            <button>
+                                <Icon
+                                    icon="simple-line-icons:options-vertical"
+                                    class=""
+                                    color="#828CAE"
+                                />
+                            </button>
+                        </li>
                     </div>
-                </li>
+                    
+                </div>
             {/each}
         </ul>
     </div>
