@@ -38,6 +38,7 @@
   hover="hover:variant-soft-primary"
   padding="px-4 py-1"
   background="bg-[#262C44]"
+  class="ml-12"
 >
   <RadioItem bind:group={value} name="justify" value="Secrets" id="secrets">
     <label
