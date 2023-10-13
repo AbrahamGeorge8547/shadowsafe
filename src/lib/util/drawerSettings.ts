@@ -41,8 +41,7 @@ export const createPeopleDrawerSettings = {
 
 export const getSecretsDrawer = {
   id: "secrets",
-  bgDrawer: "bg-purple-900 text-white",
-  bgBackdrop: "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+
   width: "w-[200px] md:w-[340px]",
   height: "h-[400px]",
   padding: "p-10",
@@ -51,8 +50,7 @@ export const getSecretsDrawer = {
 
 export const createNewFolder = {
   id: "newFolder",
-  bgDrawer: "bg-purple-900 text-white",
-  bgBackdrop: "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
+
   width: "w-[100px] md:w-[240px]",
   height: "h-[120px]",
   padding: "p-10",
@@ -62,8 +60,6 @@ export const createNewFolder = {
 
 export const createNewGroup = {
   id: "newGroup",
-  bgDrawer: "bg-purple-900 text-white",
-  bgBackdrop: "bg-gradient-to-tr from-indigo-500/50 via-purple-500/50 to-pink-500/50",
   width: "w-[100px] md:w-[240px]",
   height: "h-[120px]",
   padding: "p-10",

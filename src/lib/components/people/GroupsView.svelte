@@ -13,18 +13,19 @@
 </script>
 
 <div>
-    <ul class="ml-4">
+    <ul>
         {#each $groupList as group}
-            <li class="mb-2 mt-2 relative">
+            <li>
                 <span
                     on:click={() => selectGroup(group)}
-                    class={`flex items-center text-lg btn-sm ml-auto rounded ${
+                    class={`p-2 text-lg btn-sm rounded flex items-center ${
                         $selectedGroup === group ? "selected-node" : "hoverItem"
                     }`}
                 >
+                    <Icon icon="clarity:group-line" class="mr-2 text-[24px]" />
+
                     {group.name}
                 </span>
-                <Icon icon="clarity:group-line" class="mr-1 text-[16px]" />
             </li>
         {/each}
     </ul>
