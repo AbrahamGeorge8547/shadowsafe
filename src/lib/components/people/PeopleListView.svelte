@@ -41,13 +41,17 @@
     <li
       draggable="true"
       on:dragstart={(e) => handleDragStart(e, person)}
-      class="px-2 py-3 !bg-[#262844] w-full flex border-t-[1px] border-[#374165]"
+      class="px-2 py-3 !bg-[#262C44] w-full flex border-t-[1px] border-[#374165]"
     >
+    <span class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mx-2">
       <Icon
         icon="tabler:user"
-        class="text-3xl h-[15px] w-[15px] bg-[#343D5F] rounded-full mr-2 "
+        class="text-3xl h-[15px] w-[15px]"
       />
+    </span>
+    <span class="flex justify-center items-center">
       {person.name}
+    </span>
     </li>
   {/each}
 </ul>
