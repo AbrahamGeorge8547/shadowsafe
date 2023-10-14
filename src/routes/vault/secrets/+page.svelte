@@ -67,63 +67,52 @@
   }
 </script>
 
-<div class="bread-crumbs-container flex justify-start items-center ml-8 ">
-  <button type="button" class="btn-icon btn-icon-sm bg-[#3F4766] m-4" on:click={goBack}>
-    <Icon icon="ep:back" />
-  </button>
-  <div class="flex-box ">
-    <BreadCrumbs />
-  </div>
-</div>
-<div class="w-full flex justify-end items-center mb-2 ">
-  <div class="flex  searchWrapper justify-between rounded-lg !w-[40%] !bg-[#2E3654] absolute top-[130px] mr-10">
-    <div class="flex items-center bg-[#2E3654] rounded-full  px-3 justify-center">
-      <Icon icon="ic:baseline-search" class="h-6 w-6 rounded-lg" color="#828CAE" />
+<div class="bread-crumbs-container flex justify-start items-center ml-8 mt-5 mb-5">
+  <div class="flex items-center">
+    <button
+      class="bg-[#2D3552] px-[27.5px] py-2.5 rounded-full flex justify-center items-center text-[#828CAE]"
+      on:click={addNewFolder}
+    >
+      Add Folder
+      <Icon icon="ic:round-plus" color="#828CAE" class="h-5 w-5 ml-1 mt-[1px]" />
+    </button>
+    <div class="rounded-full h-11 w-11 bg-[#2D3552] justify-center items-center p-2.5 ml-2.5">
+      <!-- Add refresh function here -->
+      <button>
+        <Icon icon="bx:refresh" color="#828CAE" class="h-6 w-6 mt-[1px] rounded" />
+      </button>
     </div>
-    <input
-      type="search"
-      class="variant-filled-surface border-0 rounded-lg  !bg-[#2E3654] flex-1"
-      placeholder="Find Secrets, Folders, Groups and people"
-      id="search-input"
-      on:change={(text) => {
-        console.log(text);
-      }}
-    />
-
+    <!-- <BreadCrumbs /> -->
   </div>
 </div>
 
-<div class="app-container flex">
-  <div
-    class="flex-none flex-shrink-0 flex-grow-0 min-w-[250px] max-w-sm card-hover variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16 self-start"
-  >
+<!-- Tree view wrapper -->
+<div class="flex">
+  <div class="min-w-[250px] max-w-sm rounded-[4px] self-start ml-9">
     <TreeView nodeId={$treeStore.id} />
   </div>
-  <div class="flex flex-col flex-grow h-4/5 rounded-[4px] mx-8 bg-[#2E3654] relative">
+  <div
+    class="flex flex-col flex-grow h-4/5 rounded-[4px] mx-8 contentWrapper bg-[#2E3654] relative"
+  >
     <div class="flex flex-row justify-between px-8 items-center py-6">
       <div class="flex">
         <div class="flex items-center mr-4">
           <h1 class="mr-2 text-4xl">{`${currentNode ? currentNode.label : ""}`}</h1>
-          <button on:click={toggleIcon} class="ml-2">
-            {#if isIconChanged}
-              <Icon icon="ic:baseline-groups" class="text-3xl" />
-            {:else}
-              <Icon icon="ic:outline-groups" class="text-3xl" />
-            {/if}
+          <button
+            class={`bg-[#3F4766] px-4 py-1.5 rounded-full flex justify-center items-center text-[#828CAE] mr-4 ${
+              isIconChanged ? "text-[#fff]" : ""
+            }`}
+            on:click={toggleIcon}
+          >
+            <Icon icon="tdesign:share" class="h-[14px] w-[14px] mr-2" />
+            Share
           </button>
         </div>
 
         <!-- Share button -->
-        <button
-          class="bg-[#3F4766] px-4 py-1.5 rounded-full flex justify-center items-center text-[#828CAE] mr-4"
-          on:click={() => console.log("Share")}
-        >
-          <Icon icon="tdesign:share" class="h-[14px] w-[14px] mr-2" />
-          Share
-        </button>
 
         <!-- Search component -->
-        <div class="flex rounded-full searchWrapper justify-between ">
+        <div class="flex rounded-full searchWrapper justify-between">
           <input
             type="search"
             class="variant-filled-surface border-0 rounded-l-full !bg-[#2E3654] flex-1"
@@ -146,9 +135,6 @@
             >Add new secret
             <Icon icon="ic:round-plus" class="h-5 w-5 ml-1" />
           </button>
-          <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={addNewFolder}
-            >Add Folder</button
-          >
         </div>
       {/if}
     </div>
@@ -168,5 +154,8 @@
     border: 1px solid #374165;
     width: 306px;
     /* border-radius: 4px; */
+  }
+  .contentWrapper {
+    min-height: 60vh;
   }
 </style>
