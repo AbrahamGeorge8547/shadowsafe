@@ -75,7 +75,7 @@
 </script>
 
 <div transition:fade>
-  <ul class="ml-4">
+  <ul>
     <li class="mb-2 mt-2 relative">
       <!-- Add this div for the vertical line -->
       <div

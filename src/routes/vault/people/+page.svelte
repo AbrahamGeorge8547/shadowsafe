@@ -2,16 +2,9 @@
   import { editMembers, selectedGroup } from "$lib/store/ui";
   import { peopleList, groupList } from "$lib/store/people";
   import { getToastStore } from "@skeletonlabs/skeleton";
-  import {
-    createNewGroup,
-    createPeopleDrawerSettings,
-  } from "$lib/util/drawerSettings";
+  import { createNewGroup, createPeopleDrawerSettings } from "$lib/util/drawerSettings";
   import Icon from "@iconify/svelte";
-  import {
-    PeopleListView,
-    PeopleCard,
-    GroupsView,
-  } from "$lib/components/people";
+  import { PeopleListView, PeopleCard, GroupsView } from "$lib/components/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import { get } from "svelte/store";
   import { fade } from "svelte/transition";
@@ -89,10 +82,26 @@
   }
 </script>
 
+<div class="bread-crumbs-container flex justify-start items-center ml-8 mt-5 mb-5">
+  <div class="flex items-center">
+    <button
+      class="bg-[#2D3552] px-[27.5px] py-2.5 rounded-full flex justify-center items-center text-[#828CAE]"
+      on:click={addNewFolder}
+    >
+      Add Group
+      <Icon icon="ic:round-plus" color="#828CAE" class="h-5 w-5 ml-1 mt-[1px]" />
+    </button>
+    <div class="rounded-full h-11 w-11 bg-[#2D3552] justify-center items-center p-2.5 ml-2.5">
+      <!-- Add refresh function here -->
+      <button>
+        <Icon icon="bx:refresh" color="#828CAE" class="h-6 w-6 mt-[1px] rounded" />
+      </button>
+    </div>
+  </div>
+</div>
 <div class="app-container flex">
-  <div
-    class="min-w-[250px] max-w-sm h-screen variant-ringed-tertiary rounded-[4px] shadow-md p-8 ml-16"
-  >
+  <div class="min-w-[250px] max-w-sm h-screen rounded-[4px] p-8">
+    <!-- svelte-ignore a11y-click-events-have-key-events -->
     <span
       on:click={handleAllUsersClick}
       class="flex items-center text-lg btn-sm hover:bg-[#34487F] all-users-node"
@@ -120,9 +129,8 @@
           {#if $selectedGroup.name != "AllUsers"}
             <div class="flex flex-row">
               {#if $editMembers}
-                <button
-                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4"
-                  on:click={cancelEdit}>Cancel</button
+                <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={cancelEdit}
+                  >Cancel</button
                 >
               {/if}
               {#if $editMembers}
@@ -135,10 +143,6 @@
                 >
               {:else}
                 <button
-                  class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl flex justify-center items-center mr-2"
-                  on:click={addNewFolder}>Add Group</button
-                >
-                <button
                   class="btn variant-filled-tertiary p-2"
                   on:click={() => editMembers.set(true)}
                 >
@@ -147,10 +151,7 @@
               {/if}
             </div>
           {:else}
-            <button
-              class="btn variant-filled-tertiary p-2"
-              on:click={addMembers}
-            >
+            <button class="btn variant-filled-tertiary p-2" on:click={addMembers}>
               add members</button
             >
           {/if}
