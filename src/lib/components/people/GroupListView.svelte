@@ -54,8 +54,8 @@
     <p class="ml-4 text-xs font-light">Drag and Drop groups from here to access to your folder</p>
   </div>
 
-  <div class="flex w-full h-[36px] border border-[#4C598B4D] justify-center items-center !border-b-0">
-    <div class="w-full flex rounded-full !h-[28px] searchWrapper justify-center items-center border border-[#4C598B4D] mx-2 my-2">
+  <div class="flex w-full h-[50px] border border-[#4C598B4D] justify-center items-center !border-b-0">
+    <div class="w-full flex rounded-full !h-[40px] searchWrapper justify-center items-center border border-[#4C598B4D] mx-2 my-2">
       <input
         type="search"
         class="variant-filled-surface border-0 !h-[26px] rounded-l-full !bg-[#262C44] flex-1 font-light text-sm"
@@ -73,7 +73,7 @@
 
   <ul class="w-full !text-xs !font-light">
     {#each filteredList as element}
-    <div class="flex justify-center items-center pl-4 border border-[#4C598B4D] border-b-0">
+    <div class="flex justify-center items-center pl-4 border border-[#4C598B4D] border-b-0 py-[6px]">
         <span
         class="rounded-full w-[24px] h-[24px] flex justify-center items-center bg-[#4C598B33] mr-1" >
         {#if value == "Users" }
