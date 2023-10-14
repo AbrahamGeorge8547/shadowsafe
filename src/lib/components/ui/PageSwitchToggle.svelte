@@ -38,21 +38,15 @@
   hover="hover:variant-soft-primary"
   padding="px-4 py-1"
   background="bg-[#262C44]"
-  class="ml-12"
+  class="ml-9"
 >
   <RadioItem bind:group={value} name="justify" value="Secrets" id="secrets">
-    <label
-      for="secrets"
-      class={value === "Secrets" ? "text-[#fff]" : "text-[#828CAE]"}
+    <label for="secrets" class={value === "Secrets" ? "text-[#fff]" : "text-[#828CAE]"}
       >Secrets</label
     >
   </RadioItem>
   <RadioItem bind:group={value} name="justify" value="Groups" id="groups">
-    <label
-      for="groups"
-      class={value === "Groups" ? "text-[#fff]" : "text-[#828CAE]"}
-      >Groups</label
-    >
+    <label for="groups" class={value === "Groups" ? "text-[#fff]" : "text-[#828CAE]"}>Groups</label>
   </RadioItem>
 </RadioGroup>
 

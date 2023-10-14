@@ -7,16 +7,10 @@
   import { AddSecret } from "$lib/components/secrets";
   import { Login, CreateAdmin, CreatePeople } from "$lib/components/people";
   import { NewFolder, NewGroup, Permissions } from "$lib/components/ui";
-  import {
-    computePosition,
-    autoUpdate,
-    offset,
-    shift,
-    flip,
-    arrow,
-  } from "@floating-ui/dom";
+  import { computePosition, autoUpdate, offset, shift, flip, arrow } from "@floating-ui/dom";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import { storePopup } from "@skeletonlabs/skeleton";
+  import Icon from "@iconify/svelte";
   storePopup.set({ computePosition, autoUpdate, offset, shift, flip, arrow });
 
   initializeStores();
@@ -43,18 +37,32 @@
 <Toast />
 <!-- App Shell -->
 <AppShell>
-  <svelte:fragment slot="header">
-    <!-- App Bar -->
-    <AppBar>
-      <svelte:fragment slot="lead">
-        <img src="/logo.svg" alt="Logo" class="h-6 w-6 inline-block" />
-        <!-- Logo Image -->
-        <span class="text-xl">
-          shadow<span class="font-bold">safe</span>
-        </span>
-      </svelte:fragment>
-    </AppBar>
-  </svelte:fragment>
+  <!-- App Bar -->
+  <div class=" flex flex-1 items-center">
+    <div class="flex items-center mx-12">
+      <img src="/logo.svg" alt="Logo" class="h-9 w-9" />
+      <!-- Logo Image -->
+      <span class="text-2xl font-normal">
+        shadow<span class="font-medium">safe</span>
+      </span>
+    </div>
+    <div class="w-[80%] border-l-[1px] border-[#323A5A] py-6">
+      <div class="flex searchWrapper justify-between rounded-lg !w-[50%] !bg-[#2E3654] ml-12">
+        <div class="flex items-center bg-[#2E3654] rounded-full px-3 justify-center">
+          <Icon icon="ic:baseline-search" class="h-6 w-6 rounded-lg" color="#828CAE" />
+        </div>
+        <input
+          type="search"
+          class="variant-filled-surface border-0 rounded-lg !bg-[#2E3654] flex-1"
+          placeholder="Find secrets, folders, groups, people"
+          id="search-input"
+          on:change={(text) => {
+            console.log(text);
+          }}
+        />
+      </div>
+    </div>
+  </div>
   <!-- Page Route Content -->
   <slot />
 </AppShell>
