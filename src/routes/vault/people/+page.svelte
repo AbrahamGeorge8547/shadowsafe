@@ -123,19 +123,19 @@
       >
         <!-- <FoldersView /> -->
         <div class="flex flex-row justify-between px-8 items-center py-6">
-          <div>
+          <div class="text-3xl">
             <h1>{`${$selectedGroup.name}`}</h1>
           </div>
           {#if $selectedGroup.name != "AllUsers"}
             <div class="flex flex-row">
               {#if $editMembers}
-                <button class="bg-[#4E46DC] px-3 py-1.5 rounded-2xl ml-4" on:click={cancelEdit}
+                <button class="bg-[#4E46DC] px-3 py-1.5 rounded-3xl ml-4 mr-2" on:click={cancelEdit}
                   >Cancel</button
                 >
               {/if}
               {#if $editMembers}
                 <button
-                  class="btn variant-filled-tertiary p-2"
+                  class="btn bg-[#4E46DC] !px-4"
                   disabled={addedUsers.length === 0}
                   on:click={addUserstoGroup}
                 >
@@ -143,7 +143,7 @@
                 >
               {:else}
                 <button
-                  class="btn variant-filled-tertiary p-2"
+                  class="btn variant-filled-tertiary p-2 !bg-[#4E46DC] !px-4"
                   on:click={() => editMembers.set(true)}
                 >
                   edit members</button

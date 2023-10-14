@@ -22,17 +22,17 @@
   }
 </script>
 
-<div class="flex">
-  <div class="flex rounded-md flex-grow">
+<div class="flex w-full h-[50px] border-0 justify-center items-center !border-b-0">
+  <div class="w-full flex rounded-full !h-[40px] searchWrapper justify-center items-center border border-[#4C598B4D] mx-2 my-2 !bg-[#262C44]">
     <input
       type="search"
-      class="variant-filled-surface border-0 rounded-l-lg flex-grow"
-      placeholder="Search..."
+      class="variant-filled-surface border-0 !h-[26px] rounded-l-full !bg-[#262C44] flex-1 font-light text-sm"
+      placeholder="Search"
       id="search-input"
       bind:value={search}
     />
-    <div class="flex items-center bg-[#495A8F] rounded-r-lg pr-3">
-      <img src="/search.svg" alt="search-icon" />
+    <div class="flex items-center bg-[#262C44] rounded-r-full px-3 justify-center">
+      <Icon icon="ic:baseline-search" class="h-6 w-6" color="#4C598B" />
     </div>
   </div>
 </div>
