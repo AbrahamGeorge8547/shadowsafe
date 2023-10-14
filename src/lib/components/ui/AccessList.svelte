@@ -143,7 +143,7 @@
     <div class="w-8/12" on:drop={handleDrop} on:dragover={allowDrop}>
         <ul class="flex flex-col bg-[#2E3654]">
             {#each unsavedUserList as user}
-                <div class="card p-[10px] flex justify-between !border-b-0">
+                <div class="card p-[10px] flex justify-between !border-b-0 !bg-[#2E3654]">
                     <div class="w-4/5 !bg-[#2E3654] flex ml-4">
                         <li
                             class="w-11/12 flex justify-start items-center !text-xs font-light"
