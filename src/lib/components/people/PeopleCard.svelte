@@ -69,7 +69,7 @@
             ? '!bg-[#2E3654]'
             : '!bg-[#3A4468]'}"
         >
-          <div class="w-4/5 flex ml-4 ">
+          <div class="w-4/5 flex ml-4">
             <li
               class="w-11/12 flex justify-start items-center !text-xs font-light"
             >

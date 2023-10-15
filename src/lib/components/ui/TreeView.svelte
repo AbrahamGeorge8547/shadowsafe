@@ -22,15 +22,11 @@
     }
   }
   onMount(() => {
+    console.log(label, "dsfasd");
     if (label === "Vault") {
       expandedNodes.update((nodes) => {
-        if (nodes.has($currentParentNode)) {
-          nodes.delete($currentParentNode);
-          isExpanded = false;
-        } else {
-          nodes.add($currentParentNode);
-          isExpanded = true;
-        }
+        nodes.add($currentParentNode);
+        isExpanded = true;
         return new Set(nodes);
       });
 
