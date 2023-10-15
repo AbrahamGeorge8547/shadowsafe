@@ -1,14 +1,10 @@
 <script lang="ts">
-  import { TreeView, BreadCrumbs } from "$lib/components/ui";
+  import { TreeView } from "$lib/components/ui";
+  import { treeStore, currentParentNode } from "$lib/store/ui";
   import {
-    treeStore,
-    navigationHistory,
-    expandedNodes,
-    selectedNodeChildren,
-    breadCrumbs,
-    currentParentNode,
-  } from "$lib/store/ui";
-  import { createNewFolder, createSecretDrawerSettings } from "$lib/util/drawerSettings";
+    createNewFolder,
+    createSecretDrawerSettings,
+  } from "$lib/util/drawerSettings";
   import { SecretsCard } from "$lib/components/secrets";
   import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
@@ -26,28 +22,6 @@
   };
   treeStore.set(fakeParent);
 
-  const goBack = () => {
-    navigationHistory.update((history) => {
-      // Remove the last node from the history
-      const lastNode = history.pop();
-      if (lastNode) {
-        const node = findNodeById($treeStore, lastNode.parentId);
-        const parents = findParentNodesById($treeStore, lastNode.parentId);
-        currentParentNode.set(node.id);
-        expandedNodes.update((nodes) => {
-          nodes.add(lastNode.id);
-          return new Set(nodes);
-        });
-        breadCrumbs.set(parents);
-
-        // Update the selectedNodeChildren based on the parent of the lastNode
-
-        selectedNodeChildren.set(node.children || []);
-      }
-
-      return history;
-    });
-  };
   const createSecret = async () => {
     drawerStore.open(createSecretDrawerSettings);
   };
@@ -67,19 +41,31 @@
   }
 </script>
 
-<div class="bread-crumbs-container flex justify-start items-center ml-8 mt-5 mb-5">
+<div
+  class="bread-crumbs-container flex justify-start items-center ml-8 mt-5 mb-5"
+>
   <div class="flex items-center">
     <button
       class="bg-[#2D3552] px-[27.5px] py-2.5 rounded-full flex justify-center items-center text-[#828CAE]"
       on:click={addNewFolder}
     >
       Add Folder
-      <Icon icon="ic:round-plus" color="#828CAE" class="h-5 w-5 ml-1 mt-[1px]" />
+      <Icon
+        icon="ic:round-plus"
+        color="#828CAE"
+        class="h-5 w-5 ml-1 mt-[1px]"
+      />
     </button>
-    <div class="rounded-full h-11 w-11 bg-[#2D3552] justify-center items-center p-2.5 ml-2.5">
+    <div
+      class="rounded-full h-11 w-11 bg-[#2D3552] justify-center items-center p-2.5 ml-2.5"
+    >
       <!-- Add refresh function here -->
       <button>
-        <Icon icon="bx:refresh" color="#828CAE" class="h-6 w-6 mt-[1px] rounded" />
+        <Icon
+          icon="bx:refresh"
+          color="#828CAE"
+          class="h-6 w-6 mt-[1px] rounded"
+        />
       </button>
     </div>
     <!-- <BreadCrumbs /> -->
@@ -97,7 +83,9 @@
     <div class="flex flex-row justify-between px-8 items-center py-6">
       <div class="flex">
         <div class="flex items-center mr-4">
-          <h1 class="mr-2 text-4xl">{`${currentNode ? currentNode.label : ""}`}</h1>
+          <h1 class="mr-2 text-4xl">
+            {`${currentNode ? currentNode.label : ""}`}
+          </h1>
           <button
             class={`bg-[#3F4766] px-4 py-1.5 rounded-full flex justify-center items-center text-[#828CAE] mr-4 ${
               isIconChanged ? "text-[#fff]" : ""
@@ -108,10 +96,6 @@
             Share
           </button>
         </div>
-
-        <!-- Share button -->
-
-        <!-- Search component -->
         <div class="flex rounded-full searchWrapper justify-between">
           <input
             type="search"
@@ -122,7 +106,9 @@
               console.log(text);
             }}
           />
-          <div class="flex items-center bg-[#2E3654] rounded-r-full px-3 justify-center">
+          <div
+            class="flex items-center bg-[#2E3654] rounded-r-full px-3 justify-center"
+          >
             <Icon icon="ic:baseline-search" class="h-6 w-6" color="#4C598B" />
           </div>
         </div>
