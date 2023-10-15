@@ -1,7 +1,8 @@
+
 export const loginDrawerSettings = {
   id: "login",
   bgDrawer: "bg-[#2E3654] text-white",
-
+  bgBackdrop: "flex flex-1 justify-center items-center",
   width: "w-[120px] md:w-[360px]",
   height: "h-[280px]",
   padding: "p-10",
@@ -52,9 +53,9 @@ export const getSecretsDrawer = {
 export const createNewFolder = {
   id: "newFolder",
   bgDrawer: "bg-[#2E3654] text-white",
-
-  width: "w-[100px] md:w-[240px]",
-  height: "h-[120px]",
+  bgBackdrop: "flex flex-1 justify-center items-center",
+  width: "w-[380px] md:w-[340px]",
+  height: "h-[300px]",
   padding: "p-10",
   rounded: "rounded-xl",
   position: "right",
@@ -63,9 +64,9 @@ export const createNewFolder = {
 export const createNewGroup = {
   id: "newGroup",
   bgDrawer: "bg-[#2E3654] text-white",
-
-  width: "w-[100px] md:w-[240px]",
-  height: "h-[120px]",
+  bgBackdrop: "flex flex-1 justify-center items-center",
+  width: "w-[380px] md:w-[340px]",
+  height: "h-[300px]",
   padding: "p-10",
   rounded: "rounded-xl",
   position: "right",
@@ -73,7 +74,6 @@ export const createNewGroup = {
 
 export const permissions = {
   id: 'permissions',
-
   width: "w-[220px] md:w-[340px]",
   bgBackdrop: "flex flex-1 justify-center items-center",
   height: "h-[440px]",
