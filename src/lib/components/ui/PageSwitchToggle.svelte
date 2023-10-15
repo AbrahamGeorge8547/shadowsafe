@@ -24,7 +24,6 @@
   }
   onMount(() => {
     const tab = get(activeTab);
-    console.log(tab, "TAB");
     if (tab === "Secrets") {
       goto("/vault/secrets");
     } else {
@@ -41,12 +40,18 @@
   class="ml-9"
 >
   <RadioItem bind:group={value} name="justify" value="Secrets" id="secrets">
-    <label for="secrets" class={value === "Secrets" ? "text-[#fff]" : "text-[#828CAE]"}
+    <label
+      for="secrets"
+      class={value === "Secrets" ? "text-[#fff]" : "text-[#828CAE]"}
       >Secrets</label
     >
   </RadioItem>
   <RadioItem bind:group={value} name="justify" value="Groups" id="groups">
-    <label for="groups" class={value === "Groups" ? "text-[#fff]" : "text-[#828CAE]"}>Groups</label>
+    <label
+      for="groups"
+      class={value === "Groups" ? "text-[#fff]" : "text-[#828CAE]"}
+      >Groups</label
+    >
   </RadioItem>
 </RadioGroup>
 
