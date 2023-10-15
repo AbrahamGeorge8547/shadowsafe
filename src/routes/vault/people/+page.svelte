@@ -2,9 +2,16 @@
   import { editMembers, selectedGroup } from "$lib/store/ui";
   import { peopleList, groupList } from "$lib/store/people";
   import { getToastStore } from "@skeletonlabs/skeleton";
-  import { createNewGroup, createPeopleDrawerSettings } from "$lib/util/drawerSettings";
+  import {
+    createNewGroup,
+    createPeopleDrawerSettings,
+  } from "$lib/util/drawerSettings";
   import Icon from "@iconify/svelte";
-  import { PeopleListView, PeopleCard, GroupsView } from "$lib/components/people";
+  import {
+    PeopleListView,
+    PeopleCard,
+    GroupsView,
+  } from "$lib/components/people";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import { get } from "svelte/store";
   import { fade } from "svelte/transition";
@@ -12,9 +19,6 @@
   const toastStore = getToastStore();
   export let data;
   groupList.set(data.folder);
-  if (data.folder[0]) {
-    selectedGroup.set(data.folder[0]);
-  }
   function allowDrop(event) {
     event.preventDefault();
   }
@@ -82,19 +86,31 @@
   }
 </script>
 
-<div class="bread-crumbs-container flex justify-start items-center ml-8 mt-5 mb-5">
+<div
+  class="bread-crumbs-container flex justify-start items-center ml-8 mt-5 mb-5"
+>
   <div class="flex items-center">
     <button
       class="bg-[#2D3552] px-[27.5px] py-2.5 rounded-full flex justify-center items-center text-[#828CAE]"
       on:click={addNewFolder}
     >
       Add Group
-      <Icon icon="ic:round-plus" color="#828CAE" class="h-5 w-5 ml-1 mt-[1px]" />
+      <Icon
+        icon="ic:round-plus"
+        color="#828CAE"
+        class="h-5 w-5 ml-1 mt-[1px]"
+      />
     </button>
-    <div class="rounded-full h-11 w-11 bg-[#2D3552] justify-center items-center p-2.5 ml-2.5">
+    <div
+      class="rounded-full h-11 w-11 bg-[#2D3552] justify-center items-center p-2.5 ml-2.5"
+    >
       <!-- Add refresh function here -->
       <button>
-        <Icon icon="bx:refresh" color="#828CAE" class="h-6 w-6 mt-[1px] rounded" />
+        <Icon
+          icon="bx:refresh"
+          color="#828CAE"
+          class="h-6 w-6 mt-[1px] rounded"
+        />
       </button>
     </div>
   </div>
@@ -129,8 +145,9 @@
           {#if $selectedGroup.name != "AllUsers"}
             <div class="flex flex-row">
               {#if $editMembers}
-                <button class="bg-[#4E46DC] px-3 py-1.5 rounded-3xl ml-4 mr-2" on:click={cancelEdit}
-                  >Cancel</button
+                <button
+                  class="bg-[#4E46DC] px-3 py-1.5 rounded-3xl ml-4 mr-2"
+                  on:click={cancelEdit}>Cancel</button
                 >
               {/if}
               {#if $editMembers}
@@ -151,7 +168,10 @@
               {/if}
             </div>
           {:else}
-            <button class="btn variant-filled-tertiary p-2" on:click={addMembers}>
+            <button
+              class="btn variant-filled-tertiary p-2"
+              on:click={addMembers}
+            >
               add members</button
             >
           {/if}
