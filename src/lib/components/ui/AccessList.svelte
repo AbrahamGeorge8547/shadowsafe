@@ -133,7 +133,7 @@
 <!-- disable the button if unsaveduserList is 0 -->
 <div class="flex justify-end mx-10 mb-2 absolute right-2 top-4">
     {#if unsavedUserList.length}
-        <button class="btn bg-[#828CAE]" on:click={addUsersToFolder}>
+        <button class="btn bg-[#4E46DC]" on:click={addUsersToFolder}>
             Save changes
         </button>
     {/if}

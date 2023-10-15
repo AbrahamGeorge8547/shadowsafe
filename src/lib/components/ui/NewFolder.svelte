@@ -7,6 +7,7 @@
   } from "$lib/store/ui";
   import { findNodeById } from "$lib/util";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
+  import Icon from "@iconify/svelte";
   const drawerStore = getDrawerStore();
   let folderName;
 
@@ -63,14 +64,17 @@
   };
 </script>
 
-<div class="container mx-auto p-4 relative">
-  <label class="label mb-2">
-    Folder Name :
+<div class="container h-full mx-auto p-4 relative bg-[#2E3654] flex flex-col justify-between ">
+    <div class="text-3xl flex justify-between">
+      <h1>Add Folder</h1>
+      <Icon icon="iconamoon:close-bold" class="" color="#4C598B"/>
+    </div>
     <input
-      class="input"
+      class="input !bg-[#2E3654]"
       type="text"
+      placeholder="Vault"
       bind:value={folderName}
       on:keydown={addNewFolder}
     />
-  </label>
+    <button on:click={addNewFolder} class="bg-[#4E46DC] rounded-3xl w-1/2 py-2 px-2 text-md self-center">Add folder</button>
 </div>
