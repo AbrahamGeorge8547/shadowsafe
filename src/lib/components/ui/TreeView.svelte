@@ -1,19 +1,17 @@
-<script context="module">
-  import Icon from "@iconify/svelte";
-  const _expansionState = {};
-</script>
-
 <script>
   import {
     selectedNodeChildren,
-    navigationHistory,
     currentParentNode,
     breadCrumbs,
     treeStore,
     expandedNodes,
   } from "$lib/store/ui";
+  const _expansionState = {};
+  import Icon from "@iconify/svelte";
+
   import { findNodeById, findParentNodesById } from "$lib/util/index";
   import { fade } from "svelte/transition";
+  import { onMount } from "svelte";
   export let nodeId;
   let tree;
   let id, label, children, parentId;
@@ -23,9 +21,29 @@
       ({ id, label, children, parentId } = tree);
     }
   }
+  onMount(() => {
+    if (label === "Vault") {
+      expandedNodes.update((nodes) => {
+        if (nodes.has($currentParentNode)) {
+          nodes.delete($currentParentNode);
+          isExpanded = false;
+        } else {
+          nodes.add($currentParentNode);
+          isExpanded = true;
+        }
+        return new Set(nodes);
+      });
+
+      expandedNodes.subscribe((nodes) => {
+        isExpanded = nodes.has($currentParentNode);
+      });
+      expanded = _expansionState[$currentParentNode] = !expanded;
+    }
+  });
+
   let isExpanded = false;
 
-  let expanded = label ? _expansionState[label] : false;
+  let expanded = label ? _expansionState[id] : false;
   const handleNodeClick = () => {
     expandedNodes.update((nodes) => {
       if (nodes.has(id)) {
@@ -42,10 +60,6 @@
       isExpanded = nodes.has(id);
     });
     currentParentNode.set(id);
-    navigationHistory.update((history) => {
-      history.push({ id, label, children, parentId });
-      return history;
-    });
     const parentNodes = findParentNodesById($treeStore, id);
     breadCrumbs.set(parentNodes);
     if (children) {
@@ -57,20 +71,9 @@
     toggleExpansion();
   };
   const toggleExpansion = () => {
-    if (label) {
-      expanded = _expansionState[label] = !expanded;
+    if (id) {
+      expanded = _expansionState[id] = !expanded;
     }
-  };
-  const logChildren = (node) => {
-    if (!node.children) return [];
-
-    return node.children.map((child) => {
-      return {
-        id: child.id,
-        label: child.label,
-        children: child.children,
-      };
-    });
   };
 </script>
 
