@@ -6,6 +6,7 @@
   import { currentParentNode } from "$lib/store/ui";
   import { secretsStore } from "$lib/store/secrets";
   import { onMount } from "svelte";
+  import SelectedSecretDetail from "./selectedSecret.svelte";
   const toastStore = getToastStore();
 
   let secretData = [];
@@ -27,72 +28,22 @@
       unsubscribe();
     };
   });
-  let timeoutID;
-  let showCard = {};
-  let hoveredCard;
-  const toggleCard = (id) => {
-    showCard = { ...showCard, [id]: !showCard[id] };
-    hoveredCard = hoveredCard === id ? null : id;
-  };
-  const handleMouseEnter = (id) => {
-    // Set up the timer
-    timeoutID = setTimeout(() => {
-      toggleCard(id);
-    }, 500);
-  };
 
-  const handleMouseLeave = (id) => {
-    // Clear the timer
-    clearTimeout(timeoutID);
-    if (showCard[id]) {
-      // if the card is currently shown (expanded)
-      toggleCard(id); // hide (collapse) it
-    }
-  };
-
-  let showSensitive = {};
-
-  const toggleVisibility = (id, index) => {
-    showSensitive = {
-      ...showSensitive,
-      [`${id}_${index}`]: !showSensitive[`${id}_${index}`],
-    };
-  };
+  let selectedSecret = null;
 </script>
 
-<div class="flex flex-wrap transition-all duration-500 p-6">
-  {#each $secretsStore as secret}
-    <div class="mb-6 mr-6">
-      <div
-        class="container mx-auto p-4 relative card card-hover max-w-xs rounded-lg group h-auto !bg-[#3A4468]"
-        on:mouseenter={() => handleMouseEnter(secret.id)}
-        on:mouseleave={() => handleMouseLeave(secret.id)}
-      >
-        {#each secret?.credentials as field, index}
-          <div class="mb-4">
-            <div class="relative">
-              {#if field.sensitive && showCard[secret.id]}
-                <div transition:fade={{ duration: 400 }}>
-                  <label class="label block mb-2">{field.fieldKey}</label>
-                  <input
-                    class="input pr-16"
-                    type={showSensitive[`${secret.id}_${index}`] ? "text" : "password"}
-                    value={showSensitive[`${secret.id}_${index}`] ? field.fieldValue : "****"}
-                  />
-                  <button
-                    on:click={() => toggleVisibility(secret.id, index)}
-                    class="right-10 absolute top-[calc(50%+10px)]"
-                  >
-                    <Icon icon="emojione:eye" />
-                  </button>
-                  <button
-                    use:clipboard={field.fieldValue}
-                    class="right-2 absolute top-[calc(50%+10px)]"
-                  >
-                    <Icon icon="solar:copy-bold-duotone" />
-                  </button>
-                </div>
-              {:else if !field.sensitive}
+<div class="flex">
+  <!-- Left Side: List of Cards -->
+  <div class="flex flex-wrap p-6 w-3/4">
+    {#each $secretsStore as secret}
+      <div class="mb-6 mr-6">
+        <div
+          class="container mx-auto p-4 relative card card-hover rounded-lg group h-auto !bg-[#3A4468]"
+          on:click={() => (selectedSecret = secret)}
+        >
+          {#each secret?.credentials as field, index}
+            {#if !field.sensitive}
+              <div class="relative mb-4">
                 <label class="label block mb-2">{field.fieldKey}</label>
                 <input
                   class="input pr-10 w-full items-center !bg-[#3A4468]"
@@ -105,12 +56,21 @@
                 >
                   <Icon icon="solar:copy-bold-duotone" />
                 </button>
-              {/if}
-            </div>
-          </div>
-        {/each}
-        <p class="mb-4">{secret.description}</p>
+              </div>
+            {/if}
+          {/each}
+          <p class="mb-4">{secret.description}</p>
+        </div>
       </div>
-    </div>
-  {/each}
+    {/each}
+  </div>
+
+  <!-- Right Side: Detailed Card -->
+  <div class="w-1/4 p-6">
+    {#if selectedSecret}
+      <SelectedSecretDetail {selectedSecret} />
+    {:else}
+      <p>Select a card to view details.</p>
+    {/if}
+  </div>
 </div>

@@ -22,7 +22,6 @@
     }
   }
   onMount(() => {
-    console.log(label, "dsfasd");
     if (label === "Vault") {
       expandedNodes.update((nodes) => {
         nodes.add($currentParentNode);
