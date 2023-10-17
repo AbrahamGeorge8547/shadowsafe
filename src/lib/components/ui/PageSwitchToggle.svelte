@@ -12,14 +12,12 @@
       activeTab.set("Secrets");
       goto("/vault/secrets");
       tab = get(activeTab);
-      console.log(tab, "TAB");
     } else if (value === "Groups") {
       tab = get(activeTab);
-      console.log(tab, "TAB");
+
       activeTab.set("Groups");
       goto("/vault/people");
       tab = get(activeTab);
-      console.log(tab, "TAB");
     }
   }
   onMount(() => {
