@@ -36,9 +36,9 @@
   <!-- Left Side: List of Cards -->
   <div class="flex flex-wrap p-6 w-3/4">
     {#each $secretsStore as secret}
-      <div class="mb-6 mr-6">
+      <div class="mb-6 mr-2 max-w-sm">
         <div
-          class="container mx-auto p-4 relative card card-hover rounded-lg group h-auto !bg-[#3A4468] max-w-[300px]"
+          class="container mx-auto p-4 relative card card-hover rounded-lg group h-auto !bg-[#3A4468]"
           on:click={() => (selectedSecret = secret)}
         >
           {#each secret?.credentials as field, index}
