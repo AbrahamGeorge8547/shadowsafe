@@ -3,8 +3,8 @@ export const loginDrawerSettings = {
   id: "login",
   bgDrawer: "bg-[#2E3654] text-white",
   bgBackdrop: "flex flex-1 justify-center items-center",
-  width: "w-[120px] md:w-[360px]",
-  height: "h-[280px]",
+  width: "w-[600px] md:w-[550px]",
+  height: "h-[550px]",
   padding: "p-10",
   rounded: "rounded-xl",
 };
