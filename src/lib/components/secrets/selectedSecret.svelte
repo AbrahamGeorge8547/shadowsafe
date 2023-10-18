@@ -42,7 +42,7 @@
                     for="access"
                     class={value === "access"
                         ? "text-[#fff]"
-                        : "text-[#828CAE]"}>Access Log</label
+                        : "text-[#828CAE]"}>Log</label
                 >
             </RadioItem>
             <RadioItem
@@ -61,10 +61,36 @@
         </RadioGroup>
         <div>
             {#if value == "activity"}
-                <h2 class="card p-2">Thanos added Gamora to this folder</h2>
-                <h2 class="card p-2">Thanos removed Thor from this folder</h2>
+                <h2 class="card p-2">
+                    Richard Hendricks created folder 'PiedPiper/MainServer'.
+                </h2>
+                <h2 class="card p-2">
+                    Dinesh Chugtai added secrets to
+                    'PiedPiper/CompressionAlgorithm'.
+                </h2>
+                <h2 class="card p-2">
+                    Bertram Gilfoyle shared 'PiedPiper/MainServer' with Dinesh
+                    Chugtai.'.r
+                </h2>
+                <h2 class="card p-2">
+                    Richard Hendricks revoked Dinesh's access to
+                    'PiedPiper/MainServer'.
+                </h2>
+                <h2 class="card p-2">
+                    Jian-Yang created folder 'NewPiedPiper'.'.
+                </h2>
+                <h2 class="card p-2">
+                    Bertram Gilfoyle shared 'PiedPiper/MainServer' with
+                    Jian-Yang.
+                </h2>
+                <h2 class="card p-2">
+                    Jian-Yang accessed 'PiedPiper/MainServer'.
+                </h2>
+                <h2 class="card p-2">
+                    Richard Hendricks created folder 'PiedPiper/MainServer'.
+                </h2>
             {:else}
-                <h2 class="card p-2">Thanos accessed time stone</h2>
+                <h2 class="card p-2">Richard accessed</h2>
                 <h2 class="card p-2">Thanos accessed mind stone</h2>
                 <h2 class="card p-2">
                     Thanos accessed mind stone via extension
