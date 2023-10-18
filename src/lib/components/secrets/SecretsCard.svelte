@@ -38,7 +38,7 @@
     {#each $secretsStore as secret}
       <div class="mb-6 mr-6">
         <div
-          class="container mx-auto p-4 relative card card-hover rounded-lg group h-auto !bg-[#3A4468]"
+          class="container mx-auto p-4 relative card card-hover rounded-lg group h-auto !bg-[#3A4468] max-w-[300px]"
           on:click={() => (selectedSecret = secret)}
         >
           {#each secret?.credentials as field, index}
