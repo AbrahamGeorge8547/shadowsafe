@@ -43,7 +43,7 @@
   }
 </script>
 
-<div class="mx-auto p-4 relative px-8 z-10">
+<div class=" h-full w-full mx-auto p-4 relative px-8 z-10 flex flex-col justify-center items-center">
   <label class="label mb-2 block">
     <span class="block text-left">Username:</span>
     <input class="input h-10 pl-4" type="text" bind:value={username} />
@@ -51,7 +51,7 @@
   <div class="relative label mb-2">
     <span class="block text-left">Password:</span>
     {#if showPassword}
-      <input class="input h-10 pl-4" type="text" bind:value={password} />
+      <input class="input h-10 pl-4" type="text"  bind:value={password} />
     {:else}
       <input class="input h-10 pl-4" type="password" bind:value={password} />
     {/if}

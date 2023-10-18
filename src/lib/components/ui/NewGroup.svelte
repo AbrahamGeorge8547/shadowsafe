@@ -25,7 +25,7 @@
 
 
 
-<div class="container h-full mx-auto p-4 relative bg-[#2E3654] flex flex-col justify-between ">
+<div class="container h-full mx-auto p-4 relative bg-[#2E3654] flex flex-col justify-around ">
   <div class="text-3xl flex justify-between">
     <h1>Add Group</h1>
     <Icon icon="iconamoon:close-bold" class="" color="#4C598B"/>
@@ -37,6 +37,6 @@
     bind:value={folderName}
     on:keydown={addNewFolder}
   />
-  <button on:click={addNewFolder} class="bg-[#4E46DC] rounded-3xl w-1/2 py-2 px-2 text-md self-center">Add Group</button>
+  <!-- <button on:click={addNewFolder} class="bg-[#4E46DC] rounded-3xl w-1/2 py-2 px-2 text-md self-center">Add Group</button> -->
 </div>
 
