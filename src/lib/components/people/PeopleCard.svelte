@@ -26,6 +26,8 @@
             .then((response) => response.json())
             .then((data) => {
               peopleList.set(data);
+
+              console.log($peopleList);
             });
         }
       }

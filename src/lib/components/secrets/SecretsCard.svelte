@@ -66,7 +66,7 @@
   </div>
 
   <!-- Right Side: Detailed Card -->
-  <div class="w-1/4 p-6">
+  <div class="w-[39%] p-0 mr-[20px]">
     {#if selectedSecret}
       <SelectedSecretDetail {selectedSecret} />
     {:else}
