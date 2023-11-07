@@ -13,16 +13,35 @@
   }
 
   async function login() {
-    // Call your backend API to create an admin.
-    // Dispatch an event to notify that the admin was created.
-    const response = await fetch("/api/people/login", {
-      method: "POST",
-      body: JSON.stringify({ username, password }),
-    });
-    const responseData = await response.json();
-    if (responseData.success == false) {
-      errorMessage = "Username/password is incorrect."; // Set the error message
-      return;
+    try {
+      const response = await fetch("/api/people/login", {
+        method: "POST",
+        body: JSON.stringify({ username, password }),
+      });
+      const responseData = await response.json();
+      if (responseData.success == false) {
+        errorMessage = "Username/password is incorrect."; // Set the error message
+        return;
+      }
+      const token = responseData.data.token;
+      userStore.set(responseData.data.user);
+      const isProduction = process.env.NODE_ENV === "production";
+      const secureFlag = isProduction ? "Secure;" : "";
+      const sameSite = isProduction ? "None" : "Lax"; // Use 'Lax' in development
+
+      if (isProduction && location.protocol !== "https:") {
+        console.warn(
+          "SameSite=None requires HTTPS. Please ensure your production environment uses HTTPS."
+        );
+      }
+
+      document.cookie = `token=${token}; path=/; ${secureFlag} SameSite=${sameSite}`;
+
+      drawerStore.close();
+      goto("/vault/secrets");
+      // dispatch("adminCreated");
+    } catch (error) {
+      console.log("LOGIN ERR", error);
     }
     const token = responseData.data.token;
     userStore.set(responseData.data.user);
