@@ -1,4 +1,4 @@
-import { getgroups, addGroups } from "$lib/server/peopleApi.js";
+import { getgroups, addGroups } from "$lib/server/groupApi";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ fetch, cookies }) {

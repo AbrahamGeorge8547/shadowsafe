@@ -1,6 +1,7 @@
 <script>
-  import { editMembers, selectedGroup } from "$lib/store/ui";
-  import { peopleList, groupList } from "$lib/store/people";
+  import { editMembers } from "$lib/store/ui";
+  import { peopleList } from "$lib/store/people";
+  import { groupList, selectedGroup } from "$lib/store/group";
   import { getToastStore } from "@skeletonlabs/skeleton";
   import {
     createNewGroup,
@@ -18,7 +19,7 @@
   const drawerStore = getDrawerStore();
   const toastStore = getToastStore();
   export let data;
-  groupList.set(data.folder);
+  groupList.set(data.groups);
   function allowDrop(event) {
     event.preventDefault();
   }
@@ -65,7 +66,7 @@
     addedUsers = [];
   };
 
-  const addNewFolder = async () => {
+  const addNewGroup = async () => {
     // @ts-ignore
     drawerStore.open(createNewGroup);
   };
@@ -92,7 +93,7 @@
   <div class="flex items-center">
     <button
       class="bg-[#2D3552] px-[27.5px] py-2.5 rounded-full flex justify-center items-center text-[#828CAE]"
-      on:click={addNewFolder}
+      on:click={addNewGroup}
     >
       Add Group
       <Icon
@@ -125,11 +126,9 @@
       <Icon icon="clarity:group-line" class="mr-2" />
       <span>All Users</span>
     </span>
-    <!-- tree here -->
     <GroupsView />
   </div>
 
-  <!-- FoldersView on the right -->
   <div class="flex flex-col flex-grow">
     <div class="folders-area flex-grow flex">
       <div

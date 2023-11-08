@@ -1,22 +1,23 @@
 <script>
   import Icon from "@iconify/svelte";
   import { clipboard } from "@skeletonlabs/skeleton";
-  import { fade } from "svelte/transition";
   import { getToastStore } from "@skeletonlabs/skeleton";
   import { currentParentNode } from "$lib/store/ui";
   import { secretsStore } from "$lib/store/secrets";
   import { onMount } from "svelte";
   import SelectedSecretDetail from "./selectedSecret.svelte";
+  import { selectedFolder } from "$lib/store/folder";
   const toastStore = getToastStore();
 
   let secretData = [];
   onMount(() => {
-    const unsubscribe = currentParentNode.subscribe((value) => {
-      if (value !== undefined && value !== null && value != "root") {
-        fetch(`/api/folder/${value}`)
+    const unsubscribe = selectedFolder.subscribe((folder) => {
+      if (folder != null) {
+        fetch(`/api/folder/${folder.id}`)
           .then((response) => response.json())
-          .then((data) => {
-            secretData = data.data.secrets;
+          .then((responseJson) => {
+            secretData = responseJson.data;
+            console.log(secretData);
             secretsStore.set(secretData);
             // Do something with the data
           });

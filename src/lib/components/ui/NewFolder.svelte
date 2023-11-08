@@ -1,80 +1,73 @@
-<script>
-  import {
-    treeStore,
-    currentParentNode,
-    selectedNodeChildren,
-    expandedNodes,
-  } from "$lib/store/ui";
+<script lang="ts">
+  import { folderStore } from "$lib/store/folder";
   import { findNodeById } from "$lib/util";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import Icon from "@iconify/svelte";
   const drawerStore = getDrawerStore();
-  let folderName;
+  let folderName: string;
+  let description: string;
 
-  const addFolderToTree = (currentNode, parentId, newFolder) => {
-    // Base case: if this is the parent we're looking for
-    if (currentNode.id === parentId) {
-      // Clone the parent and add the new folder to its children
-      return {
-        ...currentNode,
-        children: [...(currentNode.children || []), newFolder],
-      };
-    }
-
-    // Recursive case: go through all children (if any)
-    if (Array.isArray(currentNode.children)) {
-      return {
-        ...currentNode,
-        children: currentNode.children.map((child) =>
-          addFolderToTree(child, parentId, newFolder)
-        ),
-      };
-    }
-
-    // If we've reached here, this isn't the parent we're looking for, and it has no children,
-    // so just return it as is
-    return currentNode;
-  };
-  const addNewFolder = async (e) => {
-    if (folderName && e.key == "Enter") {
-      // Assuming currentParentNode is reactive Svelte store
-      let parentId = $currentParentNode;
-      if ($currentParentNode == "root") {
-        parentId = null;
-      }
-      await fetch("/api/folder", {
-        method: "POST",
-        body: JSON.stringify({
-          label: folderName,
-          parent: parentId,
-        }),
+  const addNewFolder = async () => {
+    fetch("/api/folder", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        name: folderName,
+        description: description,
+      }),
+    })
+      .then((response) => {
+        if (!response.ok) {
+          // Handle the error case
+          throw new Error("Network response was not ok.");
+        }
+        return fetch("/api/folder"); // Fetch the updated list of folders
+      })
+      .then((response) => {
+        if (!response.ok) {
+          // Handle the error case
+          throw new Error("Network response was not ok when fetching folders.");
+        }
+        return response.json();
+      })
+      .then((data) => {
+        folderStore.set(data); // Update your store with the new list of folders
+        drawerStore.close();
+      })
+      .catch((error) => {
+        console.error(
+          "There has been a problem with your fetch operation:",
+          error
+        );
       });
-      fetch(`/api/folder`)
-        .then((response) => response.json())
-        .then((responseJson) => {
-          const fakeParent = {
-            id: "root",
-            label: "Vault",
-            children: responseJson.body.data.folders,
-          };
-          treeStore.set(fakeParent);
-        });
-      drawerStore.close();
-    }
   };
 </script>
 
-<div class="container h-full mx-auto p-4 relative bg-[#2E3654] flex flex-col justify-around ">
-    <div class="text-3xl flex justify-between">
-      <h1>Add Folder</h1>
-      <Icon icon="iconamoon:close-bold" class="" color="#4C598B"/>
-    </div>
-    <input
-      class="input !bg-[#2E3654]"
-      type="text"
-      placeholder="Vault"
-      bind:value={folderName}
-      on:keydown={addNewFolder}
-    />
-    <!-- <button on:click={addNewFolder} class="bg-[#4E46DC] rounded-3xl w-1/2 py-2 px-2 text-md self-center">Add folder</button> -->
+<div
+  class="container h-full mx-auto p-4 relative bg-[#2E3654] flex flex-col justify-around space-y-4"
+>
+  <div class="text-3xl text-white flex justify-between items-center">
+    <h1>Add Folder</h1>
+    <Icon icon="iconamoon:close-bold" class="text-[#4C598B]" />
+  </div>
+  <input
+    class="input bg-[#2E3654] text-white border border-gray-700 rounded-lg p-2"
+    type="text"
+    placeholder="Folder Name"
+    bind:value={folderName}
+  />
+  <input
+    class="input bg-[#2E3654] text-white border border-gray-700 rounded-lg p-2"
+    type="text"
+    placeholder="Folder Description"
+    bind:value={description}
+  />
+  <button
+    on:click={addNewFolder}
+    class="bg-blue-600 hover:bg-blue-700 rounded-full w-1/2 py-2 px-4 text-md text-white self-center transition duration-150 ease-in-out"
+  >
+    Add Folder
+  </button>
 </div>

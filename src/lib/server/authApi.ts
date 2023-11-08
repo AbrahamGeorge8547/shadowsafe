@@ -1,9 +1,9 @@
 import { BASE_URL } from "$env/static/private";
-export const login = async (fetch, user) => {
-  const response = await fetch(`${BASE_URL}/authenticate`, {
+export const login = async (fetch: (input: RequestInfo, init?: RequestInit) => Promise<Response>, user: { username: string, password: string }) => {
+  const response = await fetch(`${BASE_URL}/login`, {
     method: "POST",
     body: JSON.stringify({
-      userName: user.username,
+      username: user.username,
       password: user.password,
     }),
     headers: {
@@ -20,6 +20,6 @@ export const login = async (fetch, user) => {
   const responseData = await response.json();
   return {
     token: responseData.data.token,
-    user: { ...responseData.data, token: "" },
+    user: { ...responseData.data.user, token: "" },
   };
 };

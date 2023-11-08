@@ -1,17 +1,13 @@
-import { getFolderStrucure, addFolder } from "$lib/server/secretsApi.js";
+import { getFolders, addFolder } from "$lib/server/folderApi";
 import { json } from "@sveltejs/kit";
 
 export async function GET({ fetch, cookies }) {
   const token = String(cookies.get("token"));
-  const data = await getFolderStrucure(
+  const data = await getFolders(
     fetch,
     token,
   );
-  return json({
-    body: {
-      data,
-    },
-  });
+  return json(data);
 }
 
 export async function POST({ fetch, cookies, request }) {

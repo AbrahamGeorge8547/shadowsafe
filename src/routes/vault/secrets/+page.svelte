@@ -1,27 +1,19 @@
 <script lang="ts">
-  import { TreeView } from "$lib/components/ui";
-  import { treeStore, currentParentNode } from "$lib/store/ui";
+  import { folderStore, selectedFolder } from "$lib/store/folder";
   import {
     createNewFolder,
     createSecretDrawerSettings,
   } from "$lib/util/drawerSettings";
   import { SecretsCard } from "$lib/components/secrets";
-  import { findNodeById, findParentNodesById } from "$lib/util";
   import Icon from "@iconify/svelte";
   import { getDrawerStore } from "@skeletonlabs/skeleton";
   import { AccessList } from "$lib/components/ui";
+  import FolderListView from "$lib/components/folders/folderListView.svelte";
   const drawerStore = getDrawerStore();
 
   export let data;
-
-  let currentNode;
-  const fakeParent = {
-    id: "root",
-    label: "Vault",
-    children: data.folders,
-  };
-  treeStore.set(fakeParent);
-
+  console.log(data);
+  folderStore.set(data.folders);
   const createSecret = async () => {
     drawerStore.open(createSecretDrawerSettings);
   };
@@ -35,10 +27,6 @@
     isIconChanged = !isIconChanged;
     isHidden = !isHidden;
   };
-
-  $: {
-    currentNode = findNodeById($treeStore, $currentParentNode);
-  }
 </script>
 
 <div
@@ -75,7 +63,7 @@
 <!-- Tree view wrapper -->
 <div class="flex">
   <div class="min-w-[250px] max-w-sm rounded-[4px] self-start ml-9">
-    <TreeView nodeId={$treeStore.id} />
+    <FolderListView />
   </div>
   <div
     class="flex flex-col flex-grow h-4/5 rounded-[4px] mx-8 contentWrapper bg-[#2E3654] relative"
@@ -84,7 +72,7 @@
       <div class="flex">
         <div class="flex items-center mr-4">
           <h1 class="mr-2 text-4xl">
-            {`${currentNode ? currentNode.label : ""}`}
+            {`${$selectedFolder ? $selectedFolder.name : ""}`}
           </h1>
           <button
             class={`bg-[#3F4766] px-4 py-1.5 rounded-full flex justify-center items-center text-[#828CAE] mr-4 ${

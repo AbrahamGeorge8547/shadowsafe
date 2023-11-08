@@ -1,5 +1,5 @@
-
-export const loginDrawerSettings = {
+import type { DrawerSettings } from "@skeletonlabs/skeleton";
+export const loginDrawerSettings: DrawerSettings = {
   id: "login",
   bgDrawer: "bg-[#2E3654] text-white",
   bgBackdrop: "flex flex-1 justify-center items-center",
@@ -9,7 +9,7 @@ export const loginDrawerSettings = {
   rounded: "rounded-xl",
 };
 
-export const adminCreationDrawerSettings = {
+export const adminCreationDrawerSettings: DrawerSettings = {
   id: "create-admin",
   bgDrawer: "bg-[#2E3654] text-white",
 
@@ -20,7 +20,7 @@ export const adminCreationDrawerSettings = {
   position: "right",
 };
 
-export const createSecretDrawerSettings = {
+export const createSecretDrawerSettings: DrawerSettings = {
   id: "create-secret",
   bgDrawer: "bg-[#2E3654] text-white",
   bgBackdrop: "flex flex-1 justify-center items-center",
@@ -30,7 +30,7 @@ export const createSecretDrawerSettings = {
   rounded: "rounded-lg",
 };
 
-export const createPeopleDrawerSettings = {
+export const createPeopleDrawerSettings: DrawerSettings = {
   id: "create-people",
   bgDrawer: "bg-[#2E3654] text-white",
 
@@ -40,7 +40,7 @@ export const createPeopleDrawerSettings = {
   rounded: "rounded-xl",
 };
 
-export const getSecretsDrawer = {
+export const getSecretsDrawer: DrawerSettings = {
   id: "secrets",
   bgDrawer: "bg-[#2E3654] text-white",
 
@@ -50,7 +50,7 @@ export const getSecretsDrawer = {
   rounded: "rounded-xl",
 };
 
-export const createNewFolder = {
+export const createNewFolder: DrawerSettings = {
   id: "newFolder",
   bgDrawer: "bg-[#2E3654] text-white",
   bgBackdrop: "flex flex-1 justify-center items-center",
@@ -61,7 +61,7 @@ export const createNewFolder = {
   position: "right",
 };
 
-export const createNewGroup = {
+export const createNewGroup: DrawerSettings = {
   id: "newGroup",
   bgDrawer: "bg-[#2E3654] text-white",
   bgBackdrop: "flex flex-1 justify-center items-center",
@@ -72,7 +72,7 @@ export const createNewGroup = {
   position: "right",
 };
 
-export const permissions = {
+export const permissions: DrawerSettings = {
   id: 'permissions',
   width: "w-[220px] md:w-[340px]",
   bgBackdrop: "flex flex-1 justify-center items-center",

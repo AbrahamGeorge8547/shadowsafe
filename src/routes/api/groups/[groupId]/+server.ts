@@ -1,11 +1,12 @@
 import { json } from "@sveltejs/kit";
-import { addUserToGroup, getUsersOfGroup } from "$lib/server/peopleApi";
+import { addUserToGroup, getUsersOfGroup } from "$lib/server/groupApi";
 
 export async function GET({ fetch, cookies, params }) {
   const token = String(cookies.get('token'));
   const groupId = params.groupId;
   const response = await getUsersOfGroup(fetch, groupId, token);
-  return json(response);
+  console.log(response)
+  return json(response.data);
 }
 
 export async function POST({ fetch, cookies, request, params }) {

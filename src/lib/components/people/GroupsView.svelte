@@ -1,9 +1,10 @@
-<script>
-  import { groupList } from "$lib/store/people";
-  import { selectedGroup } from "$lib/store/ui";
+<script lang="ts">
+  import { groupList } from "$lib/store/group";
+  import { selectedGroup } from "$lib/store/group";
+  import type { Group } from "$lib/dtos/group.dto";
   import Icon from "@iconify/svelte";
 
-  const selectGroup = (group) => {
+  const selectGroup = (group: Group) => {
     if ($selectedGroup === group) {
       selectedGroup.set(null); // Deselect the group if it's clicked again
     } else {
@@ -20,7 +21,7 @@
         <span
           on:click={() => selectGroup(group)}
           class={`p-2 text-lg btn-sm rounded flex items-center ${
-            $selectedGroup === group ? "selected-node" : "hoverItem"
+            $selectedGroup.id === group.id ? "selected-node" : "hoverItem"
           }`}
         >
           <Icon icon="clarity:group-line" class="mr-2 text-[24px]" />

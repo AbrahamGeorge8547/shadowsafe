@@ -1,7 +1,7 @@
 <script lang="ts">
-  import { accessList, peopleList } from "$lib/store/people";
+  import { peopleList, selectedPerson } from "$lib/store/people";
   import { editMembers } from "$lib/store/ui";
-  import { selectedGroup } from "$lib/store/ui";
+  import { selectedGroup } from "$lib/store/group";
   import { onMount } from "svelte";
   import Icon from "@iconify/svelte";
   import UserProfile from "./UserProfile.svelte";
@@ -14,12 +14,10 @@
       selectedUserId.set(null);
       if (group !== undefined && group !== null) {
         if (group.name != "AllUsers") {
-          fetch(`/api/groups/${group.groupId}`)
+          fetch(`/api/groups/${group.id}`)
             .then((response) => response.json())
             .then((data) => {
-              if (data.data) {
-                peopleList.set(data.data.users);
-              }
+              peopleList.set(data);
             });
         } else {
           fetch("/api/people")
@@ -36,25 +34,6 @@
       unsubscribe();
     };
   });
-  function handleUsernameClick(id: string) {
-    if (!$editMembers) {
-      selectedUserId.set(id);
-    }
-  }
-  async function handleDeleteUsers(id: string) {
-    const response = await fetch(
-      `/api/groups/${$selectedGroup.id}/users/${id}`,
-      {
-        method: "DELETE",
-      }
-    );
-    fetch(`/api/groups/${$selectedGroup.id}`)
-      .then((response) => response.json())
-      .then((data) => {
-        peopleList.set(data.data.users);
-      });
-    //TODO: add toast here
-  }
 </script>
 
 <div class="flex flex-1">
@@ -113,7 +92,7 @@
     </ul>
   </div>
 
-  {#if $selectedUserId !== null && !$editMembers}
+  <!-- {#if $selectedUserId !== null && !$editMembers}
     <UserProfile userId={$selectedUserId} />
-  {/if}
+  {/if} -->
 </div>
