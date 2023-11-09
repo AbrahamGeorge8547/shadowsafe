@@ -1,18 +1,32 @@
-<script>
+<script lang="ts">
     import Icon from "@iconify/svelte";
     import { clipboard } from "@skeletonlabs/skeleton";
     import { RadioGroup, RadioItem } from "@skeletonlabs/skeleton";
+    import { selectedSecret } from "$lib/store/secrets";
+    import { onMount } from "svelte";
+    import { get } from "svelte/store";
     let value = "activity";
-    export let selectedSecret;
+    onMount(() => {
+        let secret = get(selectedSecret);
+        fetch(`/api/secrets/${secret.id}`)
+            .then((response) => response.json())
+            .then((data) => {
+                console.log(data.encryptedData, "secretid");
+                selectedSecret.update((secret) => {
+                    return { ...secret, encryptedData: data.encryptedData };
+                });
+                console.log(get(selectedSecret));
+            });
+    });
 </script>
 
 <div class="container mx-auto p-4 card rounded-lg h-auto w-full bg-[#2E3654]">
-    {#each selectedSecret?.credentials as field, index}
+    <p class="mb-4">{$selectedSecret.name}</p>
+    {#each $selectedSecret.unencryptedData as field, index}
         <div class="relative mb-4">
-            <label class="label block mb-2">{field.fieldKey}</label>
+            <label class="label block mb-2">{field.fieldName}</label>
             <input
                 class="input pr-10 w-full items-center bg-[#2E3654]"
-                type={field.sensitive ? "password" : "text"}
                 value={field.fieldValue}
             />
             <button
@@ -23,7 +37,24 @@
             </button>
         </div>
     {/each}
-    <p class="mb-4">{selectedSecret.description}</p>
+    {#if $selectedSecret.encryptedData}
+        {#each $selectedSecret.encryptedData as field, index}
+            <div class="relative mb-4">
+                <label class="label block mb-2">{field.fieldName}</label>
+                <input
+                    class="input pr-10 w-full items-center bg-[#2E3654]"
+                    value={field.fieldValue}
+                />
+                <button
+                    use:clipboard={field.fieldValue}
+                    class="right-2 absolute top-[calc(50%+10px)]"
+                >
+                    <Icon icon="solar:copy-bold-duotone" />
+                </button>
+            </div>
+        {/each}
+    {/if}
+    <p class="mb-4">{$selectedSecret.description}</p>
     <div style="border: 1px solid #2A314C;">
         <RadioGroup
             active="bg-[#4C598B]"

@@ -19,8 +19,8 @@ export const getSecrets = async (
   }
 };
 
-export const getSecretById = async (id: number, token: string) => {
-  const response = await fetch(`${BASE_URL}/secrets/${id}`, {
+export const getSecretById = async (fetch: any, id: string, token: string) => {
+  const response = await fetch(`${BASE_URL}/credential/${id}`, {
     headers: { Authorization: `Bearer ${token}` },
   });
 
