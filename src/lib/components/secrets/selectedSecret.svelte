@@ -11,18 +11,16 @@
         fetch(`/api/secrets/${secret.id}`)
             .then((response) => response.json())
             .then((data) => {
-                console.log(data.encryptedData, "secretid");
                 selectedSecret.update((secret) => {
                     return { ...secret, encryptedData: data.encryptedData };
                 });
-                console.log(get(selectedSecret));
             });
     });
 </script>
 
 <div class="container mx-auto p-4 card rounded-lg h-auto w-full bg-[#2E3654]">
-    <p class="mb-4">{$selectedSecret.name}</p>
-    {#each $selectedSecret.unencryptedData as field, index}
+    <p class="mb-4">{$selectedSecret?.name}</p>
+    {#each $selectedSecret?.unencryptedData as field, index}
         <div class="relative mb-4">
             <label class="label block mb-2">{field.fieldName}</label>
             <input
@@ -37,7 +35,7 @@
             </button>
         </div>
     {/each}
-    {#if $selectedSecret.encryptedData}
+    {#if $selectedSecret?.encryptedData}
         {#each $selectedSecret.encryptedData as field, index}
             <div class="relative mb-4">
                 <label class="label block mb-2">{field.fieldName}</label>

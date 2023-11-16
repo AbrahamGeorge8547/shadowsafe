@@ -77,7 +77,6 @@
   }
 
   function addMembers() {
-    console.log("Adding members");
     drawerStore.open(createPeopleDrawerSettings);
   }
 

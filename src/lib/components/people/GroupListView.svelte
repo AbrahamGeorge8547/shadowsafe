@@ -22,7 +22,7 @@
   const getAllGroups = async () => {
     const response = await fetch(`/api/groups`);
     const responseJson = await response.json();
-    listNames = responseJson.data.groups;
+    listNames = responseJson.data;
   };
 
   const getAllUsers = async () => {
@@ -71,9 +71,7 @@
         class="variant-filled-surface border-0 !h-[26px] rounded-l-full !bg-[#262C44] flex-1 font-light text-sm"
         placeholder="Search"
         id="search-input"
-        on:change={(text) => {
-          console.log(text);
-        }}
+        on:change={(text) => {}}
       />
       <div
         class="flex items-center bg-[#262C44] rounded-r-full px-3 justify-center"

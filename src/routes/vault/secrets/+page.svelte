@@ -12,7 +12,6 @@
   const drawerStore = getDrawerStore();
 
   export let data;
-  console.log(data);
   folderStore.set(data.folders);
   const createSecret = async () => {
     drawerStore.open(createSecretDrawerSettings);

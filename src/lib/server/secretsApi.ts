@@ -41,7 +41,6 @@ export const updateSecret = async (id: string, secret, token: string) => {
 
 export const createSecret = async (fetch: any, secret, token: string) => {
   try {
-    console.log('Create Secret', secret)
     const response = await fetch(`${BASE_URL}/secrets`, {
       method: "POST",
       body: JSON.stringify({ ...secret, id: "" }),
@@ -50,7 +49,6 @@ export const createSecret = async (fetch: any, secret, token: string) => {
         Authorization: `Bearer ${token}`,
       },
     });
-    console.log(await response.json());
   } catch (error) {
     console.log(error);
   }
@@ -70,7 +68,6 @@ export const getSecretsByFolder = async (
 
   const response = await fetch(`${BASE_URL}/secrets?folderId=${folderId}`, { headers });
   const data = await response.json();
-  console.log(data);
   return data;
 };
 
@@ -90,7 +87,15 @@ export const getAccessList = async (fetch: any, folderId: string, token: string)
   const headers = new Headers();
   headers.append("Authorization", `Bearer ${token}`);
   headers.append("Content-Type", "application/json");
-  const response = await fetch(`${BASE_URL}/folder/user?id=${folderId}`, { headers });
+  const response = await fetch(`${BASE_URL}/folder/${folderId}`, { headers });
   return response.json();
 
+}
+
+export const getEncryptedSecretsByFolder = async (fetch: any, folderId: string, token: string) => {
+  const headers = new Headers();
+  headers.append("Authorization", `Bearer ${token}`);
+  headers.append("Content-Type", "application/json");
+  const response = await fetch(`${BASE_URL}/credentials/encrypted/${folderId}`, { headers });
+  return response.json();
 }

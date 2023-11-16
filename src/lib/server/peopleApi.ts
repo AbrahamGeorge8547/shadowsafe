@@ -4,7 +4,7 @@ export const getPeople = async (fetch: any,
   token: string
 ) => {
   const response = await fetch(
-    `${BASE_URL}/users?_page=0&_limit=100`,
+    `${BASE_URL}/users`,
     {
       headers: {
         Authorization: `Bearer ${token}`,
@@ -13,7 +13,7 @@ export const getPeople = async (fetch: any,
   );
   const responseJson = await response.json();
 
-  return responseJson.data.users;
+  return responseJson;
 };
 
 export const createPeople = async (user, token: string) => {

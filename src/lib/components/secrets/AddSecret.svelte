@@ -40,7 +40,6 @@
     fetch(`/api/folder/${$currentParentNode}`)
       .then((response) => response.json())
       .then((data) => {
-        console.log(data, "ADD SECRET");
         const secretData = data.data.secrets;
         secretsStore.set(secretData);
       });

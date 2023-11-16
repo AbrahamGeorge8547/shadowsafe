@@ -17,7 +17,6 @@
           .then((response) => response.json())
           .then((responseJson) => {
             secretData = responseJson.data;
-            console.log(secretData);
             secretsStore.set(secretData);
             // Do something with the data
           });

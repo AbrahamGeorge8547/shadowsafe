@@ -2,6 +2,7 @@
     import { GroupListView } from "$lib/components/people";
     import Icon from "@iconify/svelte";
     import { accessList } from "$lib/store/people";
+    import { encryptCredential } from "$lib/util/crypto";
     import {
         droppedItem,
         selectedPermission,
@@ -11,6 +12,7 @@
     import { get } from "svelte/store";
     import { permissions } from "$lib/util/drawerSettings";
     import { onDestroy, onMount } from "svelte";
+    import { selectedFolder } from "$lib/store/folder";
     const drawerStore = getDrawerStore();
 
     function allowDrop(event) {
@@ -29,7 +31,7 @@
         if (event.dataTransfer.getData("group") == "true") {
             droppedItemType = "group";
             const group = JSON.parse(event.dataTransfer.getData("groupData"));
-            droppedItem.set({ id: group.groupId, name: group.name });
+            droppedItem.set({ id: group.id, name: group.name });
         } else {
             droppedItemType = "user";
             const user = JSON.parse(event.dataTransfer.getData("personData"));
@@ -60,16 +62,17 @@
                 groupId: get(droppedItem).id,
                 type: $selectedPermission,
             });
-            console.log(payload);
             const permission = get(selectedPermission);
             fetch(`/api/groups/${$droppedItem.id}`)
                 .then((response) => response.json())
                 .then((responseJson) => {
-                    const groupUsers = responseJson.data.users.map((ele) => {
+                    const groupUsers = responseJson.map((ele) => {
                         return {
                             name: ele.name,
                             permission,
                             team: get(droppedItem).name,
+                            publicKey: ele.publicKey,
+                            id: ele.id,
                         };
                     });
                     unsavedUserList = [...unsavedUserList, ...groupUsers];
@@ -80,26 +83,22 @@
     }
     let unsubscribe;
     onMount(() => {
-        unsubscribe = currentParentNode.subscribe((node) => {
-            if (node !== undefined && node !== null) {
+        unsubscribe = selectedFolder.subscribe((folder) => {
+            if (folder !== undefined && folder !== null) {
                 droppedItemType = null;
                 droppedItem.set(null);
                 payload = {
-                    folderId: node,
+                    folderId: folder.id,
                     userAccess: [],
                     groupAccess: [],
                 };
             }
 
-            if (node != "root") {
-                fetch(`/api/folder/${node}?access=true`)
-                    .then((response) => response.json())
-                    .then((responseJson) => {
-                        accessUserList = responseJson.users;
-                    });
-            } else {
-                accessUserList = [];
-            }
+            fetch(`/api/folder/${folder?.id}/accessList`)
+                .then((response) => response.json())
+                .then((responseJson) => {
+                    accessUserList = responseJson.data;
+                });
             unsavedUserList = [];
         });
     });
@@ -109,24 +108,33 @@
         }
     });
     const addUsersToFolder = () => {
-        fetch(`/api/folder/${$currentParentNode}`, {
-            method: "POST",
-            body: JSON.stringify(payload),
-        }).then((data) => {
-            fetch(`/api/folder/${$currentParentNode}?access=true`)
-                .then((response) => response.json())
-                .then((responseJson) => {
-                    accessUserList = responseJson.users;
-                });
-        });
-        unsavedUserList = [];
-        droppedItemType = null;
-        droppedItem.set(null);
-        payload = {
-            folderId: get(currentParentNode),
-            userAccess: [],
-            groupAccess: [],
-        };
+        fetch(`/api/folder/${$selectedFolder?.id}/encrypted`)
+            .then((response) => response.json())
+            .then((responseJson) => {
+                return encryptCredential(responseJson.data, unsavedUserList);
+            })
+            .then((data) => {
+                console.log(data);
+            });
+
+        // fetch(`/api/folder/${$currentParentNode}`, {
+        // method: "POST",
+        // body: JSON.stringify(payload),
+        // }).then((data) => {
+        // fetch(`/api/folder/${$currentParentNode}?access=true`)
+        // .then((response) => response.json())
+        // .then((responseJson) => {
+        // accessUserList = responseJson.users;
+        // });
+        // });
+        // unsavedUserList = [];
+        // droppedItemType = null;
+        // droppedItem.set(null);
+        // payload = {
+        // folderId: get(currentParentNode),
+        // userAccess: [],
+        // groupAccess: [],
+        // };
     };
 </script>
 
@@ -143,7 +151,9 @@
     <div class="w-8/12" on:drop={handleDrop} on:dragover={allowDrop}>
         <ul class="flex flex-col bg-[#2E3654]">
             {#each unsavedUserList as user}
-                <div class="card p-[10px] flex justify-between !border-b-0 !bg-[#2E3654]">
+                <div
+                    class="card p-[10px] flex justify-between !border-b-0 !bg-[#2E3654]"
+                >
                     <div class="w-4/5 !bg-[#2E3654] flex ml-4">
                         <li
                             class="w-11/12 flex justify-start items-center !text-xs font-light"

@@ -5,4 +5,4 @@ export const peopleStore = writable([]);
 export const selectedPerson = writable(null);
 export const peopleList = writable<User[]>([]);
 export const userStore = localStorageStore("user", {});
-export const accessList = writable([]);
+export const accessList = writable<User[]>([]);

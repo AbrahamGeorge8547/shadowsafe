@@ -10,7 +10,6 @@
   const selectedUserId = writable(null);
   onMount(() => {
     const unsubscribe = selectedGroup.subscribe((group) => {
-      console.log("GROUP", group);
       selectedUserId.set(null);
       if (group !== undefined && group !== null) {
         if (group.name != "AllUsers") {
@@ -29,7 +28,7 @@
       }
     });
 
-    // Don't forget to unsubscribe when the component is destroyed
+    // Don't forget to unsubscribe when the component is destroyeddstraj
     return () => {
       unsubscribe();
     };

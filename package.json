@@ -43,6 +43,7 @@
 	"type": "module",
 	"dependencies": {
 		"dotenv": "^16.3.1",
-		"font-awesome": "^4.7.0"
+		"font-awesome": "^4.7.0",
+		"openpgp": "^5.11.0"
 	}
 }
